@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using AutomaticWebInfoGetterWpfLib.Tools;
+using AutomaticWebInfoGetterWpfLib.ViewModels;
 using AutomaticWebInfoGetterWpfLib.Views;
 
 namespace AutomaticWebInfoGetterWpfLib
@@ -27,6 +29,7 @@ namespace AutomaticWebInfoGetterWpfLib
             if (!window.IsLoaded)
             {
                 window = new AppView();
+                window.DataContext = new ViewModelLocator().AppViewModel;
                 window.Show();
             }
 

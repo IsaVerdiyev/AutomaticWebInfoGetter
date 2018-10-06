@@ -1,0 +1,10 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:AutomaticWebInfoGetterWpfLib.Resources"
+                    xmlns:vm ="clr-namespace:AutomaticWebInfoGetterWpfLib.ViewModels"
+                    xmlns:v ="clr-namespace:AutomaticWebInfoGetterWpfLib.Views">
+    <DataTemplate DataType="{x:Type vm:SettingsViewModel}">
+        <v:SettingsView/>
+    </DataTemplate>
+    
+</ResourceDictionary>
