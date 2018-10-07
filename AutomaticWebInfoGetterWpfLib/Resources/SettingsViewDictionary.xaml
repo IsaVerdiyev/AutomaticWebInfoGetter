@@ -1,0 +1,16 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:AutomaticWebInfoGetterWpfLib.Resources">
+    <Style TargetType="TextBlock" x:Key="CommonStyleForInfoTextBlocks">
+        <Setter Property="TextAlignment" Value="Center"/>
+    </Style>
+
+    <Style TargetType="TextBlock" BasedOn="{StaticResource CommonStyleForInfoTextBlocks}" x:Key="InfoHeadingsStyle">
+        <Setter Property="FontWeight" Value="Bold"/>
+    </Style>
+
+    <Style TargetType="TextBlock" BasedOn="{StaticResource CommonStyleForInfoTextBlocks}" x:Key="InfoContentsStyle">
+        
+    </Style>
+    
+</ResourceDictionary>

@@ -6,7 +6,59 @@
              xmlns:local="clr-namespace:AutomaticWebInfoGetterWpfLib.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-        <TextBlock Text="{Binding Text}"/>
+    <UserControl.Resources>
+        <ResourceDictionary Source="../Resources/SettingsViewDictionary.xaml"/>
+    </UserControl.Resources>
+    <Grid TextElement.FontSize="30">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="10"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock TextAlignment="Center">Tasks info</TextBlock>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition Height="50"/>
+                </Grid.RowDefinitions>
+                <ListBox ScrollViewer.CanContentScroll="True">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <StackPanel.ContextMenu>
+                                    <ContextMenu>
+                                        <MenuItem Header="Edit"/>
+                                        <MenuItem Header="Delete"/>
+                                    </ContextMenu>
+                                </StackPanel.ContextMenu>
+                                <TextBlock/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+                <Button Grid.Row="2" Width="50" HorizontalAlignment="Right">+</Button>
+            </Grid>
+            <StackPanel Grid.Column="1">
+                <TextBlock Style="{StaticResource InfoHeadingsStyle}">URL</TextBlock>
+                <TextBlock Style="{StaticResource InfoContentsStyle}">Some Url</TextBlock>
+                <TextBlock Style="{StaticResource InfoHeadingsStyle}">XPath</TextBlock>
+                <TextBlock Style="{StaticResource InfoContentsStyle}">Some XPath</TextBlock>
+                <TextBlock Style="{StaticResource InfoHeadingsStyle}">Single node or list of nodes</TextBlock>
+                <TextBlock Style="{StaticResource InfoContentsStyle}">Single</TextBlock>
+                <TextBlock Style="{StaticResource InfoHeadingsStyle}">Frequency of getting info</TextBlock>
+                <TextBlock Style="{StaticResource InfoContentsStyle}">Some Frequency</TextBlock>
+            </StackPanel>
+
+        </Grid>
+
+        
+        
     </Grid>
 </UserControl>
