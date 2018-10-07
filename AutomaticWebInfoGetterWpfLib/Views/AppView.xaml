@@ -9,7 +9,7 @@
     <Window.Resources>
         <ResourceDictionary Source="../Resources/ViewDataTemplates.xaml"/>
     </Window.Resources>
-    <Grid>
+    <Grid TextElement.FontSize="30">
         <ContentControl Content="{Binding CurrentControl}"/>
     </Grid>
 </Window>
