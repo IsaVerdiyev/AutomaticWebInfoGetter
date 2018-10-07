@@ -132,6 +132,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ControllerClass.cs" />
+    <Compile Include="Models\SettingsInfo.cs" />
+    <Compile Include="Models\ActionExecutionTimeInfo.cs" />
     <Compile Include="Navigation\INavigationService.cs" />
     <Compile Include="Navigation\NavigationService.cs" />
     <Compile Include="Navigation\PageNotFoundException.cs" />
@@ -175,7 +177,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Messages\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="Resources\SettingsViewDictionary.xaml">
