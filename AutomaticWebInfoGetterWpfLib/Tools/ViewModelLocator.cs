@@ -19,6 +19,8 @@ namespace AutomaticWebInfoGetterWpfLib.Tools
 
         public SettingsViewModel SettingsViewModel { get; }
 
+        public AddSettingViewModel AddSettingViewModel { get; }
+
         public ViewModelLocator()
         {
             try
@@ -35,9 +37,11 @@ namespace AutomaticWebInfoGetterWpfLib.Tools
                 {
                     AppViewModel = scope.Resolve<AppViewModel>();
                     SettingsViewModel = scope.Resolve<SettingsViewModel>();
+                    AddSettingViewModel = scope.Resolve<AddSettingViewModel>();
                 }
 
                 navigationService.AddPage(SettingsViewModel, VM.Settings);
+                navigationService.AddPage(AddSettingViewModel, VM.AddSetting);
 
                 navigationService.NavigateTo(VM.Settings);
 

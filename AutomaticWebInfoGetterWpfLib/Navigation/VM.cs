@@ -8,6 +8,7 @@ namespace AutomaticWebInfoGetterWpfLib.Navigation
 {
     enum VM
     {
-        Settings
+        Settings,
+        AddSetting
     }
 }

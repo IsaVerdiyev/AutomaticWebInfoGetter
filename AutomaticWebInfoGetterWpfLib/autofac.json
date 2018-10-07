@@ -1,7 +1,8 @@
 {
 	"defaultAssembly":"AutomaticWebInfoGetterWpfLib",
 	"components":[
-		{"type": "AutomaticWebInfoGetterWpfLib.ViewModels.AppViewModel"},
-		{"type": "AutomaticWebInfoGetterWpfLib.ViewModels.SettingsViewModel"}
+		 {"type": "AutomaticWebInfoGetterWpfLib.ViewModels.AppViewModel"},
+     {"type": "AutomaticWebInfoGetterWpfLib.ViewModels.SettingsViewModel" },
+     {"type": "AutomaticWebInfoGetterWpfLib.ViewModels.AddSettingViewModel" }
 	]
 }
