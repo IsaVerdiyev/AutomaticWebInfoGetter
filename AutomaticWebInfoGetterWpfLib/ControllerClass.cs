@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Forms.Integration;
 using AutomaticWebInfoGetterWpfLib.Tools;
 using AutomaticWebInfoGetterWpfLib.ViewModels;
 using AutomaticWebInfoGetterWpfLib.Views;
@@ -30,6 +31,7 @@ namespace AutomaticWebInfoGetterWpfLib
             {
                 window = new AppView();
                 window.DataContext = new ViewModelLocator().AppViewModel;
+                ElementHost.EnableModelessKeyboardInterop(window);
                 window.Show();
             }
 
