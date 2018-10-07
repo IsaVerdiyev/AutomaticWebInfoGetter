@@ -1,0 +1,16 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:AutomaticWebInfoGetterWpfLib.Resources">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="CommonDictionary.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
+
+
+    <Style TargetType="TextBox" x:Key="HeadingsStyle">
+        <Setter Property="TextAlignment" Value="Center"/>
+    </Style>
+
+    <Style TargetType="TextBlock" x:Key="TextInputAlignment">
+        <Setter Property="TextAlignment" Value="Center"/>
+    </Style>
+</ResourceDictionary>
