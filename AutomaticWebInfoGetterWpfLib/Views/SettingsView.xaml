@@ -4,12 +4,13 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:AutomaticWebInfoGetterWpfLib.Views"
+             xmlns:nav="clr-namespace:AutomaticWebInfoGetterWpfLib.Navigation"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
         <ResourceDictionary Source="../Resources/SettingsViewDictionary.xaml"/>
     </UserControl.Resources>
-    <Grid TextElement.FontSize="30">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="5*"/>
@@ -28,22 +29,29 @@
                     <RowDefinition/>
                     <RowDefinition Height="50"/>
                 </Grid.RowDefinitions>
-                <ListBox ScrollViewer.CanContentScroll="True">
+                <ListBox ScrollViewer.CanContentScroll="True" 
+                         ItemsSource="{Binding SettingsInfos}">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
                                 <StackPanel.ContextMenu>
                                     <ContextMenu>
-                                        <MenuItem Header="Edit"/>
+                                         <MenuItem Header="Edit"/>
                                         <MenuItem Header="Delete"/>
                                     </ContextMenu>
                                 </StackPanel.ContextMenu>
-                                <TextBlock/>
+                                <TextBlock Text="{Binding Url}"/>
                             </StackPanel>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
-                <Button Grid.Row="2" Width="50" HorizontalAlignment="Right">+</Button>
+                <Button Grid.Row="2" 
+                        Width="50" 
+                        HorizontalAlignment="Right"
+                        Content="+"
+                        Command="{Binding AddSettingCommand}"
+                        CommandParameter="{x:Static nav:VM.AddSetting}"/>
+                
             </Grid>
             <StackPanel Grid.Column="1">
                 <TextBlock Style="{StaticResource InfoHeadingsStyle}">URL</TextBlock>
