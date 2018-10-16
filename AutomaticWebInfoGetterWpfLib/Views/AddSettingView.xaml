@@ -29,33 +29,64 @@
                 <RowDefinition/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-                <TextBlock Grid.Row="0" Style="{StaticResource HeadingsStyle}">URL</TextBlock>
-                <TextBox Grid.Row="1" Style="{StaticResource TextInputAlignment}"></TextBox>
-                <TextBlock Grid.Row="2" Style="{StaticResource HeadingsStyle}">XPath</TextBlock>
-                <TextBox Grid.Row="3" Style="{StaticResource TextInputAlignment}"></TextBox>
-                <TextBlock Grid.Row="4" Style="{StaticResource HeadingsStyle}">Amount of nodes returned by query</TextBlock>
-                <StackPanel Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Center">
-                    <RadioButton VerticalAlignment="Center" VerticalContentAlignment="Center" Margin="0, 0, 10, 0">One</RadioButton>
-                    <RadioButton VerticalAlignment="Center" VerticalContentAlignment="Center">More than one</RadioButton>
-                </StackPanel>
-                <TextBlock Grid.Row="6" Style="{StaticResource HeadingsStyle}">Delay between queries</TextBlock>
-                <UniformGrid Grid.Row="7" Columns="2">
-                    <ctrLib:NumericUpDown x:Name="NumericUpDown" FontSize="14" HorizontalAlignment="Right"/>
-                    <ComboBox HorizontalAlignment="Left" Height="{Binding ElementName=NumericUpDown, Path=Height}">
+            <TextBlock 
+                    Grid.Row="0" 
+                    Style="{StaticResource HeadingsStyle}"
+                    Text="URL"/>
+            <TextBox 
+                Grid.Row="1" 
+                Style="{StaticResource TextInputAlignment}"
+                Text="{Binding URL, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+            <TextBlock Grid.Row="2" 
+                       Style="{StaticResource HeadingsStyle}"
+                       Text="XPath"/>
+            <TextBox Grid.Row="3"
+                     Style="{StaticResource TextInputAlignment}"
+                     Text="{Binding Path=XPath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <StackPanel Grid.Row="4"
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Center">
+                <TextBlock  
+                       Style="{StaticResource HeadingsStyle}"
+                       Text="Check checkbox if single node should returned:  "/>
+                <CheckBox Grid.Row="5" 
+                      HorizontalAlignment="Center"
+                      Content="Is single node"
+                      VerticalContentAlignment="Center"
+                      IsChecked="{Binding IsSingleNode}"/>
+            </StackPanel>
+            <TextBlock 
+                    Grid.Row="5" 
+                    Style="{StaticResource HeadingsStyle}"
+                    Text="Delay between queries"/>
+            <UniformGrid 
+                Grid.Row="6" 
+                Columns="2">
+                    <ctrLib:NumericUpDown 
+                        x:Name="NumericUpDown" 
+                        FontSize="14" 
+                        HorizontalAlignment="Right"/>
+                    <ComboBox HorizontalAlignment="Left" 
+                              Height="{Binding ElementName=NumericUpDown, Path=Height}">
                         <ComboBoxItem>Seconds</ComboBoxItem>
                         <ComboBoxItem>Minutes</ComboBoxItem>
                         <ComboBoxItem>Hours</ComboBoxItem>
                         <ComboBoxItem>Days</ComboBoxItem>
                     </ComboBox>
                 </UniformGrid>
-                <UniformGrid Grid.Row="8" Columns="2">
+                <UniformGrid Grid.Row="7" 
+                             Columns="2">
                     <StackPanel>
-                        <TextBlock Style="{StaticResource HeadingsStyle}">Start date</TextBlock>
-                        <DatePicker HorizontalAlignment="Center"/>
+                    <TextBlock Style="{StaticResource HeadingsStyle}"
+                               Text="Start date of queries"/>
+                    <DatePicker HorizontalAlignment="Center"
+                                SelectedDate="{Binding StartDate, Mode=TwoWay}"/>
                     </StackPanel>
                     <StackPanel>
-                        <TextBlock Style="{StaticResource HeadingsStyle}">End date</TextBlock>
-                        <DatePicker HorizontalAlignment="Center"/>
+                    <TextBlock Style="{StaticResource HeadingsStyle}"
+                                   Text="End date of queries"/>
+                    <DatePicker HorizontalAlignment="Center"
+                                SelectedDate="{Binding EndDate, Mode=TwoWay}"/>
                     </StackPanel>
                 </UniformGrid>
             </Grid>
