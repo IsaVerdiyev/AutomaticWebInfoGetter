@@ -13,7 +13,7 @@ namespace AutomaticWebInfoGetterWpfLib.ViewModels
 {
     class SettingsViewModel: ViewModelBase
     {
-        #region fields
+        #region Fields and Properties
         List<SettingsInfo> settingsInfos;
         public List<SettingsInfo> SettingsInfos { get => settingsInfos; set => Set(ref settingsInfos, value); }
 
