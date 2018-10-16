@@ -115,7 +115,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AutomaticWebInfoGetterWpfLib\AutomaticWebInfoGetterWpfLib.csproj">
-      <Project>{61fa3665-7d08-4ffb-bf6b-07ad0a164af0}</Project>
+      <Project>{bd5e8ee0-93f2-4614-8ab9-4c2fdcf2fc28}</Project>
       <Name>AutomaticWebInfoGetterWpfLib</Name>
     </ProjectReference>
   </ItemGroup>
