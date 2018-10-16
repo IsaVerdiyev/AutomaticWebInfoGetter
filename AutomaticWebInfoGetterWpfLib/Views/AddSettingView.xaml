@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:AutomaticWebInfoGetterWpfLib.Views"
+             xmlns:ctrLib="clr-namespace:WpfCustomControlsByMe;assembly=WpfCustomControlsByMe"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
@@ -21,6 +22,7 @@
             <TextBlock Style="{StaticResource TextInputAlignment}">XPath</TextBlock>
             <TextBox Style="{StaticResource HeadingsStyle}"></TextBox>
             <TextBlock Style="{StaticResource TextInputAlignment}">Frequency</TextBlock>
+            <ctrLib:NumericUpDown/>
             <ComboBox HorizontalAlignment="Left" Width="auto">
                 <ComboBoxItem>Only once now</ComboBoxItem>
                 <ComboBoxItem>Each day</ComboBoxItem>
