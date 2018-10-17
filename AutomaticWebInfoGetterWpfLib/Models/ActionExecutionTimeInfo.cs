@@ -11,8 +11,8 @@ namespace AutomaticWebInfoGetterWpfLib.Models
         DateTime startDate;
         public DateTime StartDate { get => startDate; set => startDate = value; }
 
-        TimeSpan actionExecutionFrequency;
-        public TimeSpan ActionExecutionFrequency { get => actionExecutionFrequency; set => actionExecutionFrequency = value; }
+        TimeSpan delayBetweenQueries;
+        public TimeSpan DelayBetweenQueries { get => delayBetweenQueries; set => delayBetweenQueries = value; }
 
         DateTime endDate;
         public DateTime EndDate { get => endDate; set => endDate = value; }
