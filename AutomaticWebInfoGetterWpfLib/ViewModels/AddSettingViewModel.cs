@@ -1,4 +1,9 @@
-﻿using GalaSoft.MvvmLight;
+﻿using AutomaticWebInfoGetterWpfLib.Messages;
+using AutomaticWebInfoGetterWpfLib.Models;
+using AutomaticWebInfoGetterWpfLib.Navigation;
+using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Messaging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,15 +12,29 @@ using System.Threading.Tasks;
 
 namespace AutomaticWebInfoGetterWpfLib.ViewModels
 {
+
+    enum DelayMeasuresEnum
+    {
+        Seconds, 
+        Minutes,
+        Hours,
+        Days
+    }
+
     class AddSettingViewModel: ViewModelBase
     {
         #region Fields and Properties
+
+
         private string url;
 
         public string URL
         {
             get { return url; }
-            set { Set(ref url, value); }
+            set {
+                Set(ref url, value);
+                AddSettingInfoCommand.RaiseCanExecuteChanged();
+            }
         }
 
         private string xpath;
@@ -23,7 +42,10 @@ namespace AutomaticWebInfoGetterWpfLib.ViewModels
         public string XPath
         {
             get { return xpath; }
-            set { Set(ref xpath, value); }
+            set {
+                Set(ref xpath, value);
+                AddSettingInfoCommand.RaiseCanExecuteChanged();
+            }
         }
 
         private bool isSingleNode;
@@ -39,9 +61,54 @@ namespace AutomaticWebInfoGetterWpfLib.ViewModels
 
         public TimeSpan DelayBetweenQueries
         {
-            get { return delayBetweenQueries; }
-            set { delayBetweenQueries = value; }
+            get => delayBetweenQueries;
+            set
+            {
+                if(SelectedDelayMeasure == DelayMeasuresEnum.Seconds.ToString())
+                {
+                    delayBetweenQueries = TimeSpan.FromSeconds(NumericRepresentationOfDelay);
+                }
+                else if(SelectedDelayMeasure == DelayMeasuresEnum.Minutes.ToString())
+                {
+                    delayBetweenQueries = TimeSpan.FromSeconds(NumericRepresentationOfDelay * 60);
+                }
+                else if(SelectedDelayMeasure == DelayMeasuresEnum.Hours.ToString())
+                {
+                    delayBetweenQueries = TimeSpan.FromSeconds(numericRepresentationOfDelay * 60 * 60);
+                }
+                else if(SelectedDelayMeasure == DelayMeasuresEnum.Days.ToString())
+                {
+                    delayBetweenQueries = TimeSpan.FromSeconds(numericRepresentationOfDelay * 60 * 60 * 24);
+                }
+            }
         }
+
+
+
+        private string selectedDelayMeasure ;
+
+        public string SelectedDelayMeasure
+        {
+            get { return selectedDelayMeasure; }
+            set {
+                Set(ref selectedDelayMeasure, value);
+                RaisePropertyChanged(nameof(DelayBetweenQueries));
+            }
+        }
+
+
+
+        private double numericRepresentationOfDelay;
+
+        public double NumericRepresentationOfDelay
+        {
+            get { return numericRepresentationOfDelay; }
+            set {
+                Set(ref numericRepresentationOfDelay, value);
+                RaisePropertyChanged(nameof(DelayBetweenQueries));
+            }
+        }
+
 
 
         private DateTime startDate;
@@ -59,6 +126,95 @@ namespace AutomaticWebInfoGetterWpfLib.ViewModels
         {
             get { return endDate; }
             set { endDate = value; }
+        }
+
+
+
+        public string[] DelayMeasures { get => Enum.GetNames(typeof(DelayMeasuresEnum)); }
+
+        #endregion
+
+        #region Dependencies
+
+        INavigationService navigationService;
+
+        #endregion
+
+        #region Messages
+
+        SettingsViewModelAddSettingInfoMessage addSettingInfoMessage = new SettingsViewModelAddSettingInfoMessage();
+        
+        #endregion
+
+        #region ctor
+
+        public AddSettingViewModel (INavigationService navigationService)
+	    {
+            this.navigationService = navigationService;
+            Messenger.Default.Register<AddSettingViewModelInitializeMessage>(this, obj => SwitchInitialStateCommand.Execute(obj));
+	    }
+
+        #endregion
+
+        #region Commands
+
+        private RelayCommand switchInitialStateCommand;
+
+        public RelayCommand SwitchInitialStateCommand
+        {
+            get {
+                return switchInitialStateCommand ?? (new RelayCommand(
+                    () =>
+                    {
+                        URL = "";
+                        XPath = "";
+                        IsSingleNode = false;
+                        SelectedDelayMeasure = DelayMeasures.First(i => i == DelayMeasuresEnum.Seconds.ToString());
+                        NumericRepresentationOfDelay = 1;
+                        StartDate = DateTime.Now;
+                        EndDate = DateTime.Now.AddDays(7);
+                    }
+                ));
+            }
+        }
+
+
+        private RelayCommand cancelCommand;
+
+        public RelayCommand CancelCommand
+        {
+            get {
+                return cancelCommand ?? (cancelCommand = new RelayCommand(() => navigationService.GoBack()));
+            }
+        }
+
+        private RelayCommand addSettingInfoCommand;
+
+        public RelayCommand AddSettingInfoCommand
+        {
+            get {
+                return addSettingInfoCommand ?? (addSettingInfoCommand = new RelayCommand(() =>
+                {
+                    SettingsInfo addedSettingInfo = new SettingsInfo
+                    {
+                        URL = URL,
+                        XPath = XPath,
+                        SingleNode = IsSingleNode,
+                        TimeInfo = new ActionExecutionTimeInfo
+                        {
+                            StartDate = StartDate,
+                            EndDate = EndDate,
+                            DelayBetweenQueries = DelayBetweenQueries
+                        }
+                    };
+
+                    addSettingInfoMessage.AddedSettingInfo = addedSettingInfo;
+                    Messenger.Default.Send<SettingsViewModelAddSettingInfoMessage>(addSettingInfoMessage);
+                    navigationService.GoBack();
+                }
+                ,() => !string.IsNullOrWhiteSpace(URL) && !string.IsNullOrWhiteSpace(XPath)
+                ));
+            }
         }
 
 
