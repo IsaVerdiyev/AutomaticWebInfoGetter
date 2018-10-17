@@ -33,7 +33,9 @@ namespace AutomaticWebInfoGetterWpfLib.Navigation
         {
             if(history.Count > 0)
             {
-                Current = pages[history.Pop()];
+                history.Pop();
+                Current = pages[history.First()];
+                Messenger.Default.Send(Current);
             }
         }
 
