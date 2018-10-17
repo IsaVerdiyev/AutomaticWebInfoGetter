@@ -10,14 +10,14 @@
     <UserControl.Resources>
         <ResourceDictionary Source="../Resources/AddSettingViewDictionary.xaml"/>
     </UserControl.Resources>
-    
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
-            <RowDefinition Height="50"/>
+            <RowDefinition Height="60"/>
         </Grid.RowDefinitions>
-        
-            <Grid>
+
+        <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition/>
                 <RowDefinition/>
@@ -62,43 +62,49 @@
             <UniformGrid 
                 Grid.Row="6" 
                 Columns="2">
-                    <ctrLib:NumericUpDown 
+                <ctrLib:NumericUpDown 
                         x:Name="NumericUpDown" 
                         FontSize="14" 
-                        HorizontalAlignment="Right"/>
-                    <ComboBox HorizontalAlignment="Left" 
-                              Height="{Binding ElementName=NumericUpDown, Path=Height}">
-                        <ComboBoxItem>Seconds</ComboBoxItem>
-                        <ComboBoxItem>Minutes</ComboBoxItem>
-                        <ComboBoxItem>Hours</ComboBoxItem>
-                        <ComboBoxItem>Days</ComboBoxItem>
-                    </ComboBox>
-                </UniformGrid>
-                <UniformGrid Grid.Row="7" 
+                        HorizontalAlignment="Right"
+                        Value="{Binding NumericRepresentationOfDelay, Mode=TwoWay}"/>
+                <ComboBox HorizontalAlignment="Left" 
+                          Height="{Binding ElementName=NumericUpDown, Path=Height}"
+                          ItemsSource="{Binding DelayMeasures}"
+                          FontSize="14"
+                          SelectedItem="{Binding SelectedDelayMeasure}"/>
+
+            </UniformGrid>
+            <UniformGrid Grid.Row="7" 
                              Columns="2">
-                    <StackPanel>
+                <StackPanel>
                     <TextBlock Style="{StaticResource HeadingsStyle}"
                                Text="Start date of queries"/>
                     <DatePicker HorizontalAlignment="Center"
                                 SelectedDate="{Binding StartDate, Mode=TwoWay}"/>
-                    </StackPanel>
-                    <StackPanel>
+                </StackPanel>
+                <StackPanel>
                     <TextBlock Style="{StaticResource HeadingsStyle}"
                                    Text="End date of queries"/>
                     <DatePicker HorizontalAlignment="Center"
                                 SelectedDate="{Binding EndDate, Mode=TwoWay}"/>
-                    </StackPanel>
-                </UniformGrid>
-            </Grid>
-        
-        <Grid Grid.Row="1">
+                </StackPanel>
+            </UniformGrid>
+        </Grid>
+
+        <Grid Grid.Row="1"
+              Margin="0, 10, 5, 10">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
+                <ColumnDefinition Width="62*"/>
+                <ColumnDefinition Width="43*"/>
                 <ColumnDefinition Width="auto"/>
                 <ColumnDefinition Width="auto"/>
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="1">Add</Button>
-            <Button Grid.Column="2">Cancel</Button>
+            <Button Grid.Column="2"
+                    Content="Add"
+                    Command="{Binding AddSettingInfoCommand}"/>
+            <Button Grid.Column="3"
+                    Content="Cancel"
+                    Command="{Binding CancelCommand}"/>
         </Grid>
     </Grid>
 </UserControl>
