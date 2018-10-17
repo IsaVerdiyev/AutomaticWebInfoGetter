@@ -12,7 +12,7 @@ namespace AutomaticWebInfoGetterWpfLib.Models
         public string URL { get => url; set => url = value; }
 
         string xpath;
-        public string XPath { get => xpath; set => XPath = value; }
+        public string XPath { get => xpath; set => xpath = value; }
 
         bool singleNode;
         public bool SingleNode { get => singleNode; set => singleNode = value; }
