@@ -139,8 +139,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ControllerClass.cs" />
+    <Compile Include="Converters\DelayBetweenQueriesTimespanToStringMultiConverter.cs" />
+    <Compile Include="Exceptions\NoSuchEnumInTimespanToStringMultiConverter.cs" />
+    <Compile Include="Converters\IsSingleBoolToStringConverter.cs" />
     <Compile Include="Messages\SettingsViewModelAddSettingInfoMessage.cs" />
     <Compile Include="Messages\AddSettingViewModelInitializeMessage.cs" />
+    <Compile Include="Messages\SettingsViewModelInitializeMessage.cs" />
     <Compile Include="Models\ActionExecutionTimeInfo.cs" />
     <Compile Include="Models\SettingsInfo.cs" />
     <Compile Include="Navigation\INavigationService.cs" />
@@ -218,9 +222,7 @@
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Converters\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="WpfCustomControlsByMe.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
