@@ -1,7 +1,9 @@
 ﻿using Autofac;
 using Autofac.Configuration;
+using AutomaticWebInfoGetterWpfLib.Messages;
 using AutomaticWebInfoGetterWpfLib.Navigation;
 using AutomaticWebInfoGetterWpfLib.ViewModels;
+using GalaSoft.MvvmLight.Messaging;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
@@ -44,6 +46,7 @@ namespace AutomaticWebInfoGetterWpfLib.Tools
                 navigationService.AddPage(AddSettingViewModel, VM.AddSetting);
 
                 navigationService.NavigateTo(VM.Settings);
+                Messenger.Default.Send<SettingsViewModelInitializeMessage>(new SettingsViewModelInitializeMessage());
 
             }catch(Exception ex)
             {
