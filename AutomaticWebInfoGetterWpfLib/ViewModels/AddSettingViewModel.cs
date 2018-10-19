@@ -1,4 +1,5 @@
-﻿using AutomaticWebInfoGetterWpfLib.Messages;
+﻿using AutomaticWebInfoGetterWpfLib.Exceptions;
+using AutomaticWebInfoGetterWpfLib.Messages;
 using AutomaticWebInfoGetterWpfLib.Models;
 using AutomaticWebInfoGetterWpfLib.Navigation;
 using GalaSoft.MvvmLight;
@@ -12,14 +13,6 @@ using System.Threading.Tasks;
 
 namespace AutomaticWebInfoGetterWpfLib.ViewModels
 {
-
-    enum DelayMeasuresEnum
-    {
-        Seconds, 
-        Minutes,
-        Hours,
-        Days
-    }
 
     class AddSettingViewModel: ViewModelBase
     {
@@ -61,24 +54,27 @@ namespace AutomaticWebInfoGetterWpfLib.ViewModels
 
         public TimeSpan DelayBetweenQueries
         {
-            get => delayBetweenQueries;
-            set
+            get
             {
                 if(SelectedDelayMeasure == DelayMeasuresEnum.Seconds.ToString())
                 {
-                    delayBetweenQueries = TimeSpan.FromSeconds(NumericRepresentationOfDelay);
+                    return TimeSpan.FromSeconds(NumericRepresentationOfDelay);
                 }
                 else if(SelectedDelayMeasure == DelayMeasuresEnum.Minutes.ToString())
                 {
-                    delayBetweenQueries = TimeSpan.FromSeconds(NumericRepresentationOfDelay * 60);
+                    return TimeSpan.FromSeconds(NumericRepresentationOfDelay * 60);
                 }
                 else if(SelectedDelayMeasure == DelayMeasuresEnum.Hours.ToString())
                 {
-                    delayBetweenQueries = TimeSpan.FromSeconds(numericRepresentationOfDelay * 60 * 60);
+                    return TimeSpan.FromSeconds(numericRepresentationOfDelay * 60 * 60);
                 }
                 else if(SelectedDelayMeasure == DelayMeasuresEnum.Days.ToString())
                 {
-                    delayBetweenQueries = TimeSpan.FromSeconds(numericRepresentationOfDelay * 60 * 60 * 24);
+                    return TimeSpan.FromSeconds(numericRepresentationOfDelay * 60 * 60 * 24);
+                }
+                else
+                {
+                    throw new NoSuchTypeInDelayMeasuresEnum();
                 }
             }
         }
@@ -143,7 +139,8 @@ namespace AutomaticWebInfoGetterWpfLib.ViewModels
         #region Messages
 
         SettingsViewModelAddSettingInfoMessage addSettingInfoMessage = new SettingsViewModelAddSettingInfoMessage();
-        
+
+        SettingsViewModelInitializeMessage settingsViewModelInitializeMessage = new SettingsViewModelInitializeMessage();
         #endregion
 
         #region ctor
@@ -184,7 +181,7 @@ namespace AutomaticWebInfoGetterWpfLib.ViewModels
         public RelayCommand CancelCommand
         {
             get {
-                return cancelCommand ?? (cancelCommand = new RelayCommand(() => navigationService.GoBack()));
+                return cancelCommand ?? (cancelCommand = new RelayCommand(() => ReturnBack()));
             }
         }
 
@@ -210,7 +207,7 @@ namespace AutomaticWebInfoGetterWpfLib.ViewModels
 
                     addSettingInfoMessage.AddedSettingInfo = addedSettingInfo;
                     Messenger.Default.Send<SettingsViewModelAddSettingInfoMessage>(addSettingInfoMessage);
-                    navigationService.GoBack();
+                    ReturnBack();
                 }
                 ,() => !string.IsNullOrWhiteSpace(URL) && !string.IsNullOrWhiteSpace(XPath)
                 ));
@@ -220,5 +217,14 @@ namespace AutomaticWebInfoGetterWpfLib.ViewModels
 
         #endregion
 
+        #region private functions
+
+        void ReturnBack()
+        {
+            Messenger.Default.Send<SettingsViewModelInitializeMessage>(settingsViewModelInitializeMessage);
+            navigationService.GoBack();
+        }
+
+        #endregion
     }
 }
