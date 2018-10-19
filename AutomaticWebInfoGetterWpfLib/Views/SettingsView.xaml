@@ -30,7 +30,7 @@
                     <RowDefinition Height="50"/>
                 </Grid.RowDefinitions>
                 <ListBox ScrollViewer.CanContentScroll="True" 
-                         ItemsSource="{Binding SettingsInfos}">
+                         ItemsSource="{Binding SettingInfos}">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
@@ -40,7 +40,7 @@
                                         <MenuItem Header="Delete"/>
                                     </ContextMenu>
                                 </StackPanel.ContextMenu>
-                                <TextBlock Text="{Binding Url}"/>
+                                <TextBlock Text="{Binding URL}"/>
                             </StackPanel>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
@@ -53,16 +53,53 @@
                         CommandParameter="{x:Static nav:VM.AddSetting}"/>
                 
             </Grid>
-            <StackPanel Grid.Column="1">
-                <TextBlock Style="{StaticResource InfoHeadingsStyle}">URL</TextBlock>
-                <TextBlock Style="{StaticResource InfoContentsStyle}">Some Url</TextBlock>
-                <TextBlock Style="{StaticResource InfoHeadingsStyle}">XPath</TextBlock>
-                <TextBlock Style="{StaticResource InfoContentsStyle}">Some XPath</TextBlock>
-                <TextBlock Style="{StaticResource InfoHeadingsStyle}">Single node or list of nodes</TextBlock>
-                <TextBlock Style="{StaticResource InfoContentsStyle}">Single</TextBlock>
-                <TextBlock Style="{StaticResource InfoHeadingsStyle}">Frequency of getting info</TextBlock>
-                <TextBlock Style="{StaticResource InfoContentsStyle}">Some Frequency</TextBlock>
-            </StackPanel>
+            <UniformGrid Grid.Column="1"
+                         Rows="9"
+                         IsEnabled="{Binding SettingInfoVisibility, Mode=TwoWay}">
+                <TextBlock Style="{StaticResource InfoHeadingsStyle}" 
+                           Text="URL"/>
+                <TextBlock Style="{StaticResource InfoContentsStyle}" 
+                           Text="{Binding SelectedSettingInfo.URL}"/>
+                <TextBlock Style="{StaticResource InfoHeadingsStyle}"
+                           Text="XPath"/>
+                <TextBlock Style="{StaticResource InfoContentsStyle}"
+                           Text="{Binding SelectedSettingInfo.XPath}"/>
+                <TextBlock Style="{StaticResource InfoHeadingsStyle}"
+                           Text="Single node or list of nodes"/>
+                <TextBlock Style="{StaticResource InfoContentsStyle}"
+                           Text="{Binding SelectedSettingInfo.SingleNode, Converter={StaticResource IsSingleBoolToStringConverter}}">Single</TextBlock>
+                <UniformGrid Columns="3">
+                    <StackPanel>
+                        <TextBlock Style="{StaticResource InfoHeadingsStyle}"
+                                   Text="StartDate"/>
+                        <TextBlock Style="{StaticResource InfoContentsStyle}"
+                                   Text="{Binding SelectedSettingInfo.TimeInfo.StartDate}"/>
+                    </StackPanel>
+                    <StackPanel>
+                        <TextBlock Style="{StaticResource InfoHeadingsStyle}"
+                                   Text="Delays between queries"/>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Style="{StaticResource InfoContentsStyle}">
+                                <TextBlock.Text>
+                                    <MultiBinding Converter="{StaticResource TimespanToStringMultiConverter}">
+                                        <Binding Path="SelectedSettingInfo.TimeInfo.DelayBetweenQueries"/>
+                                        <Binding Path="SelectedDelayMeasure"/>
+                                        
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
+                            <ComboBox ItemsSource="{Binding DelayMeasures}"
+                                      SelectedItem="{Binding SelectedDelayMeasure}"/>
+                        </StackPanel>
+                    </StackPanel>
+                    <StackPanel>
+                        <TextBlock Style="{StaticResource InfoHeadingsStyle}"
+                                   Text="EndDate"/>
+                        <TextBlock Style="{StaticResource InfoContentsStyle}"
+                                   Text="{Binding SelectedSettingInfo.TimeInfo.EndDate}"/>
+                    </StackPanel>
+                </UniformGrid>
+            </UniformGrid>
 
         </Grid>
 
