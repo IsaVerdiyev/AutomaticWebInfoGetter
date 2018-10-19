@@ -6,6 +6,14 @@ using System.Threading.Tasks;
 
 namespace AutomaticWebInfoGetterWpfLib.Models
 {
+    enum DelayMeasuresEnum
+    {
+        Seconds,
+        Minutes,
+        Hours,
+        Days
+    }
+
     class ActionExecutionTimeInfo
     {
         DateTime startDate;
