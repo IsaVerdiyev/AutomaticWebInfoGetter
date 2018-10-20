@@ -55,7 +55,7 @@
             </Grid>
             <UniformGrid Grid.Column="1"
                          Rows="9"
-                         IsEnabled="{Binding SettingInfoVisibility, Mode=TwoWay}">
+                         Visibility="{Binding SettingInfoVisibility, Mode=TwoWay}">
                 <TextBlock Style="{StaticResource InfoHeadingsStyle}" 
                            Text="URL"/>
                 <TextBlock Style="{StaticResource InfoContentsStyle}" 
