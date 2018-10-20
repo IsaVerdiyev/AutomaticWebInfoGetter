@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AutomaticWebInfoGetterWpfLib.Services.WebInfoGetter
 {
-    interface IWebInfoGetter
+    public interface IWebInfoGetter
     {
         string GetStringOfNodeByXPathFromUrl(string url, string xpath);
         List<string> GetStringsOfNodesByXPathFromUrl(string url, string xpath);

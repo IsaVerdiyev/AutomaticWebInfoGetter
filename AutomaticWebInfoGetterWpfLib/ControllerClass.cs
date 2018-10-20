@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms.Integration;
+using AutomaticWebInfoGetterWpfLib.Services.Storage;
+using AutomaticWebInfoGetterWpfLib.Services.WebInfoGetter;
 using AutomaticWebInfoGetterWpfLib.Tools;
 using AutomaticWebInfoGetterWpfLib.ViewModels;
 using AutomaticWebInfoGetterWpfLib.Views;
@@ -13,17 +15,17 @@ namespace AutomaticWebInfoGetterWpfLib
 {
     public class ControllerClass
     {
+        IWebInfoGetter webInfoGetter;
+
+        IStorage storage;
+
+        public ControllerClass(IWebInfoGetter webInfoGetter)
+        {
+            this.webInfoGetter = webInfoGetter;
+            storage = StorageGetter.Storage;
+        }
 
         Window window = new AppView();
-
-        public async void DoSomething()
-        {
-            while (true)
-            {
-                MessageBox.Show("Works");
-                await Task.Delay(5000);
-            }
-        }
 
         public void OpenWindow()
         {

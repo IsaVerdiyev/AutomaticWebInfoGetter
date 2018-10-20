@@ -1,4 +1,5 @@
 ﻿using AutomaticWebInfoGetterWpfLib;
+using AutomaticWebInfoGetterWpfLib.Services.WebInfoGetter;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -31,7 +32,7 @@ namespace AutomaticWebInfoGetter
             else
             {
                 InitializeContext();
-                controllerClass = new ControllerClass();
+                controllerClass = new ControllerClass(new WebInfoGetterBasedOnSeleniumAndChrome());
             }
             
         }
