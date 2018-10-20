@@ -15,9 +15,12 @@ namespace AutomaticWebInfoGetterWpfLib.Converters
     {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            if((Visibility)values[2] == Visibility.Collapsed)
+            foreach(var item in values)
             {
-                return 0;
+                if(item == DependencyProperty.UnsetValue)
+                {
+                    return 0;
+                }
             }
             TimeSpan delayBetweenQueries = (TimeSpan)values[0];
             string selectedDelayMeasure = (string)values[1];
