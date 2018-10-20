@@ -195,7 +195,7 @@ namespace AutomaticWebInfoGetterWpfLib.ViewModels
                     SettingsInfo addedSettingInfo = new SettingsInfo
                     {
                         URL = URL,
-                        XPath = XPath,
+                        XPath = XPath.Replace('"', '\''),
                         SingleNode = IsSingleNode,
                         TimeInfo = new ActionExecutionTimeInfo
                         {
