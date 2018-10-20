@@ -1,6 +1,7 @@
 ﻿using AutomaticWebInfoGetterWpfLib.Messages;
 using AutomaticWebInfoGetterWpfLib.Models;
 using AutomaticWebInfoGetterWpfLib.Navigation;
+using AutomaticWebInfoGetterWpfLib.Services.Storage;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Messaging;
@@ -18,8 +19,17 @@ namespace AutomaticWebInfoGetterWpfLib.ViewModels
     {
         #region Fields and Properties
 
-        List<SettingsInfo> settingInfos = new List<SettingsInfo>();
-        public List<SettingsInfo> SettingInfos { get => settingInfos; set => Set(ref settingInfos, value); }
+        IStorage storage = StorageGetter.Storage;
+
+       
+        public ObservableCollection<SettingsInfo> SettingInfos {
+            get => storage.SettingInfos;
+            set
+            {
+                storage.SettingInfos = value;
+                RaisePropertyChanged();
+            }
+        }
 
         SettingsInfo selectedSettingInfo;
         public SettingsInfo SelectedSettingInfo { get => selectedSettingInfo; set => Set(ref selectedSettingInfo, value); }
