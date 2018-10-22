@@ -173,6 +173,8 @@
     <Compile Include="Services\Storage\IStorage.cs" />
     <Compile Include="Services\Storage\FileStorage.cs" />
     <Compile Include="Services\Storage\StorageGetter.cs" />
+    <Compile Include="Services\TimerInitializer\ITimerInitializer.cs" />
+    <Compile Include="Services\TimerInitializer\TimerInitializer.cs" />
     <Compile Include="Services\WebInfoGetter\IWebInfoGetter.cs" />
     <Compile Include="Services\WebInfoGetter\WebInfoGetterBasedOnSeleniumAndChrome.cs" />
     <Compile Include="Tools\ViewModelLocator.cs" />
