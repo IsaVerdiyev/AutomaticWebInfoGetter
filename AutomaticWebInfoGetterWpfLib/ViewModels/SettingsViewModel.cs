@@ -32,7 +32,19 @@ namespace AutomaticWebInfoGetterWpfLib.ViewModels
         }
 
         SettingsInfo selectedSettingInfo;
-        public SettingsInfo SelectedSettingInfo { get => selectedSettingInfo; set => Set(ref selectedSettingInfo, value); }
+        public SettingsInfo SelectedSettingInfo {
+            get => selectedSettingInfo;
+            set
+            {
+                Set(ref selectedSettingInfo, value);
+                RaisePropertyChanged(nameof(Url));
+                RaisePropertyChanged(nameof(XPath));
+                RaisePropertyChanged(nameof(IsSingleNode));
+                RaisePropertyChanged(nameof(StartDate));
+                RaisePropertyChanged(nameof(EndDate));
+                RaisePropertyChanged(nameof(DelayBetweenQueries));
+            }
+        }
 
         public string[] DelayMeasures { get => Enum.GetNames(typeof(DelayMeasuresEnum)); }
 
@@ -51,6 +63,18 @@ namespace AutomaticWebInfoGetterWpfLib.ViewModels
             get { return settingInfoVisibility; }
             set { Set(ref settingInfoVisibility, value); }
         }
+
+        public string Url { get => SelectedSettingInfo?.URL; }
+
+        public string XPath { get => SelectedSettingInfo?.XPath; }
+
+        public bool IsSingleNode { get => SelectedSettingInfo != null ? SelectedSettingInfo.SingleNode : false; }
+
+        public DateTime StartDate { get => SelectedSettingInfo != null ? SelectedSettingInfo.TimeInfo.StartDate : DateTime.Now; }
+
+        public DateTime EndDate { get => SelectedSettingInfo != null ? SelectedSettingInfo.TimeInfo.EndDate : DateTime.Now.AddDays(1); }
+
+        public TimeSpan? DelayBetweenQueries { get => SelectedSettingInfo != null ? SelectedSettingInfo.TimeInfo.DelayBetweenQueries : TimeSpan.FromMinutes(1); }
 
 
         #endregion

@@ -32,7 +32,8 @@
                 </Grid.RowDefinitions>
                 <ListBox ScrollViewer.CanContentScroll="True" 
                          ItemsSource="{Binding SettingInfos}"
-                         HorizontalContentAlignment="Stretch">
+                         HorizontalContentAlignment="Stretch"
+                         SelectedItem="{Binding SelectedSettingInfo}">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <StackPanel>
@@ -66,26 +67,26 @@
                         <TextBlock Style="{StaticResource InfoHeadingsStyle}" 
                            Text="URL"/>
                         <TextBlock Style="{StaticResource InfoContentsStyle}" 
-                           Text="{Binding SelectedSettingInfo.URL}"/>
+                           Text="{Binding Url}"/>
                     </StackPanel>
                     <StackPanel>
                         <TextBlock Style="{StaticResource InfoHeadingsStyle}"
                            Text="XPath"/>
                         <TextBlock Style="{StaticResource InfoContentsStyle}"
-                           Text="{Binding SelectedSettingInfo.XPath}"/>
+                           Text="{Binding XPath}"/>
                     </StackPanel>
                     <StackPanel>
                         <TextBlock Style="{StaticResource InfoHeadingsStyle}"
                            Text="Single node or list of nodes"/>
                         <TextBlock Style="{StaticResource InfoContentsStyle}"
-                           Text="{Binding SelectedSettingInfo.SingleNode, Converter={StaticResource IsSingleBoolToStringConverter}}"/>
+                           Text="{Binding IsSingleNode, Converter={StaticResource IsSingleBoolToStringConverter}}"/>
                     </StackPanel>
 
                     <StackPanel>
                         <TextBlock Style="{StaticResource InfoHeadingsStyle}"
                                    Text="StartDate"/>
                         <TextBlock Style="{StaticResource InfoContentsStyle}"
-                                   Text="{Binding SelectedSettingInfo.TimeInfo.StartDate}"/>
+                                   Text="{Binding StartDate}"/>
                     </StackPanel>
                     <StackPanel Grid.Column="0" 
                                 Grid.Row="1"
@@ -96,7 +97,7 @@
                             <TextBlock Style="{StaticResource InfoContentsStyle}">
                                 <TextBlock.Text>
                                     <MultiBinding Converter="{StaticResource TimespanToStringMultiConverter}">
-                                        <Binding Path="SelectedSettingInfo.TimeInfo.DelayBetweenQueries"/>
+                                        <Binding Path="DelayBetweenQueries"/>
                                         <Binding Path="SelectedDelayMeasure"/>
 
                                     </MultiBinding>
@@ -110,7 +111,7 @@
                         <TextBlock Style="{StaticResource InfoHeadingsStyle}"
                                    Text="EndDate"/>
                         <TextBlock Style="{StaticResource InfoContentsStyle}"
-                                   Text="{Binding SelectedSettingInfo.TimeInfo.EndDate}"/>
+                                   Text="{Binding EndDate}"/>
                     </StackPanel>
 
                 </UniformGrid>
