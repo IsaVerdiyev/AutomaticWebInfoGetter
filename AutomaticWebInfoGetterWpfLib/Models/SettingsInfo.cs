@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace AutomaticWebInfoGetterWpfLib.Models
@@ -19,5 +20,14 @@ namespace AutomaticWebInfoGetterWpfLib.Models
 
         ActionExecutionTimeInfo timeInfo;
         public ActionExecutionTimeInfo TimeInfo { get => timeInfo; set => timeInfo = value; }
+
+        private Timer timer;
+
+        public Timer Timer
+        {
+            get { return timer; }
+            set { timer = value; }
+        }
+
     }
 }
