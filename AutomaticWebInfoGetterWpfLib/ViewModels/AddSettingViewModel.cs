@@ -1,4 +1,5 @@
-﻿using AutomaticWebInfoGetterWpfLib.Exceptions;
+﻿
+using AutomaticWebInfoGetterWpfLib.Exceptions;
 using AutomaticWebInfoGetterWpfLib.Messages;
 using AutomaticWebInfoGetterWpfLib.Models;
 using AutomaticWebInfoGetterWpfLib.Navigation;
@@ -9,14 +10,16 @@ using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace AutomaticWebInfoGetterWpfLib.ViewModels
 {
 
-    class AddSettingViewModel: ViewModelBase
+    class AddSettingViewModel : ViewModelBase
     {
         #region Fields and Properties
 
@@ -26,22 +29,104 @@ namespace AutomaticWebInfoGetterWpfLib.ViewModels
         public string URL
         {
             get { return url; }
-            set {
+            set
+            {
                 Set(ref url, value);
                 AddSettingInfoCommand.RaiseCanExecuteChanged();
             }
         }
 
+        private Visibility addDownloadedPartInfoVisibility;
+
+        public Visibility AddDownloadedPartInfoVisibility
+        {
+            get { return addDownloadedPartInfoVisibility; }
+            set
+            {
+                Set(ref addDownloadedPartInfoVisibility, value);
+                MakeVisibileAddSettingInfoOfDownloadedPartCommand.RaiseCanExecuteChanged();
+            }
+        }
+
+
         private string xpath;
 
         public string XPath
         {
-            get { return xpath; }
-            set {
+            get => xpath;
+            set
+            {
                 Set(ref xpath, value);
-                AddSettingInfoCommand.RaiseCanExecuteChanged();
+                AddSettingInfoOfDownloadedPartInCollectionCommand.RaiseCanExecuteChanged();
             }
         }
+
+        private string header;
+
+        public string Header
+        {
+            get { return header; }
+            set => Set(ref header, value);
+        }
+
+        private int row;
+
+        public int Row
+        {
+            get { return row; }
+            set => Set(ref row, value);
+        }
+
+        private int column;
+
+        public int Column
+        {
+            get { return column; }
+            set => Set(ref column, value);
+        }
+
+
+        private ObservableCollection<DownloadedPartOfPageSettingInfo> settingInfosOfDownloadedPartsOfPage = new ObservableCollection<DownloadedPartOfPageSettingInfo>();
+
+        public ObservableCollection<DownloadedPartOfPageSettingInfo> SettingInfosOfDownloadedPartsOfPage
+        {
+            get => settingInfosOfDownloadedPartsOfPage;
+            set => Set(ref settingInfosOfDownloadedPartsOfPage, value);
+        }
+
+        private int distanceBetweenLines;
+
+        public int DistanceBetweenLines
+        {
+            get { return distanceBetweenLines; }
+            set => Set(ref distanceBetweenLines, value);
+        }
+
+        private int betweenWritingNewInfoDistance;
+
+        public int BetweenWritingNewInfoDistance
+        {
+            get { return betweenWritingNewInfoDistance; }
+            set => Set(ref betweenWritingNewInfoDistance, value);
+        }
+
+        private bool horizontalOrientationOfWriting;
+
+        public bool HorizontalOrientationOfWriting
+        {
+            get { return horizontalOrientationOfWriting; }
+            set => Set(ref horizontalOrientationOfWriting, value);
+        }
+
+        private string fileNameToWriteInfo;
+
+        public string FileNameToWriteInfo
+        {
+            get { return fileNameToWriteInfo; }
+            set => Set(ref fileNameToWriteInfo, value);
+        }
+
+
 
         private bool isSingleNode;
 
@@ -58,19 +143,19 @@ namespace AutomaticWebInfoGetterWpfLib.ViewModels
         {
             get
             {
-                if(SelectedDelayMeasure == DelayMeasuresEnum.Seconds.ToString())
+                if (SelectedDelayMeasure == DelayMeasuresEnum.Seconds.ToString())
                 {
                     return TimeSpan.FromSeconds(NumericRepresentationOfDelay);
                 }
-                else if(SelectedDelayMeasure == DelayMeasuresEnum.Minutes.ToString())
+                else if (SelectedDelayMeasure == DelayMeasuresEnum.Minutes.ToString())
                 {
                     return TimeSpan.FromSeconds(NumericRepresentationOfDelay * 60);
                 }
-                else if(SelectedDelayMeasure == DelayMeasuresEnum.Hours.ToString())
+                else if (SelectedDelayMeasure == DelayMeasuresEnum.Hours.ToString())
                 {
                     return TimeSpan.FromSeconds(numericRepresentationOfDelay * 60 * 60);
                 }
-                else if(SelectedDelayMeasure == DelayMeasuresEnum.Days.ToString())
+                else if (SelectedDelayMeasure == DelayMeasuresEnum.Days.ToString())
                 {
                     return TimeSpan.FromSeconds(numericRepresentationOfDelay * 60 * 60 * 24);
                 }
@@ -83,12 +168,13 @@ namespace AutomaticWebInfoGetterWpfLib.ViewModels
 
 
 
-        private string selectedDelayMeasure ;
+        private string selectedDelayMeasure;
 
         public string SelectedDelayMeasure
         {
             get { return selectedDelayMeasure; }
-            set {
+            set
+            {
                 Set(ref selectedDelayMeasure, value);
                 RaisePropertyChanged(nameof(DelayBetweenQueries));
             }
@@ -101,7 +187,8 @@ namespace AutomaticWebInfoGetterWpfLib.ViewModels
         public double NumericRepresentationOfDelay
         {
             get { return numericRepresentationOfDelay; }
-            set {
+            set
+            {
                 Set(ref numericRepresentationOfDelay, value);
                 RaisePropertyChanged(nameof(DelayBetweenQueries));
             }
@@ -151,13 +238,13 @@ namespace AutomaticWebInfoGetterWpfLib.ViewModels
 
         #region ctor
 
-        public AddSettingViewModel (INavigationService navigationService, IWebInfoGetter webInfoGetter, ITimerInitializer timerInitializer)
-	    {
+        public AddSettingViewModel(INavigationService navigationService, IWebInfoGetter webInfoGetter, ITimerInitializer timerInitializer)
+        {
             this.navigationService = navigationService;
             this.webInfoGetter = webInfoGetter;
             this.timerInitializer = timerInitializer;
             Messenger.Default.Register<AddSettingViewModelInitializeMessage>(this, obj => SwitchInitialStateCommand.Execute(obj));
-	    }
+        }
 
         #endregion
 
@@ -167,12 +254,22 @@ namespace AutomaticWebInfoGetterWpfLib.ViewModels
 
         public RelayCommand SwitchInitialStateCommand
         {
-            get {
+            get
+            {
                 return switchInitialStateCommand ?? (new RelayCommand(
                     () =>
                     {
                         URL = "";
                         XPath = "";
+                        AddDownloadedPartInfoVisibility = Visibility.Collapsed;
+                        SettingInfosOfDownloadedPartsOfPage.Clear();
+                        DistanceBetweenLines = 1;
+                        BetweenWritingNewInfoDistance = 2;
+                        HorizontalOrientationOfWriting = false;
+                        FileNameToWriteInfo = "";
+                        Row = 0;
+                        Column = 0;
+                        Header = "";
                         IsSingleNode = false;
                         SelectedDelayMeasure = DelayMeasures.First(i => i == DelayMeasuresEnum.Seconds.ToString());
                         NumericRepresentationOfDelay = 1;
@@ -188,7 +285,8 @@ namespace AutomaticWebInfoGetterWpfLib.ViewModels
 
         public RelayCommand CancelCommand
         {
-            get {
+            get
+            {
                 return cancelCommand ?? (cancelCommand = new RelayCommand(() => ReturnBack()));
             }
         }
@@ -197,14 +295,19 @@ namespace AutomaticWebInfoGetterWpfLib.ViewModels
 
         public RelayCommand AddSettingInfoCommand
         {
-            get {
+            get
+            {
                 return addSettingInfoCommand ?? (addSettingInfoCommand = new RelayCommand(() =>
                 {
                     SettingsInfo addedSettingInfo = new SettingsInfo
                     {
                         URL = URL,
-                        XPath = XPath.Replace('"', '\''),
+                        SettingInfosOfDownloadedPartsOfPage = new ObservableCollection<DownloadedPartOfPageSettingInfo>(SettingInfosOfDownloadedPartsOfPage),
                         SingleNode = IsSingleNode,
+                        BetweenLineDistance = DistanceBetweenLines,
+                        BetweenWritingNewInfoDistance = BetweenWritingNewInfoDistance,
+                        HorizontalOrientationOfWritingInfo = HorizontalOrientationOfWriting,
+                        NameOfFileToWriteInfo = FileNameToWriteInfo,
                         TimeInfo = new ActionExecutionTimeInfo
                         {
                             StartDate = StartDate,
@@ -217,10 +320,72 @@ namespace AutomaticWebInfoGetterWpfLib.ViewModels
                     Messenger.Default.Send<SettingsViewModelAddSettingInfoMessage>(addSettingInfoMessage);
                     ReturnBack();
                 }
-                ,() => !string.IsNullOrWhiteSpace(URL) && !string.IsNullOrWhiteSpace(XPath)
+                , () => !string.IsNullOrWhiteSpace(URL) &&
+                         SettingInfosOfDownloadedPartsOfPage.Count > 0 &&
+                         !string.IsNullOrWhiteSpace(FileNameToWriteInfo)
                 ));
             }
         }
+
+        private RelayCommand makeVisibileAddSettingInfoOfDownloadedPartCommand;
+
+        public RelayCommand MakeVisibileAddSettingInfoOfDownloadedPartCommand
+        {
+            get
+            {
+                return makeVisibileAddSettingInfoOfDownloadedPartCommand ?? (makeVisibileAddSettingInfoOfDownloadedPartCommand =
+                    new RelayCommand(
+                        () => AddDownloadedPartInfoVisibility = Visibility.Visible,
+                        () => AddDownloadedPartInfoVisibility != Visibility.Visible));
+            }
+        }
+
+
+        private RelayCommand hideAddSettingInfoOfDownloadedPartCommand;
+
+        public RelayCommand HideAddSettingInfoOfDownloadedPartCommand
+        {
+            get
+            {
+                return hideAddSettingInfoOfDownloadedPartCommand ?? (hideAddSettingInfoOfDownloadedPartCommand =
+                    new RelayCommand(
+                        () =>
+                        {
+                            XPath = "";
+                            Row = 0;
+                            Column = 0;
+                            Header = "";
+                        }));
+            }
+        }
+
+
+        private RelayCommand addSettingInfoOfDownloadedPartInCollectionCommand;
+
+        public RelayCommand AddSettingInfoOfDownloadedPartInCollectionCommand
+        {
+            get
+            {
+                return addSettingInfoOfDownloadedPartInCollectionCommand ?? (addSettingInfoOfDownloadedPartInCollectionCommand =
+                    new RelayCommand(
+                        () =>
+                        {
+                            SettingInfosOfDownloadedPartsOfPage.Add(new DownloadedPartOfPageSettingInfo
+                            {
+                                StartPositionOfWriting = new Position
+                                {
+                                    Row = Row,
+                                    Column = Column
+                                },
+                                Header = Header,
+                                XPath = XPath
+                            });
+                            HideAddSettingInfoOfDownloadedPartCommand.Execute(null);
+                        },
+                        () => !string.IsNullOrWhiteSpace(XPath)));
+            }
+        }
+
 
 
         #endregion

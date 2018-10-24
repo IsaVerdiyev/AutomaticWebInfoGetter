@@ -28,39 +28,117 @@
                 <RowDefinition/>
                 <RowDefinition/>
                 <RowDefinition/>
+                <RowDefinition/>
             </Grid.RowDefinitions>
-            <TextBlock 
-                    Grid.Row="0" 
+            <StackPanel>
+                <TextBlock  
                     Style="{StaticResource HeadingsStyle}"
                     Text="URL"/>
-            <TextBox 
-                Grid.Row="1" 
-                Style="{StaticResource TextInputAlignment}"
-                Text="{Binding URL, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
-            <TextBlock Grid.Row="2" 
-                       Style="{StaticResource HeadingsStyle}"
-                       Text="XPath"/>
-            <TextBox Grid.Row="3"
-                     Style="{StaticResource TextInputAlignment}"
-                     Text="{Binding Path=XPath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-            <StackPanel Grid.Row="4"
+                <TextBox 
+                    Grid.Row="1" 
+                    Style="{StaticResource TextInputAlignment}"
+                    Text="{Binding URL, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+            </StackPanel>
+            <StackPanel Grid.Row="1">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+                    <ListBox 
+                        ItemsSource="{Binding SettingInfosOfDownloadedPartsOfPage}"/>
+                    <Button 
+                        Grid.Column="1"
+                        Style="{StaticResource HorizontalAutoSizedRoundButtons}" 
+                        Content="+"
+                        Command="{Binding MakeVisibileAddSettingInfoOfDownloadedPartCommand}"/>
+                </Grid>
+                <StackPanel Visibility="{Binding AddDownloadedPartInfoVisibility, Mode=OneWay}">
+                    <TextBlock Text="XPath"
+                               Style="{StaticResource HeadingsStyle}"/>
+                    <TextBox 
+                        Text="{Binding XPath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock Text="Header"
+                               Style="{StaticResource HeadingsStyle}"/>
+                    <TextBox
+                        Text="{Binding Header, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock Text="StartPosition"
+                               Style="{StaticResource HeadingsStyle}"/>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Row"
+                                   Style="{StaticResource HeadingsStyle}"
+                                   HorizontalAlignment="Right"/>
+                        <ctrLib:NumericUpDown Grid.Column="1"
+                                              HorizontalAlignment="Left"
+                                              Value="{Binding Row}"/>
+                        <TextBlock Grid.Column="2"
+                                   Text="Column"
+                                   Style="{StaticResource HeadingsStyle}"
+                                   HorizontalAlignment="Right"/>
+                        <ctrLib:NumericUpDown Grid.Column="3"
+                                              HorizontalAlignment="Left"
+                                              Value="{Binding Column}"/>
+                    </Grid>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Button Grid.Column="1"
+                                Content="Add"
+                                Command="{Binding AddSettingInfoOfDownloadedPartInCollectionCommand}"/>
+                        <Button Grid.Column="2"
+                                Content="Cancel"
+                                Command="{Binding HideAddSettingInfoOfDownloadedPartCommand}"/>
+                    </Grid>
+                </StackPanel>
+            </StackPanel>
+            <StackPanel Grid.Row="2">
+                <TextBlock
+                       Text="Distance between lines"
+                       Style="{StaticResource HeadingsStyle}"/>
+                <ctrLib:NumericUpDown
+                                  Value="{Binding DistanceBetweenLines, Mode=TwoWay}"/>
+            </StackPanel>
+            <StackPanel Grid.Row="3">
+                <TextBlock
+                       Text="Distance between new paragraphs of input"
+                       Style="{StaticResource HeadingsStyle}"/>
+                <ctrLib:NumericUpDown 
+                    Value="{Binding BetweenWritingNewInfoDistance}"/>
+            </StackPanel>
+
+            <StackPanel Grid.Row="4">
+                <TextBlock Text="File name to save info"
+                           Style="{StaticResource HeadingsStyle}"/>
+                <TextBox 
+                    Text="{Binding FileNameToWriteInfo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            </StackPanel>
+            <StackPanel Grid.Row="5"
                         Orientation="Horizontal"
                         HorizontalAlignment="Center">
                 <TextBlock  
                        Style="{StaticResource HeadingsStyle}"
                        Text="Check checkbox if single node should returned:  "/>
-                <CheckBox Grid.Row="5" 
+                <CheckBox 
                       HorizontalAlignment="Center"
                       Content="Is single node"
                       VerticalContentAlignment="Center"
                       IsChecked="{Binding IsSingleNode}"/>
             </StackPanel>
             <TextBlock 
-                    Grid.Row="5" 
+                    Grid.Row="6" 
                     Style="{StaticResource HeadingsStyle}"
                     Text="Delay between queries"/>
             <UniformGrid 
-                Grid.Row="6" 
+                Grid.Row="7" 
                 Columns="2">
                 <ctrLib:NumericUpDown 
                         x:Name="NumericUpDown" 
@@ -74,7 +152,7 @@
                           SelectedItem="{Binding SelectedDelayMeasure}"/>
 
             </UniformGrid>
-            <UniformGrid Grid.Row="7" 
+            <UniformGrid Grid.Row="8" 
                              Columns="2">
                 <StackPanel>
                     <TextBlock Style="{StaticResource HeadingsStyle}"
