@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -12,9 +13,6 @@ namespace AutomaticWebInfoGetterWpfLib.Models
         string url;
         public string URL { get => url; set => url = value; }
 
-        string xpath;
-        public string XPath { get => xpath; set => xpath = value; }
-
         bool singleNode;
         public bool SingleNode { get => singleNode; set => singleNode = value; }
 
@@ -22,12 +20,41 @@ namespace AutomaticWebInfoGetterWpfLib.Models
         public ActionExecutionTimeInfo TimeInfo { get => timeInfo; set => timeInfo = value; }
 
         private Timer timer;
+        public Timer Timer { get => timer; set => timer = value; }
 
-        public Timer Timer
+
+        private ObservableCollection<DownloadedPartOfPageSettingInfo> settingInfosOfDownloadedPartsOfPage;
+        public ObservableCollection<DownloadedPartOfPageSettingInfo> SettingInfosOfDownloadedPartsOfPage
         {
-            get { return timer; }
-            set { timer = value; }
+            get => settingInfosOfDownloadedPartsOfPage;
+            set => settingInfosOfDownloadedPartsOfPage = value;
         }
+
+
+        private bool horizontalOrientationOfWritingInfo;
+        public bool HorizontalOrientationOfWritingInfo
+        {
+            get => horizontalOrientationOfWritingInfo;
+            set => horizontalOrientationOfWritingInfo = value;
+        }
+
+        private int betweenLineDistance;
+        public int BetweenLineDistance { get => betweenLineDistance; set => betweenLineDistance = value; }
+
+        private int betweenWritingNewInfoDistance;
+        public int BetweenWritingNewInfoDistance
+        {
+            get => betweenWritingNewInfoDistance;
+            set => betweenWritingNewInfoDistance = value;
+        }
+
+        private string nameOfFileToWriteInfo;
+        public string NameOfFileToWriteInfo
+        {
+            get => nameOfFileToWriteInfo;
+            set => nameOfFileToWriteInfo = value;
+        }
+
 
     }
 }
