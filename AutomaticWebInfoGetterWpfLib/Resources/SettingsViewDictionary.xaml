@@ -8,7 +8,9 @@
 
     <converters:IsSingleBoolToStringConverter x:Key="IsSingleBoolToStringConverter"/>
     <converters:DelayBetweenQueriesTimespanToStringMultiConverter x:Key="TimespanToStringMultiConverter"/>
-
+    <converters:OrientationOfWritingBoolToStringConverter x:Key="OrientationOfWritingBoolToStringConverter"/>
+    
+    
     <Style TargetType="TextBlock" x:Key="CommonStyleForInfoTextBlocks">
         <Setter Property="TextAlignment" Value="Center"/>
     </Style>
