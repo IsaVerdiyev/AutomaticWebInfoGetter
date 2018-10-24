@@ -70,10 +70,27 @@
                            Text="{Binding Url}"/>
                     </StackPanel>
                     <StackPanel>
-                        <TextBlock Style="{StaticResource InfoHeadingsStyle}"
-                           Text="XPath"/>
-                        <TextBlock Style="{StaticResource InfoContentsStyle}"
-                           Text="{Binding XPath}"/>
+                        <ListBox
+                            ItemsSource="{Binding DownloadedPartOfPageSettingInfos}">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="XPath"
+                                                   Style="{StaticResource InfoHeadingsStyle}"/>
+                                        <TextBlock Style="{StaticResource InfoContentsStyle}"
+                                                   Text="{Binding XPath}"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal"
+                                HorizontalAlignment="Center">
+                        <TextBlock Text="Orientation of writing info: "
+                                   Style="{StaticResource InfoHeadingsStyle}"/>
+                        <TextBlock 
+                            Style="{StaticResource InfoContentsStyle}"
+                            Text="{Binding HorizontalOrientation, Converter={StaticResource OrientationOfWritingBoolToStringConverter}}"/>
                     </StackPanel>
                     <StackPanel>
                         <TextBlock Style="{StaticResource InfoHeadingsStyle}"

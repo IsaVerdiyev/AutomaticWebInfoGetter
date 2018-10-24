@@ -15,14 +15,15 @@ using System.Windows;
 
 namespace AutomaticWebInfoGetterWpfLib.ViewModels
 {
-    class SettingsViewModel: ViewModelBase
+    class SettingsViewModel : ViewModelBase
     {
         #region Fields and Properties
 
         IStorage storage = StorageGetter.Storage;
 
-       
-        public ObservableCollection<SettingsInfo> SettingInfos {
+
+        public ObservableCollection<SettingsInfo> SettingInfos
+        {
             get => storage.SettingInfos;
             set
             {
@@ -32,17 +33,19 @@ namespace AutomaticWebInfoGetterWpfLib.ViewModels
         }
 
         SettingsInfo selectedSettingInfo;
-        public SettingsInfo SelectedSettingInfo {
+        public SettingsInfo SelectedSettingInfo
+        {
             get => selectedSettingInfo;
             set
             {
                 Set(ref selectedSettingInfo, value);
                 RaisePropertyChanged(nameof(Url));
-                RaisePropertyChanged(nameof(XPath));
+                RaisePropertyChanged(nameof(DownloadedPartOfPageSettingInfos));
                 RaisePropertyChanged(nameof(IsSingleNode));
                 RaisePropertyChanged(nameof(StartDate));
                 RaisePropertyChanged(nameof(EndDate));
                 RaisePropertyChanged(nameof(DelayBetweenQueries));
+                RaisePropertyChanged(nameof(HorizontalOrientation));
             }
         }
 
@@ -66,7 +69,10 @@ namespace AutomaticWebInfoGetterWpfLib.ViewModels
 
         public string Url { get => SelectedSettingInfo?.URL; }
 
-        public string XPath { get => SelectedSettingInfo?.XPath; }
+        public ObservableCollection<DownloadedPartOfPageSettingInfo> DownloadedPartOfPageSettingInfos
+        {
+            get => SelectedSettingInfo?.SettingInfosOfDownloadedPartsOfPage;
+        }
 
         public bool IsSingleNode { get => SelectedSettingInfo != null ? SelectedSettingInfo.SingleNode : false; }
 
@@ -76,6 +82,7 @@ namespace AutomaticWebInfoGetterWpfLib.ViewModels
 
         public TimeSpan? DelayBetweenQueries { get => SelectedSettingInfo != null ? SelectedSettingInfo.TimeInfo.DelayBetweenQueries : TimeSpan.FromMinutes(1); }
 
+        public bool HorizontalOrientation { get => SelectedSettingInfo != null ? SelectedSettingInfo.HorizontalOrientationOfWritingInfo : false; }
 
         #endregion
 
@@ -108,11 +115,14 @@ namespace AutomaticWebInfoGetterWpfLib.ViewModels
 
         public RelayCommand<VM> AddSettingCommand
         {
-            get { return addSettingCommand ?? (addSettingCommand = new RelayCommand<VM>(par => 
+            get
             {
-                navigationService.NavigateTo(par);
-                Messenger.Default.Send<AddSettingViewModelInitializeMessage>(addSettingViewModelInitialize);
-            })); }
+                return addSettingCommand ?? (addSettingCommand = new RelayCommand<VM>(par =>
+                {
+                    navigationService.NavigateTo(par);
+                    Messenger.Default.Send<AddSettingViewModelInitializeMessage>(addSettingViewModelInitialize);
+                }));
+            }
         }
 
         private RelayCommand switchInitialStateCommand;
@@ -120,7 +130,8 @@ namespace AutomaticWebInfoGetterWpfLib.ViewModels
         public RelayCommand SwitchInitialStateCommand
 
         {
-            get {
+            get
+            {
                 return switchInitialStateCommand ?? (switchInitialStateCommand = new RelayCommand(
                     () =>
                     {
