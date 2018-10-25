@@ -1,5 +1,6 @@
 ﻿using AutomaticWebInfoGetterWpfLib.Models;
 using AutomaticWebInfoGetterWpfLib.Services.WebInfoGetter;
+using AutomaticWebInfoGetterWpfLib.Services.WriterService;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,6 @@ namespace AutomaticWebInfoGetterWpfLib.Services.TimerInitializer
 {
     interface ITimerInitializer
     {
-        void InitializeTimer(SettingsInfo settingsInfo, IWebInfoGetter webInfogetter);
+        void InitializeTimer(SettingsInfo settingsInfo, IWebInfoGetter webInfogetter, IWriter writer);
     }
 }
