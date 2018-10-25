@@ -123,7 +123,11 @@ namespace AutomaticWebInfoGetterWpfLib.ViewModels
         public string FileNameToWriteInfo
         {
             get { return fileNameToWriteInfo; }
-            set => Set(ref fileNameToWriteInfo, value);
+            set
+            {
+                Set(ref fileNameToWriteInfo, value);
+                AddSettingInfoCommand.RaiseCanExecuteChanged();
+            }
         }
 
 
@@ -355,6 +359,7 @@ namespace AutomaticWebInfoGetterWpfLib.ViewModels
                             Row = 0;
                             Column = 0;
                             Header = "";
+                            AddDownloadedPartInfoVisibility = Visibility.Collapsed;
                         }));
             }
         }
