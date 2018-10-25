@@ -5,6 +5,7 @@ using AutomaticWebInfoGetterWpfLib.Models;
 using AutomaticWebInfoGetterWpfLib.Navigation;
 using AutomaticWebInfoGetterWpfLib.Services.TimerInitializer;
 using AutomaticWebInfoGetterWpfLib.Services.WebInfoGetter;
+using AutomaticWebInfoGetterWpfLib.Services.WriterService;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
@@ -231,6 +232,8 @@ namespace AutomaticWebInfoGetterWpfLib.ViewModels
 
         ITimerInitializer timerInitializer;
 
+        IWriter writer;
+
         #endregion
 
         #region Messages
@@ -242,11 +245,12 @@ namespace AutomaticWebInfoGetterWpfLib.ViewModels
 
         #region ctor
 
-        public AddSettingViewModel(INavigationService navigationService, IWebInfoGetter webInfoGetter, ITimerInitializer timerInitializer)
+        public AddSettingViewModel(INavigationService navigationService, IWebInfoGetter webInfoGetter, ITimerInitializer timerInitializer, IWriter writer)
         {
             this.navigationService = navigationService;
             this.webInfoGetter = webInfoGetter;
             this.timerInitializer = timerInitializer;
+            this.writer = writer;
             Messenger.Default.Register<AddSettingViewModelInitializeMessage>(this, obj => SwitchInitialStateCommand.Execute(obj));
         }
 
@@ -319,7 +323,7 @@ namespace AutomaticWebInfoGetterWpfLib.ViewModels
                             DelayBetweenQueries = DelayBetweenQueries
                         }
                     };
-                    timerInitializer.InitializeTimer(addedSettingInfo, webInfoGetter);
+                    timerInitializer.InitializeTimer(addedSettingInfo, webInfoGetter, writer);
                     addSettingInfoMessage.AddedSettingInfo = addedSettingInfo;
                     Messenger.Default.Send<SettingsViewModelAddSettingInfoMessage>(addSettingInfoMessage);
                     ReturnBack();
