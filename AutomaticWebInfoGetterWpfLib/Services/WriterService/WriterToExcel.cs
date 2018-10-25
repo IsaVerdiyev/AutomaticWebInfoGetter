@@ -9,7 +9,7 @@ using AutomaticWebInfoGetterWpfLib.Models;
 using OfficeOpenXml;
 namespace AutomaticWebInfoGetterWpfLib.Services.WriterService
 {
-    class GetWorkingSheet : IWriter
+    class WriterToExcel : IWriter
     {
         public void WriteToExcel(List<string> infos, SettingsInfo settingsInfo, DownloadedPartOfPageSettingInfo downloadedPart)
         {
@@ -31,6 +31,7 @@ namespace AutomaticWebInfoGetterWpfLib.Services.WriterService
                         downloadedPart.CurrentWritingPosition.Row += settingsInfo.BetweenLineDistance;
                     }
                 }
+                excelPackage.Save();
             }
         }
         public void WriteToExcel(string info, SettingsInfo settingsInfo, DownloadedPartOfPageSettingInfo downloadedPart)
@@ -50,6 +51,7 @@ namespace AutomaticWebInfoGetterWpfLib.Services.WriterService
                 {
                     downloadedPart.CurrentWritingPosition.Row += settingsInfo.BetweenLineDistance;
                 }
+                excelPackage.Save();
             }
         }
         private void InstallCurrentWritingPositionIfIsNull(DownloadedPartOfPageSettingInfo downloadedPartInfo, SettingsInfo settingsInfo, ExcelWorksheet workSheet)
