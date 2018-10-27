@@ -76,14 +76,16 @@
                                    HorizontalAlignment="Right"/>
                         <ctrLib:NumericUpDown Grid.Column="1"
                                               HorizontalAlignment="Left"
-                                              Value="{Binding Row}"/>
+                                              Value="{Binding Row, Mode=TwoWay}"
+                                              MinValue="1"/>
                         <TextBlock Grid.Column="2"
                                    Text="Column"
                                    Style="{StaticResource HeadingsStyle}"
                                    HorizontalAlignment="Right"/>
                         <ctrLib:NumericUpDown Grid.Column="3"
                                               HorizontalAlignment="Left"
-                                              Value="{Binding Column}"/>
+                                              Value="{Binding Column, Mode=TwoWay}"
+                                              MinValue="1"/>
                     </Grid>
                     <Grid>
                         <Grid.ColumnDefinitions>
@@ -105,14 +107,16 @@
                        Text="Distance between lines"
                        Style="{StaticResource HeadingsStyle}"/>
                 <ctrLib:NumericUpDown
-                                  Value="{Binding DistanceBetweenLines, Mode=TwoWay}"/>
+                                  Value="{Binding DistanceBetweenLines, Mode=TwoWay}"
+                                  MinValue="1"/>
             </StackPanel>
             <StackPanel Grid.Row="3">
                 <TextBlock
                        Text="Distance between new paragraphs of input"
                        Style="{StaticResource HeadingsStyle}"/>
                 <ctrLib:NumericUpDown 
-                    Value="{Binding BetweenWritingNewInfoDistance}"/>
+                    Value="{Binding BetweenWritingNewInfoDistance,Mode=TwoWay}"
+                    MinValue="1"/>
             </StackPanel>
 
             <StackPanel Grid.Row="4">
@@ -142,7 +146,6 @@
                 Columns="2">
                 <ctrLib:NumericUpDown 
                         x:Name="NumericUpDown" 
-                        FontSize="14" 
                         HorizontalAlignment="Right"
                         Value="{Binding NumericRepresentationOfDelay, Mode=TwoWay}"/>
                 <ComboBox HorizontalAlignment="Left" 
