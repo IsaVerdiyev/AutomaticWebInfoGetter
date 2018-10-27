@@ -26,6 +26,7 @@ namespace AutomaticWebInfoGetterWpfLib.Services.WebInfoGetter
             
         }
 
+
         public string GetStringOfNodeByXPathFromUrl(string url, string xpath)
         {
             IWebElement element;
@@ -57,6 +58,10 @@ namespace AutomaticWebInfoGetterWpfLib.Services.WebInfoGetter
 
             }
             return elements.Select(e => e.Text).ToList();
+        }
+
+        ~WebInfoGetterBasedOnSeleniumAndChrome (){
+            webDriver.Dispose();
         }
     }
 }
