@@ -17,7 +17,7 @@ namespace AutomaticWebInfoGetterWpfLib.Converters
         {
             foreach(var item in values)
             {
-                if(item == DependencyProperty.UnsetValue)
+                if(item == DependencyProperty.UnsetValue || item == null)
                 {
                     return 0;
                 }
