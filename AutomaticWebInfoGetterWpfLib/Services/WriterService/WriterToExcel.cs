@@ -84,6 +84,17 @@ namespace AutomaticWebInfoGetterWpfLib.Services.WriterService
                     downloadedPartInfo.CurrentWritingPosition = (Position)downloadedPartInfo.StartPositionOfWriting.Clone();
                 }
             }
+            else
+            {
+                if (settingsInfo.HorizontalOrientationOfWritingInfo)
+                {
+                    downloadedPartInfo.CurrentWritingPosition.Column += settingsInfo.BetweenWritingNewInfoDistance;
+                }
+                else
+                {
+                    downloadedPartInfo.CurrentWritingPosition.Row += settingsInfo.BetweenWritingNewInfoDistance;
+                }
+            }
         }
         private void InitializeWorkSheet(ExcelPackage excelPackage, out ExcelWorksheet worksheet)
         {
