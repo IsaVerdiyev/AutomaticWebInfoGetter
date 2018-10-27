@@ -15,25 +15,23 @@ namespace AutomaticWebInfoGetterWpfLib
 {
     public class ControllerClass
     {
-        IWebInfoGetter webInfoGetter;
 
         IStorage storage;
+        Window window;
 
-        public ControllerClass(IWebInfoGetter webInfoGetter)
+        public ControllerClass()
         {
-            this.webInfoGetter = webInfoGetter;
             storage = StorageGetter.Storage;
+            window = new AppView();
+            window.DataContext = new ViewModelLocator().AppViewModel;
+            ElementHost.EnableModelessKeyboardInterop(window);
         }
 
-        Window window = new AppView();
 
         public void OpenWindow()
         {
             if (!window.IsLoaded)
             {
-                window = new AppView();
-                window.DataContext = new ViewModelLocator().AppViewModel;
-                ElementHost.EnableModelessKeyboardInterop(window);
                 window.Show();
             }
 

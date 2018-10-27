@@ -32,7 +32,7 @@ namespace AutomaticWebInfoGetter
             else
             {
                 InitializeContext();
-                controllerClass = new ControllerClass(new WebInfoGetterBasedOnSeleniumAndChrome());
+                controllerClass = new ControllerClass();
             }
             
         }
