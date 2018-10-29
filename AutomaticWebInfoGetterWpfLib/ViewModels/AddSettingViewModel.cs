@@ -275,8 +275,8 @@ namespace AutomaticWebInfoGetterWpfLib.ViewModels
                         BetweenWritingNewInfoDistance = 2;
                         HorizontalOrientationOfWriting = false;
                         FileNameToWriteInfo = "";
-                        Row = 0;
-                        Column = 0;
+                        Row = 1;
+                        Column = 1;
                         Header = "";
                         IsSingleNode = false;
                         SelectedDelayMeasure = DelayMeasures.First(i => i == DelayMeasuresEnum.Seconds.ToString());
