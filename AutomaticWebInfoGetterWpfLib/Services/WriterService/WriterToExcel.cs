@@ -58,7 +58,7 @@ namespace AutomaticWebInfoGetterWpfLib.Services.WriterService
         {
             if (downloadedPartInfo.CurrentWritingPosition == null)
             {
-                if (downloadedPartInfo.Header != null)
+                if (!string.IsNullOrWhiteSpace(downloadedPartInfo.Header))
                 {
                     workSheet.Cells[downloadedPartInfo.StartPositionOfWriting.Row, downloadedPartInfo.StartPositionOfWriting.Column].Value = downloadedPartInfo.Header;
                     if (settingsInfo.HorizontalOrientationOfWritingInfo)
