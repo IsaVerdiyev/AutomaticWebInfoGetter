@@ -44,7 +44,14 @@ namespace AutomaticWebInfoGetterWpfLib.Services.TimerInitializer
                 if (whenToStart < settingsInfo.TimeInfo.EndDate)
                 {
                     TimeSpan timeDifference = whenToStart - DateTime.Now;
-                    settingsInfo.Timer.Change((int)timeDifference.TotalMilliseconds, Timeout.Infinite);
+                    try
+                    {
+                        settingsInfo.Timer.Change((int)timeDifference.TotalMilliseconds, Timeout.Infinite);
+                    }
+                    catch (ArgumentOutOfRangeException e)
+                    {
+                        settingsInfo.Timer.Change(0, Timeout.Infinite);
+                    }
                 }
 
 
