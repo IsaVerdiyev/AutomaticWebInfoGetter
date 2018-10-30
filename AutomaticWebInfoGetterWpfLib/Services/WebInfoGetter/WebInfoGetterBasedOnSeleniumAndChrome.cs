@@ -21,7 +21,16 @@ namespace AutomaticWebInfoGetterWpfLib.Services.WebInfoGetter
             var chromedriverservice = ChromeDriverService.CreateDefaultService();
             chromedriverservice.HideCommandPromptWindow = true;
             ChromeOptions options = new ChromeOptions();
-            options.AddArgument("headless");
+            options.AddArguments(new List<string>
+            {
+                "--window-size=1920,1080",
+                "--disable-gpu",
+                "--disable-extensions",
+                "--proxy-server='direct://'",
+                "--proxy-bypass-list=*",
+                "--start-maximized",
+                "--headless"
+            });
             webDriver = new ChromeDriver(chromedriverservice, options);
             
         }
