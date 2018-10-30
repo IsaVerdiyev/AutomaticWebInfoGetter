@@ -26,7 +26,6 @@ namespace AutomaticWebInfoGetterWpfLib.ViewModels
 
 
         private string url;
-
         public string URL
         {
             get { return url; }
@@ -38,7 +37,6 @@ namespace AutomaticWebInfoGetterWpfLib.ViewModels
         }
 
         private Visibility addDownloadedPartInfoVisibility;
-
         public Visibility AddDownloadedPartInfoVisibility
         {
             get { return addDownloadedPartInfoVisibility; }
@@ -51,7 +49,6 @@ namespace AutomaticWebInfoGetterWpfLib.ViewModels
 
 
         private string xpath;
-
         public string XPath
         {
             get => xpath;
@@ -63,7 +60,6 @@ namespace AutomaticWebInfoGetterWpfLib.ViewModels
         }
 
         private string header;
-
         public string Header
         {
             get { return header; }
@@ -71,7 +67,6 @@ namespace AutomaticWebInfoGetterWpfLib.ViewModels
         }
 
         private int row;
-
         public int Row
         {
             get { return row; }
@@ -79,7 +74,6 @@ namespace AutomaticWebInfoGetterWpfLib.ViewModels
         }
 
         private int column;
-
         public int Column
         {
             get { return column; }
@@ -87,8 +81,8 @@ namespace AutomaticWebInfoGetterWpfLib.ViewModels
         }
 
 
-        private ObservableCollection<DownloadedPartOfPageSettingInfo> settingInfosOfDownloadedPartsOfPage = new ObservableCollection<DownloadedPartOfPageSettingInfo>();
 
+        private ObservableCollection<DownloadedPartOfPageSettingInfo> settingInfosOfDownloadedPartsOfPage = new ObservableCollection<DownloadedPartOfPageSettingInfo>();
         public ObservableCollection<DownloadedPartOfPageSettingInfo> SettingInfosOfDownloadedPartsOfPage
         {
             get => settingInfosOfDownloadedPartsOfPage;
@@ -96,7 +90,6 @@ namespace AutomaticWebInfoGetterWpfLib.ViewModels
         }
 
         private int distanceBetweenLines;
-
         public int DistanceBetweenLines
         {
             get { return distanceBetweenLines; }
@@ -104,7 +97,6 @@ namespace AutomaticWebInfoGetterWpfLib.ViewModels
         }
 
         private int betweenWritingNewInfoDistance;
-
         public int BetweenWritingNewInfoDistance
         {
             get { return betweenWritingNewInfoDistance; }
@@ -112,15 +104,21 @@ namespace AutomaticWebInfoGetterWpfLib.ViewModels
         }
 
         private bool horizontalOrientationOfWriting;
-
         public bool HorizontalOrientationOfWriting
         {
             get { return horizontalOrientationOfWriting; }
             set => Set(ref horizontalOrientationOfWriting, value);
         }
 
-        private string fileNameToWriteInfo;
+        private bool startAllPartsAtSamePosition;
+        public bool StartAllPartsAtSamePosition
+        {
+            get { return startAllPartsAtSamePosition; }
+            set => Set(ref startAllPartsAtSamePosition, value);
+        }
 
+
+        private string fileNameToWriteInfo;
         public string FileNameToWriteInfo
         {
             get { return fileNameToWriteInfo; }
@@ -134,7 +132,6 @@ namespace AutomaticWebInfoGetterWpfLib.ViewModels
 
 
         private bool isSingleNode;
-
         public bool IsSingleNode
         {
             get { return isSingleNode; }
@@ -143,7 +140,6 @@ namespace AutomaticWebInfoGetterWpfLib.ViewModels
 
 
         private TimeSpan delayBetweenQueries;
-
         public TimeSpan DelayBetweenQueries
         {
             get
@@ -174,7 +170,6 @@ namespace AutomaticWebInfoGetterWpfLib.ViewModels
 
 
         private string selectedDelayMeasure;
-
         public string SelectedDelayMeasure
         {
             get { return selectedDelayMeasure; }
@@ -188,7 +183,6 @@ namespace AutomaticWebInfoGetterWpfLib.ViewModels
 
 
         private double numericRepresentationOfDelay;
-
         public double NumericRepresentationOfDelay
         {
             get { return numericRepresentationOfDelay; }
@@ -202,16 +196,13 @@ namespace AutomaticWebInfoGetterWpfLib.ViewModels
 
 
         private DateTime startDate;
-
         public DateTime StartDate
         {
             get { return startDate; }
             set { startDate = value; }
         }
 
-
         private DateTime endDate;
-
         public DateTime EndDate
         {
             get { return endDate; }
@@ -278,6 +269,7 @@ namespace AutomaticWebInfoGetterWpfLib.ViewModels
                         Row = 1;
                         Column = 1;
                         Header = "";
+                        StartAllPartsAtSamePosition = true;
                         IsSingleNode = false;
                         SelectedDelayMeasure = DelayMeasures.First(i => i == DelayMeasuresEnum.Seconds.ToString());
                         NumericRepresentationOfDelay = 1;
@@ -316,6 +308,7 @@ namespace AutomaticWebInfoGetterWpfLib.ViewModels
                         BetweenWritingNewInfoDistance = BetweenWritingNewInfoDistance,
                         HorizontalOrientationOfWritingInfo = HorizontalOrientationOfWriting,
                         NameOfFileToWriteInfo = FileNameToWriteInfo,
+                         StartAllPartsAtSamePosition = StartAllPartsAtSamePosition,
                         TimeInfo = new ActionExecutionTimeInfo
                         {
                             StartDate = StartDate,
@@ -360,8 +353,8 @@ namespace AutomaticWebInfoGetterWpfLib.ViewModels
                         () =>
                         {
                             XPath = "";
-                            Row = 0;
-                            Column = 0;
+                            Row = 1;
+                            Column = 1;
                             Header = "";
                             AddDownloadedPartInfoVisibility = Visibility.Collapsed;
                         }));

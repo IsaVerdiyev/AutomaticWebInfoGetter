@@ -29,6 +29,7 @@
                 <RowDefinition/>
                 <RowDefinition/>
                 <RowDefinition/>
+                <RowDefinition/>
             </Grid.RowDefinitions>
             <StackPanel>
                 <TextBlock  
@@ -135,14 +136,21 @@
                       HorizontalAlignment="Center"
                       Content="Is single node"
                       VerticalContentAlignment="Center"
-                      IsChecked="{Binding IsSingleNode}"/>
+                      IsChecked="{Binding IsSingleNode, Mode=TwoWay}"/>
+            </StackPanel>
+            <StackPanel Grid.Row="6">
+                <CheckBox
+                    HorizontalAlignment="Center"
+                    Content="Align all parts of info in one line"
+                    VerticalContentAlignment="Center"
+                    IsChecked="{Binding StartAllPartsAtSamePosition, Mode=TwoWay}"/>
             </StackPanel>
             <TextBlock 
-                    Grid.Row="6" 
+                    Grid.Row="7" 
                     Style="{StaticResource HeadingsStyle}"
                     Text="Delay between queries"/>
             <UniformGrid 
-                Grid.Row="7" 
+                Grid.Row="8" 
                 Columns="2">
                 <ctrLib:NumericUpDown 
                         x:Name="NumericUpDown" 
@@ -155,7 +163,7 @@
                           SelectedItem="{Binding SelectedDelayMeasure}"/>
 
             </UniformGrid>
-            <UniformGrid Grid.Row="8" 
+            <UniformGrid Grid.Row="9" 
                              Columns="2">
                 <StackPanel>
                     <TextBlock Style="{StaticResource HeadingsStyle}"
