@@ -11,17 +11,46 @@ namespace AutomaticWebInfoGetterWpfLib.Services.WriterService
 {
     class WriterToExcel : IWriter
     {
+
+        object lockObject = new object();
+
         public void WriteToExcel(List<string> infos, SettingsInfo settingsInfo, DownloadedPartOfPageSettingInfo downloadedPart)
         {
-            var file = new FileInfo(settingsInfo.NameOfFileToWriteInfo);
-            using (var excelPackage = new ExcelPackage(file))
+            lock (lockObject)
             {
-                ExcelWorksheet workSheet;
-                InitializeWorkSheet(excelPackage, out workSheet);
-                InstallCurrentWritingPositionIfIsNull(downloadedPart, settingsInfo, workSheet);
-                for (int i = 0; i < infos.Count(); i++)
+                var file = new FileInfo(settingsInfo.NameOfFileToWriteInfo);
+                using (var excelPackage = new ExcelPackage(file))
                 {
-                    workSheet.Cells[downloadedPart.CurrentWritingPosition.Row, downloadedPart.CurrentWritingPosition.Column].Value = infos[i];
+                    ExcelWorksheet workSheet;
+                    InitializeWorkSheet(excelPackage, out workSheet);
+                    InstallCurrentWritingPositionIfIsNull(downloadedPart, settingsInfo, workSheet);
+                    for (int i = 0; i < infos.Count(); i++)
+                    {
+                        workSheet.Cells[downloadedPart.CurrentWritingPosition.Row, downloadedPart.CurrentWritingPosition.Column].Value = infos[i];
+                        if (settingsInfo.HorizontalOrientationOfWritingInfo)
+                        {
+                            downloadedPart.CurrentWritingPosition.Column += settingsInfo.BetweenLineDistance;
+                        }
+                        else
+                        {
+                            downloadedPart.CurrentWritingPosition.Row += settingsInfo.BetweenLineDistance;
+                        }
+                    }
+                    excelPackage.Save();
+                }
+            }
+        }
+        public void WriteToExcel(string info, SettingsInfo settingsInfo, DownloadedPartOfPageSettingInfo downloadedPart)
+        {
+            lock (lockObject)
+            {
+                var file = new FileInfo(settingsInfo.NameOfFileToWriteInfo);
+                using (var excelPackage = new ExcelPackage(file))
+                {
+                    ExcelWorksheet workSheet;
+                    InitializeWorkSheet(excelPackage, out workSheet);
+                    InstallCurrentWritingPositionIfIsNull(downloadedPart, settingsInfo, workSheet);
+                    workSheet.Cells[downloadedPart.CurrentWritingPosition.Row, downloadedPart.CurrentWritingPosition.Column].Value = info;
                     if (settingsInfo.HorizontalOrientationOfWritingInfo)
                     {
                         downloadedPart.CurrentWritingPosition.Column += settingsInfo.BetweenLineDistance;
@@ -30,28 +59,8 @@ namespace AutomaticWebInfoGetterWpfLib.Services.WriterService
                     {
                         downloadedPart.CurrentWritingPosition.Row += settingsInfo.BetweenLineDistance;
                     }
+                    excelPackage.Save();
                 }
-                excelPackage.Save();
-            }
-        }
-        public void WriteToExcel(string info, SettingsInfo settingsInfo, DownloadedPartOfPageSettingInfo downloadedPart)
-        {
-            var file = new FileInfo(settingsInfo.NameOfFileToWriteInfo);
-            using (var excelPackage = new ExcelPackage(file))
-            {
-                ExcelWorksheet workSheet;
-                InitializeWorkSheet(excelPackage, out workSheet);
-                InstallCurrentWritingPositionIfIsNull(downloadedPart, settingsInfo, workSheet);
-                workSheet.Cells[downloadedPart.CurrentWritingPosition.Row, downloadedPart.CurrentWritingPosition.Column].Value = info;
-                if (settingsInfo.HorizontalOrientationOfWritingInfo)
-                {
-                    downloadedPart.CurrentWritingPosition.Column += settingsInfo.BetweenLineDistance;
-                }
-                else
-                {
-                    downloadedPart.CurrentWritingPosition.Row += settingsInfo.BetweenLineDistance;
-                }
-                excelPackage.Save();
             }
         }
         private void InstallCurrentWritingPositionIfIsNull(DownloadedPartOfPageSettingInfo downloadedPartInfo, SettingsInfo settingsInfo, ExcelWorksheet workSheet)
