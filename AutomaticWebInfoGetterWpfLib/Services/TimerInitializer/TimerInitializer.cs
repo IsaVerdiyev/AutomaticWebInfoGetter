@@ -29,15 +29,50 @@ namespace AutomaticWebInfoGetterWpfLib.Services.TimerInitializer
 
             settingsInfo.Timer = new Timer(o1 => Task.Run(() =>
             {
-                foreach(var item in settingsInfo.SettingInfosOfDownloadedPartsOfPage)
+                if (settingsInfo.StartAllPartsAtSamePosition == true)
                 {
-                    if (settingsInfo.SingleNode)
+                    if (settingsInfo.HorizontalOrientationOfWritingInfo)
                     {
-                        writer.WriteToExcel(webInfogetter.GetStringOfNodeByXPathFromUrl(settingsInfo.URL, item.XPath), settingsInfo, item);
+                        var maxColumn = settingsInfo.SettingInfosOfDownloadedPartsOfPage.Max(p => p.CurrentWritingPosition?.Column);
+                        foreach (var part in settingsInfo.SettingInfosOfDownloadedPartsOfPage)
+                        {
+                            if(part.CurrentWritingPosition != null)
+                            {
+                                part.CurrentWritingPosition.Column = maxColumn.Value;
+                            }
+                        }
                     }
                     else
                     {
-                        writer.WriteToExcel(webInfogetter.GetStringsOfNodesByXPathFromUrl(settingsInfo.URL, item.XPath), settingsInfo, item);
+                        var maxRow = settingsInfo.SettingInfosOfDownloadedPartsOfPage.Max(p => p.CurrentWritingPosition?.Row);
+                        foreach (var part in settingsInfo.SettingInfosOfDownloadedPartsOfPage)
+                        {
+                            if(part.CurrentWritingPosition != null)
+                            {
+                                part.CurrentWritingPosition.Row = maxRow.Value;
+                            }
+                        }
+                    }
+                }
+                foreach (var item in settingsInfo.SettingInfosOfDownloadedPartsOfPage)
+                {
+
+                    List<string> resultsFromInfo = webInfogetter.GetStringsOfNodesByXPathFromUrl(settingsInfo.URL, item.XPath);
+                    if(string.IsNullOrEmpty(resultsFromInfo.FirstOrDefault()))
+                    {
+                        string resultFromInfo = webInfogetter.GetStringOfNodeByXPathFromUrl(settingsInfo.URL, item.XPath);
+                        if(!string.IsNullOrEmpty(resultFromInfo))
+                        {
+                            writer.WriteToExcel(resultFromInfo, settingsInfo, item);
+                        }
+                        else
+                        {
+                            writer.WriteToExcel("Info not found", settingsInfo, item);
+                        }
+                    }
+                    else
+                    {
+                        writer.WriteToExcel(resultsFromInfo, settingsInfo, item);
                     }
                 }
                 whenToStart = whenToStart.Add(settingsInfo.TimeInfo.DelayBetweenQueries);

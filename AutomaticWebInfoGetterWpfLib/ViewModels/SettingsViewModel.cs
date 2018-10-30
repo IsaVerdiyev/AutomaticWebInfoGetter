@@ -41,7 +41,6 @@ namespace AutomaticWebInfoGetterWpfLib.ViewModels
                 Set(ref selectedSettingInfo, value);
                 RaisePropertyChanged(nameof(Url));
                 RaisePropertyChanged(nameof(DownloadedPartOfPageSettingInfos));
-                RaisePropertyChanged(nameof(IsSingleNode));
                 RaisePropertyChanged(nameof(StartDate));
                 RaisePropertyChanged(nameof(EndDate));
                 RaisePropertyChanged(nameof(DelayBetweenQueries));
@@ -73,8 +72,6 @@ namespace AutomaticWebInfoGetterWpfLib.ViewModels
         {
             get => SelectedSettingInfo?.SettingInfosOfDownloadedPartsOfPage;
         }
-
-        public bool IsSingleNode { get => SelectedSettingInfo != null ? SelectedSettingInfo.SingleNode : false; }
 
         public DateTime StartDate { get => SelectedSettingInfo != null ? SelectedSettingInfo.TimeInfo.StartDate : DateTime.Now; }
 

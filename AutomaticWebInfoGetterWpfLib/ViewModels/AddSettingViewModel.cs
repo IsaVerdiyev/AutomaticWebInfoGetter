@@ -131,14 +131,6 @@ namespace AutomaticWebInfoGetterWpfLib.ViewModels
 
 
 
-        private bool isSingleNode;
-        public bool IsSingleNode
-        {
-            get { return isSingleNode; }
-            set { Set(ref isSingleNode, value); }
-        }
-
-
         private TimeSpan delayBetweenQueries;
         public TimeSpan DelayBetweenQueries
         {
@@ -270,7 +262,6 @@ namespace AutomaticWebInfoGetterWpfLib.ViewModels
                         Column = 1;
                         Header = "";
                         StartAllPartsAtSamePosition = true;
-                        IsSingleNode = false;
                         SelectedDelayMeasure = DelayMeasures.First(i => i == DelayMeasuresEnum.Seconds.ToString());
                         NumericRepresentationOfDelay = 1;
                         StartDate = DateTime.Now;
@@ -303,7 +294,6 @@ namespace AutomaticWebInfoGetterWpfLib.ViewModels
                     {
                         URL = URL,
                         SettingInfosOfDownloadedPartsOfPage = new ObservableCollection<DownloadedPartOfPageSettingInfo>(SettingInfosOfDownloadedPartsOfPage),
-                        SingleNode = IsSingleNode,
                         BetweenLineDistance = DistanceBetweenLines,
                         BetweenWritingNewInfoDistance = BetweenWritingNewInfoDistance,
                         HorizontalOrientationOfWritingInfo = HorizontalOrientationOfWriting,

@@ -92,12 +92,6 @@
                             Style="{StaticResource InfoContentsStyle}"
                             Text="{Binding HorizontalOrientation, Converter={StaticResource OrientationOfWritingBoolToStringConverter}}"/>
                     </StackPanel>
-                    <StackPanel>
-                        <TextBlock Style="{StaticResource InfoHeadingsStyle}"
-                           Text="Single node or list of nodes"/>
-                        <TextBlock Style="{StaticResource InfoContentsStyle}"
-                           Text="{Binding IsSingleNode, Converter={StaticResource IsSingleBoolToStringConverter}}"/>
-                    </StackPanel>
 
                     <StackPanel>
                         <TextBlock Style="{StaticResource InfoHeadingsStyle}"

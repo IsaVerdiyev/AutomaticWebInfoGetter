@@ -13,9 +13,6 @@ namespace AutomaticWebInfoGetterWpfLib.Models
         string url;
         public string URL { get => url; set => url = value; }
 
-        bool singleNode;
-        public bool SingleNode { get => singleNode; set => singleNode = value; }
-
         ActionExecutionTimeInfo timeInfo;
         public ActionExecutionTimeInfo TimeInfo { get => timeInfo; set => timeInfo = value; }
 

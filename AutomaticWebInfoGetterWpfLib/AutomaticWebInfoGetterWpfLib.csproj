@@ -153,7 +153,6 @@
     <Compile Include="Converters\DelayBetweenQueriesTimespanToStringMultiConverter.cs" />
     <Compile Include="Converters\OrientationOfWritingBoolToStringConverter.cs" />
     <Compile Include="Exceptions\NoSuchEnumInTimespanToStringMultiConverter.cs" />
-    <Compile Include="Converters\IsSingleBoolToStringConverter.cs" />
     <Compile Include="Messages\SettingsViewModelAddSettingInfoMessage.cs" />
     <Compile Include="Messages\AddSettingViewModelInitializeMessage.cs" />
     <Compile Include="Messages\SettingsViewModelInitializeMessage.cs" />

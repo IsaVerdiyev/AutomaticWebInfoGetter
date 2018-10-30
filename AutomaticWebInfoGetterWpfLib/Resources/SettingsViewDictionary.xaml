@@ -6,7 +6,6 @@
         <ResourceDictionary Source="CommonDictionary.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 
-    <converters:IsSingleBoolToStringConverter x:Key="IsSingleBoolToStringConverter"/>
     <converters:DelayBetweenQueriesTimespanToStringMultiConverter x:Key="TimespanToStringMultiConverter"/>
     <converters:OrientationOfWritingBoolToStringConverter x:Key="OrientationOfWritingBoolToStringConverter"/>
     

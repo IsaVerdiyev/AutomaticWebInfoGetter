@@ -29,7 +29,6 @@
                 <RowDefinition/>
                 <RowDefinition/>
                 <RowDefinition/>
-                <RowDefinition/>
             </Grid.RowDefinitions>
             <StackPanel>
                 <TextBlock  
@@ -126,19 +125,7 @@
                 <TextBox 
                     Text="{Binding FileNameToWriteInfo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             </StackPanel>
-            <StackPanel Grid.Row="5"
-                        Orientation="Horizontal"
-                        HorizontalAlignment="Center">
-                <TextBlock  
-                       Style="{StaticResource HeadingsStyle}"
-                       Text="Check checkbox if single node should returned:  "/>
-                <CheckBox 
-                      HorizontalAlignment="Center"
-                      Content="Is single node"
-                      VerticalContentAlignment="Center"
-                      IsChecked="{Binding IsSingleNode, Mode=TwoWay}"/>
-            </StackPanel>
-            <StackPanel Grid.Row="6">
+            <StackPanel Grid.Row="5">
                 <CheckBox
                     HorizontalAlignment="Center"
                     Content="Align all parts of info in one line"
@@ -146,11 +133,11 @@
                     IsChecked="{Binding StartAllPartsAtSamePosition, Mode=TwoWay}"/>
             </StackPanel>
             <TextBlock 
-                    Grid.Row="7" 
+                    Grid.Row="6" 
                     Style="{StaticResource HeadingsStyle}"
                     Text="Delay between queries"/>
             <UniformGrid 
-                Grid.Row="8" 
+                Grid.Row="7" 
                 Columns="2">
                 <ctrLib:NumericUpDown 
                         x:Name="NumericUpDown" 
@@ -163,7 +150,7 @@
                           SelectedItem="{Binding SelectedDelayMeasure}"/>
 
             </UniformGrid>
-            <UniformGrid Grid.Row="9" 
+            <UniformGrid Grid.Row="8" 
                              Columns="2">
                 <StackPanel>
                     <TextBlock Style="{StaticResource HeadingsStyle}"
