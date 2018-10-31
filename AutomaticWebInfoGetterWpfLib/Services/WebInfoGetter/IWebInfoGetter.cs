@@ -8,7 +8,8 @@ namespace AutomaticWebInfoGetterWpfLib.Services.WebInfoGetter
 {
     public interface IWebInfoGetter
     {
-        string GetStringOfNodeByXPathFromUrl(string url, string xpath);
-        List<string> GetStringsOfNodesByXPathFromUrl(string url, string xpath);
+        string GetStringOfNodeByXPathFromUrl(string xpath);
+        List<string> GetStringsOfNodesByXPathFromUrl(string xpath);
+        void LoadPage(string url);
     }
 }

@@ -37,58 +37,54 @@ namespace AutomaticWebInfoGetterWpfLib.Services.WebInfoGetter
             windowHandle = webDriver.CurrentWindowHandle;
         }
 
+        public void LoadPage(string url)
+        {
+            webDriver.Url = url;
+        }
 
-        public string GetStringOfNodeByXPathFromUrl(string url, string xpath)
+        public string GetStringOfNodeByXPathFromUrl(string xpath)
         {
             IWebElement element;
 
-            lock (lockObject)
+
+            WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(20));
+            try
             {
-                WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(20));
-                try
-                {
-                    webDriver.Url = url;
-
-
-                    wait.Until(webDriver => webDriver.FindElement(By.XPath(xpath)) != null);
-                    element = webDriver.FindElement(By.XPath(xpath));
-                }
-                catch(UnhandledAlertException e)
-                {
-                    DismissAlert();
-                    wait.Until(webDriver => webDriver.FindElement(By.XPath(xpath)) != null);
-                    element = webDriver.FindElement(By.XPath(xpath));
-                }
-                return element.Text;
+                wait.Until(webDriver => webDriver.FindElement(By.XPath(xpath)) != null);
+                element = webDriver.FindElement(By.XPath(xpath));
             }
-            
+            catch (UnhandledAlertException e)
+            {
+                DismissAlert();
+                wait.Until(webDriver => webDriver.FindElement(By.XPath(xpath)) != null);
+                element = webDriver.FindElement(By.XPath(xpath));
+            }
+            return element.Text;
+
+
         }
 
-        public List<string> GetStringsOfNodesByXPathFromUrl(string url, string xpath)
+        public List<string> GetStringsOfNodesByXPathFromUrl(string xpath)
         {
             ReadOnlyCollection<IWebElement> elements;
-             
-            lock (lockObject)
+
+
+            WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(20));
+            try
             {
-                WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(20));
-                try
-                {
-                    webDriver.Url = url;
-
-
-                    wait.Until( webDriver => webDriver.FindElements(By.XPath(xpath)).Count > 0);
-                    elements = webDriver.FindElements(By.XPath(xpath));
-                }
-                catch(UnhandledAlertException e)
-                {
-                    DismissAlert();
-                    wait.Until(webDriver => webDriver.FindElements(By.XPath(xpath)).Count > 0);
-                    elements = webDriver.FindElements(By.XPath(xpath));
-
-                }
-
-                return elements.Select(e => e.Text).ToList();
+                wait.Until(webDriver => webDriver.FindElements(By.XPath(xpath)).Count > 0);
+                elements = webDriver.FindElements(By.XPath(xpath));
             }
+            catch (UnhandledAlertException e)
+            {
+                DismissAlert();
+                wait.Until(webDriver => webDriver.FindElements(By.XPath(xpath)).Count > 0);
+                elements = webDriver.FindElements(By.XPath(xpath));
+
+            }
+
+            return elements.Select(e => e.Text).ToList();
+
         }
 
 

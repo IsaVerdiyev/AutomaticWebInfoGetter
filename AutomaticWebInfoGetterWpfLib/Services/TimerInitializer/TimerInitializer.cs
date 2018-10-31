@@ -54,25 +54,29 @@ namespace AutomaticWebInfoGetterWpfLib.Services.TimerInitializer
                         }
                     }
                 }
-                foreach (var item in settingsInfo.SettingInfosOfDownloadedPartsOfPage)
+                lock (webInfogetter)
                 {
-
-                    List<string> resultsFromInfo = webInfogetter.GetStringsOfNodesByXPathFromUrl(settingsInfo.URL, item.XPath);
-                    if(string.IsNullOrEmpty(resultsFromInfo.FirstOrDefault()))
+                    webInfogetter.LoadPage(settingsInfo.URL);
+                    foreach (var item in settingsInfo.SettingInfosOfDownloadedPartsOfPage)
                     {
-                        string resultFromInfo = webInfogetter.GetStringOfNodeByXPathFromUrl(settingsInfo.URL, item.XPath);
-                        if(!string.IsNullOrEmpty(resultFromInfo))
+
+                        List<string> resultsFromInfo = webInfogetter.GetStringsOfNodesByXPathFromUrl(item.XPath);
+                        if (string.IsNullOrEmpty(resultsFromInfo.FirstOrDefault()))
                         {
-                            writer.WriteToExcel(resultFromInfo, settingsInfo, item);
+                            string resultFromInfo = webInfogetter.GetStringOfNodeByXPathFromUrl(item.XPath);
+                            if (!string.IsNullOrEmpty(resultFromInfo))
+                            {
+                                writer.WriteToExcel(resultFromInfo, settingsInfo, item);
+                            }
+                            else
+                            {
+                                writer.WriteToExcel("Info not found", settingsInfo, item);
+                            }
                         }
                         else
                         {
-                            writer.WriteToExcel("Info not found", settingsInfo, item);
+                            writer.WriteToExcel(resultsFromInfo, settingsInfo, item);
                         }
-                    }
-                    else
-                    {
-                        writer.WriteToExcel(resultsFromInfo, settingsInfo, item);
                     }
                 }
                 whenToStart = whenToStart.Add(settingsInfo.TimeInfo.DelayBetweenQueries);
