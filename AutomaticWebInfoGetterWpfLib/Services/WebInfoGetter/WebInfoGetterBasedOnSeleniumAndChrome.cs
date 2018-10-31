@@ -16,6 +16,8 @@ namespace AutomaticWebInfoGetterWpfLib.Services.WebInfoGetter
 
         object lockObject = new object();
 
+        string windowHandle;
+
         public WebInfoGetterBasedOnSeleniumAndChrome()
         {
             var chromedriverservice = ChromeDriverService.CreateDefaultService();
@@ -32,7 +34,7 @@ namespace AutomaticWebInfoGetterWpfLib.Services.WebInfoGetter
                 "--headless"
             });
             webDriver = new ChromeDriver(chromedriverservice, options);
-            
+            windowHandle = webDriver.CurrentWindowHandle;
         }
 
 
@@ -48,15 +50,18 @@ namespace AutomaticWebInfoGetterWpfLib.Services.WebInfoGetter
                     webDriver.Url = url;
 
 
-                    element = wait.Until((webdriver) => webDriver.FindElement(By.XPath(xpath)));
-                }catch(UnhandledAlertException e)
+                    wait.Until(webDriver => webDriver.FindElement(By.XPath(xpath)) != null);
+                    element = webDriver.FindElement(By.XPath(xpath));
+                }
+                catch(UnhandledAlertException e)
                 {
                     DismissAlert();
-                    element = wait.Until((webdriver) => webDriver.FindElement(By.XPath(xpath)));
+                    wait.Until(webDriver => webDriver.FindElement(By.XPath(xpath)) != null);
+                    element = webDriver.FindElement(By.XPath(xpath));
                 }
+                return element.Text;
             }
-
-            return element.Text;
+            
         }
 
         public List<string> GetStringsOfNodesByXPathFromUrl(string url, string xpath)
@@ -71,17 +76,19 @@ namespace AutomaticWebInfoGetterWpfLib.Services.WebInfoGetter
                     webDriver.Url = url;
 
 
-                    elements = wait.Until((webdriver) => webDriver.FindElements(By.XPath(xpath)));
-                }catch(UnhandledAlertException e)
+                    wait.Until( webDriver => webDriver.FindElements(By.XPath(xpath)).Count > 0);
+                    elements = webDriver.FindElements(By.XPath(xpath));
+                }
+                catch(UnhandledAlertException e)
                 {
-
                     DismissAlert();
-                    elements = wait.Until((webdriver) => webDriver.FindElements(By.XPath(xpath)));
+                    wait.Until(webDriver => webDriver.FindElements(By.XPath(xpath)).Count > 0);
+                    elements = webDriver.FindElements(By.XPath(xpath));
 
                 }
 
+                return elements.Select(e => e.Text).ToList();
             }
-            return elements.Select(e => e.Text).ToList();
         }
 
 
@@ -89,6 +96,8 @@ namespace AutomaticWebInfoGetterWpfLib.Services.WebInfoGetter
         {
             var alert = webDriver.SwitchTo().Alert();
             alert.Dismiss();
+            webDriver.SwitchTo().Window(windowHandle);
+           
         }
 
         ~WebInfoGetterBasedOnSeleniumAndChrome (){
