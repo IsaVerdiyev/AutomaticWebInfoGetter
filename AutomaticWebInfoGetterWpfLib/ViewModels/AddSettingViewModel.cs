@@ -110,13 +110,6 @@ namespace AutomaticWebInfoGetterWpfLib.ViewModels
             set => Set(ref horizontalOrientationOfWriting, value);
         }
 
-        private bool startAllPartsAtSamePosition;
-        public bool StartAllPartsAtSamePosition
-        {
-            get { return startAllPartsAtSamePosition; }
-            set => Set(ref startAllPartsAtSamePosition, value);
-        }
-
 
         private string fileNameToWriteInfo;
         public string FileNameToWriteInfo
@@ -261,7 +254,6 @@ namespace AutomaticWebInfoGetterWpfLib.ViewModels
                         Row = 1;
                         Column = 1;
                         Header = "";
-                        StartAllPartsAtSamePosition = true;
                         SelectedDelayMeasure = DelayMeasures.First(i => i == DelayMeasuresEnum.Seconds.ToString());
                         NumericRepresentationOfDelay = 1;
                         StartDate = DateTime.Now;
@@ -298,7 +290,6 @@ namespace AutomaticWebInfoGetterWpfLib.ViewModels
                         BetweenWritingNewInfoDistance = BetweenWritingNewInfoDistance,
                         HorizontalOrientationOfWritingInfo = HorizontalOrientationOfWriting,
                         NameOfFileToWriteInfo = FileNameToWriteInfo,
-                         StartAllPartsAtSamePosition = StartAllPartsAtSamePosition,
                         TimeInfo = new ActionExecutionTimeInfo
                         {
                             StartDate = StartDate,

@@ -20,14 +20,6 @@ namespace AutomaticWebInfoGetterWpfLib.Models
         public Timer Timer { get => timer; set => timer = value; }
 
 
-        private bool startAllPartsAtSamePosition;
-        public bool StartAllPartsAtSamePosition
-        {
-            get { return startAllPartsAtSamePosition; }
-            set { startAllPartsAtSamePosition = value; }
-        }
-
-
         private ObservableCollection<DownloadedPartOfPageSettingInfo> settingInfosOfDownloadedPartsOfPage;
         public ObservableCollection<DownloadedPartOfPageSettingInfo> SettingInfosOfDownloadedPartsOfPage
         {

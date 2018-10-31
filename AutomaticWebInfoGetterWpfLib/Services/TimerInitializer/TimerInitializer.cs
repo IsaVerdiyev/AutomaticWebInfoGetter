@@ -29,31 +29,30 @@ namespace AutomaticWebInfoGetterWpfLib.Services.TimerInitializer
 
             settingsInfo.Timer = new Timer(o1 => Task.Run(() =>
             {
-                if (settingsInfo.StartAllPartsAtSamePosition == true)
+
+                if (settingsInfo.HorizontalOrientationOfWritingInfo)
                 {
-                    if (settingsInfo.HorizontalOrientationOfWritingInfo)
+                    var maxColumn = settingsInfo.SettingInfosOfDownloadedPartsOfPage.Max(p => p.CurrentWritingPosition?.Column);
+                    foreach (var part in settingsInfo.SettingInfosOfDownloadedPartsOfPage)
                     {
-                        var maxColumn = settingsInfo.SettingInfosOfDownloadedPartsOfPage.Max(p => p.CurrentWritingPosition?.Column);
-                        foreach (var part in settingsInfo.SettingInfosOfDownloadedPartsOfPage)
+                        if (part.CurrentWritingPosition != null)
                         {
-                            if(part.CurrentWritingPosition != null)
-                            {
-                                part.CurrentWritingPosition.Column = maxColumn.Value;
-                            }
-                        }
-                    }
-                    else
-                    {
-                        var maxRow = settingsInfo.SettingInfosOfDownloadedPartsOfPage.Max(p => p.CurrentWritingPosition?.Row);
-                        foreach (var part in settingsInfo.SettingInfosOfDownloadedPartsOfPage)
-                        {
-                            if(part.CurrentWritingPosition != null)
-                            {
-                                part.CurrentWritingPosition.Row = maxRow.Value;
-                            }
+                            part.CurrentWritingPosition.Column = maxColumn.Value;
                         }
                     }
                 }
+                else
+                {
+                    var maxRow = settingsInfo.SettingInfosOfDownloadedPartsOfPage.Max(p => p.CurrentWritingPosition?.Row);
+                    foreach (var part in settingsInfo.SettingInfosOfDownloadedPartsOfPage)
+                    {
+                        if (part.CurrentWritingPosition != null)
+                        {
+                            part.CurrentWritingPosition.Row = maxRow.Value;
+                        }
+                    }
+                }
+
                 lock (webInfogetter)
                 {
                     webInfogetter.LoadPage(settingsInfo.URL);

@@ -125,19 +125,13 @@
                 <TextBox 
                     Text="{Binding FileNameToWriteInfo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             </StackPanel>
-            <StackPanel Grid.Row="5">
-                <CheckBox
-                    HorizontalAlignment="Center"
-                    Content="Align all parts of info in one line"
-                    VerticalContentAlignment="Center"
-                    IsChecked="{Binding StartAllPartsAtSamePosition, Mode=TwoWay}"/>
-            </StackPanel>
+          
             <TextBlock 
-                    Grid.Row="6" 
+                    Grid.Row="5" 
                     Style="{StaticResource HeadingsStyle}"
                     Text="Delay between queries"/>
             <UniformGrid 
-                Grid.Row="7" 
+                Grid.Row="6" 
                 Columns="2">
                 <ctrLib:NumericUpDown 
                         x:Name="NumericUpDown" 
@@ -150,7 +144,7 @@
                           SelectedItem="{Binding SelectedDelayMeasure}"/>
 
             </UniformGrid>
-            <UniformGrid Grid.Row="8" 
+            <UniformGrid Grid.Row="7" 
                              Columns="2">
                 <StackPanel>
                     <TextBlock Style="{StaticResource HeadingsStyle}"
