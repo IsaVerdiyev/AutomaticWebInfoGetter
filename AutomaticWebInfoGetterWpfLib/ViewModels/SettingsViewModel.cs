@@ -89,11 +89,11 @@ namespace AutomaticWebInfoGetterWpfLib.ViewModels
         }
 
 
-        public string Header { get => SelectedDownloadedPart.Header; }
+        public string Header { get => SelectedDownloadedPart?.Header; }
 
-        public int StartRow { get => SelectedDownloadedPart.StartPositionOfWriting.Row; }
+        public int? StartRow { get => SelectedDownloadedPart?.StartPositionOfWriting.Row; }
 
-        public int StartColumn { get => SelectedDownloadedPart.StartPositionOfWriting.Column; }
+        public int? StartColumn { get => SelectedDownloadedPart?.StartPositionOfWriting.Column; }
 
 
         public DateTime StartDate { get => SelectedSettingInfo != null ? SelectedSettingInfo.TimeInfo.StartDate : DateTime.Now; }
