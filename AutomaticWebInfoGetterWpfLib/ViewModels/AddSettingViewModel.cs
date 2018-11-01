@@ -263,6 +263,7 @@ namespace AutomaticWebInfoGetterWpfLib.ViewModels
                         HorizontalOrientationOfWriting = false;
                         FileNameToWriteInfo = "";
                         RowOrColumn = 1;
+                        GlobalStartRowOrColumn = 1;
                         Header = "";
                         SelectedDelayMeasure = DelayMeasures.First(i => i == DelayMeasuresEnum.Seconds.ToString());
                         NumericRepresentationOfDelay = 1;
