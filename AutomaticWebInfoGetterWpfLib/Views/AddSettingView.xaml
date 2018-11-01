@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:AutomaticWebInfoGetterWpfLib.Views"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
              xmlns:ctrLib="clr-namespace:WpfCustomControlsByMe;assembly=WpfCustomControlsByMe"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
@@ -28,9 +29,8 @@
                 <RowDefinition/>
                 <RowDefinition/>
                 <RowDefinition/>
-                <RowDefinition/>
             </Grid.RowDefinitions>
-            <StackPanel>
+            <StackPanel x:Name="UrlStackPanel">
                 <TextBlock  
                     Style="{StaticResource HeadingsStyle}"
                     Text="URL"/>
@@ -39,7 +39,8 @@
                     Style="{StaticResource TextInputAlignment}"
                     Text="{Binding URL, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
             </StackPanel>
-            <StackPanel Grid.Row="1">
+            <StackPanel Grid.Row="1"
+                        x:Name="PartsOfPageStackPanel">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
@@ -62,29 +63,29 @@
                                Style="{StaticResource HeadingsStyle}"/>
                     <TextBox
                         Text="{Binding Header, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                    <TextBlock Text="StartPosition"
-                               Style="{StaticResource HeadingsStyle}"/>
+                    
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
                             <ColumnDefinition/>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
-                        <TextBlock Text="Row"
-                                   Style="{StaticResource HeadingsStyle}"
-                                   HorizontalAlignment="Right"/>
+                        <TextBlock 
+                            Style="{StaticResource HeadingsStyle}"
+                            HorizontalAlignment="Right">
+                            <TextBlock.Text>
+                                <MultiBinding Converter="{StaticResource OrientationOrWritingToRowOrColumnConverter}">
+                                    <Binding Path="HorizontalOrientationOfWriting" Mode="OneWay"/>
+                                    <Binding>
+                                        <Binding.Source>
+                                            <sys:Boolean>False</sys:Boolean> 
+                                        </Binding.Source>
+                                    </Binding>
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
                         <ctrLib:NumericUpDown Grid.Column="1"
                                               HorizontalAlignment="Left"
-                                              Value="{Binding Row, Mode=TwoWay}"
-                                              MinValue="1"/>
-                        <TextBlock Grid.Column="2"
-                                   Text="Column"
-                                   Style="{StaticResource HeadingsStyle}"
-                                   HorizontalAlignment="Right"/>
-                        <ctrLib:NumericUpDown Grid.Column="3"
-                                              HorizontalAlignment="Left"
-                                              Value="{Binding Column, Mode=TwoWay}"
+                                              Value="{Binding RowOrColumn, Mode=TwoWay}"
                                               MinValue="1"/>
                     </Grid>
                     <Grid>
@@ -102,7 +103,40 @@
                     </Grid>
                 </StackPanel>
             </StackPanel>
-            <StackPanel Grid.Row="2">
+            <StackPanel Grid.Row="2"
+                        x:Name="OrientionOfWritingUniformGrid">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock 
+                            Style="{StaticResource HeadingsStyle}"
+                            HorizontalAlignment="Right">
+                        <TextBlock.Text>
+                            <MultiBinding Converter="{StaticResource OrientationOrWritingToRowOrColumnConverter}">
+                                <Binding Path="HorizontalOrientationOfWriting" Mode="OneWay"/>
+                                <Binding>
+                                    <Binding.Source>
+                                        <sys:Boolean>True</sys:Boolean>
+                                    </Binding.Source>
+                                </Binding>
+                            </MultiBinding>
+                        </TextBlock.Text>
+                    </TextBlock>
+                    <ctrLib:NumericUpDown Grid.Column="1"
+                                              HorizontalAlignment="Left"
+                                              Value="{Binding GlobalStartRowOrColumn, Mode=TwoWay}"
+                                              MinValue="1"/>
+                </Grid>
+            </StackPanel>
+            <StackPanel Grid.Row="3">
+                <CheckBox Content="HorizontalOrientaionOfWriting" 
+                          IsChecked="{Binding HorizontalOrientationOfWriting, Mode=TwoWay}"
+                          HorizontalAlignment="Center"/>
+            </StackPanel>
+            <StackPanel Grid.Row="4"
+                        x:Name="DistanceBetweenLinesStackPanel">
                 <TextBlock
                        Text="Distance between lines"
                        Style="{StaticResource HeadingsStyle}"/>
@@ -110,7 +144,8 @@
                                   Value="{Binding DistanceBetweenLines, Mode=TwoWay}"
                                   MinValue="1"/>
             </StackPanel>
-            <StackPanel Grid.Row="3">
+            <StackPanel Grid.Row="5"
+                        x:Name="DistanceBetweenNewParagraphs">
                 <TextBlock
                        Text="Distance between new paragraphs of input"
                        Style="{StaticResource HeadingsStyle}"/>
@@ -119,32 +154,34 @@
                     MinValue="1"/>
             </StackPanel>
 
-            <StackPanel Grid.Row="4">
+            <StackPanel Grid.Row="6"
+                        x:Name="FileNameStackPanel">
                 <TextBlock Text="File name to save info"
                            Style="{StaticResource HeadingsStyle}"/>
                 <TextBox 
                     Text="{Binding FileNameToWriteInfo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             </StackPanel>
-          
-            <TextBlock 
-                    Grid.Row="5" 
-                    Style="{StaticResource HeadingsStyle}"
-                    Text="Delay between queries"/>
-            <UniformGrid 
-                Grid.Row="6" 
-                Columns="2">
-                <ctrLib:NumericUpDown 
+
+            <StackPanel Grid.Row="7"
+                        x:Name="DelayBetweenQueriesStackPanel">
+                <TextBlock 
+                       Style="{StaticResource HeadingsStyle}"
+                       Text="Delay between queries"/>
+                <UniformGrid Columns="2">
+                    <ctrLib:NumericUpDown 
                         x:Name="NumericUpDown" 
                         HorizontalAlignment="Right"
                         Value="{Binding NumericRepresentationOfDelay, Mode=TwoWay}"/>
-                <ComboBox HorizontalAlignment="Left" 
+                    <ComboBox HorizontalAlignment="Left" 
                           Height="{Binding ElementName=NumericUpDown, Path=Height}"
                           ItemsSource="{Binding DelayMeasures}"
                           FontSize="14"
                           SelectedItem="{Binding SelectedDelayMeasure}"/>
 
-            </UniformGrid>
-            <UniformGrid Grid.Row="7" 
+                </UniformGrid>
+            </StackPanel>
+            <UniformGrid Grid.Row="8" 
+                         x:Name="BorderDatesOfQueritesUniformGrid"
                              Columns="2">
                 <StackPanel>
                     <TextBlock Style="{StaticResource HeadingsStyle}"

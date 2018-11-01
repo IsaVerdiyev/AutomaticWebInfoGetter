@@ -152,6 +152,7 @@
     <Compile Include="ControllerClass.cs" />
     <Compile Include="Converters\DelayBetweenQueriesTimespanToStringMultiConverter.cs" />
     <Compile Include="Converters\OrientationOfWritingBoolToStringConverter.cs" />
+    <Compile Include="Converters\OrientationOrWritingToRowOrColumnConverter.cs" />
     <Compile Include="Exceptions\NoSuchEnumInTimespanToStringMultiConverter.cs" />
     <Compile Include="Messages\SettingsViewModelAddSettingInfoMessage.cs" />
     <Compile Include="Messages\AddSettingViewModelInitializeMessage.cs" />

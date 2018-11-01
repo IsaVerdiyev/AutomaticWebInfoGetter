@@ -66,18 +66,25 @@ namespace AutomaticWebInfoGetterWpfLib.ViewModels
             set => Set(ref header, value);
         }
 
-        private int row;
-        public int Row
+        private int rowOrColumn;
+
+        public int RowOrColumn
         {
-            get { return row; }
-            set => Set(ref row, value);
+            get { return rowOrColumn; }
+            set => Set(ref rowOrColumn, value);
         }
 
-        private int column;
-        public int Column
+
+        private int globalStartRowOrColumn;
+
+        public int GlobalStartRowOrColumn
         {
-            get { return column; }
-            set => Set(ref column, value);
+            get { return globalStartRowOrColumn; }
+            set
+            {
+                Set(ref globalStartRowOrColumn, value);
+                AdjustAllPositionsOverOneLineOfDownloadedPartsOfPage();
+            }
         }
 
 
@@ -107,7 +114,11 @@ namespace AutomaticWebInfoGetterWpfLib.ViewModels
         public bool HorizontalOrientationOfWriting
         {
             get { return horizontalOrientationOfWriting; }
-            set => Set(ref horizontalOrientationOfWriting, value);
+            set
+            {
+                Set(ref horizontalOrientationOfWriting, value);
+                SwapRowsAndColumnsOfDownloadedPartsOfPage();
+            }
         }
 
 
@@ -251,8 +262,7 @@ namespace AutomaticWebInfoGetterWpfLib.ViewModels
                         BetweenWritingNewInfoDistance = 2;
                         HorizontalOrientationOfWriting = false;
                         FileNameToWriteInfo = "";
-                        Row = 1;
-                        Column = 1;
+                        RowOrColumn = 1;
                         Header = "";
                         SelectedDelayMeasure = DelayMeasures.First(i => i == DelayMeasuresEnum.Seconds.ToString());
                         NumericRepresentationOfDelay = 1;
@@ -334,8 +344,7 @@ namespace AutomaticWebInfoGetterWpfLib.ViewModels
                         () =>
                         {
                             XPath = "";
-                            Row = 1;
-                            Column = 1;
+                            RowOrColumn = 1;
                             Header = "";
                             AddDownloadedPartInfoVisibility = Visibility.Collapsed;
                         }));
@@ -353,13 +362,18 @@ namespace AutomaticWebInfoGetterWpfLib.ViewModels
                     new RelayCommand(
                         () =>
                         {
+                            Position startPosition;
+                            if (HorizontalOrientationOfWriting)
+                            {
+                                startPosition = new Position { Row = RowOrColumn, Column = GlobalStartRowOrColumn };
+                            }
+                            else
+                            {
+                                startPosition = new Position { Row = GlobalStartRowOrColumn, Column = RowOrColumn };
+                            }
                             SettingInfosOfDownloadedPartsOfPage.Add(new DownloadedPartOfPageSettingInfo
                             {
-                                StartPositionOfWriting = new Position
-                                {
-                                    Row = Row,
-                                    Column = Column
-                                },
+                                StartPositionOfWriting = startPosition,
                                 Header = Header,
                                 XPath = XPath
                             });
@@ -381,6 +395,31 @@ namespace AutomaticWebInfoGetterWpfLib.ViewModels
             navigationService.GoBack();
         }
 
+        void AdjustAllPositionsOverOneLineOfDownloadedPartsOfPage()
+        {
+            foreach (var item in SettingInfosOfDownloadedPartsOfPage)
+            {
+                if (HorizontalOrientationOfWriting)
+                {
+                    item.StartPositionOfWriting.Column = GlobalStartRowOrColumn;
+                }
+                else
+                {
+                    item.StartPositionOfWriting.Row = GlobalStartRowOrColumn;
+                }
+            }
+        }
+
+
+        void SwapRowsAndColumnsOfDownloadedPartsOfPage()
+        {
+            foreach (var item in SettingInfosOfDownloadedPartsOfPage)
+            {
+                int temp = item.StartPositionOfWriting.Row;
+                item.StartPositionOfWriting.Row = item.StartPositionOfWriting.Column;
+                item.StartPositionOfWriting.Column = temp;
+            }
+        }
         #endregion
     }
 }
