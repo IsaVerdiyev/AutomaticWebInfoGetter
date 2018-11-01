@@ -45,6 +45,7 @@ namespace AutomaticWebInfoGetterWpfLib.ViewModels
                 RaisePropertyChanged(nameof(EndDate));
                 RaisePropertyChanged(nameof(DelayBetweenQueries));
                 RaisePropertyChanged(nameof(HorizontalOrientation));
+                SelectedDownloadedPart = DownloadedPartOfPageSettingInfos?.First();
             }
         }
 
@@ -72,6 +73,28 @@ namespace AutomaticWebInfoGetterWpfLib.ViewModels
         {
             get => SelectedSettingInfo?.SettingInfosOfDownloadedPartsOfPage;
         }
+
+        private DownloadedPartOfPageSettingInfo selectedDownloadedPart;
+
+        public DownloadedPartOfPageSettingInfo SelectedDownloadedPart
+        {
+            get { return selectedDownloadedPart; }
+            set
+            {
+                Set(ref selectedDownloadedPart, value);
+                RaisePropertyChanged(nameof(Header));
+                RaisePropertyChanged(nameof(StartRow));
+                RaisePropertyChanged(nameof(StartColumn));
+            }
+        }
+
+
+        public string Header { get => SelectedDownloadedPart.Header; }
+
+        public int StartRow { get => SelectedDownloadedPart.StartPositionOfWriting.Row; }
+
+        public int StartColumn { get => SelectedDownloadedPart.StartPositionOfWriting.Column; }
+
 
         public DateTime StartDate { get => SelectedSettingInfo != null ? SelectedSettingInfo.TimeInfo.StartDate : DateTime.Now; }
 

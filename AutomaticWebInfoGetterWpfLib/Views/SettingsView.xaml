@@ -69,21 +69,6 @@
                         <TextBlock Style="{StaticResource InfoContentsStyle}" 
                            Text="{Binding Url}"/>
                     </StackPanel>
-                    <StackPanel>
-                        <ListBox
-                            ItemsSource="{Binding DownloadedPartOfPageSettingInfos}">
-                            <ListBox.ItemTemplate>
-                                <DataTemplate>
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock Text="XPath"
-                                                   Style="{StaticResource InfoHeadingsStyle}"/>
-                                        <TextBlock Style="{StaticResource InfoContentsStyle}"
-                                                   Text="{Binding XPath}"/>
-                                    </StackPanel>
-                                </DataTemplate>
-                            </ListBox.ItemTemplate>
-                        </ListBox>
-                    </StackPanel>
                     <StackPanel Orientation="Horizontal"
                                 HorizontalAlignment="Center">
                         <TextBlock Text="Orientation of writing info: "
@@ -92,7 +77,7 @@
                             Style="{StaticResource InfoContentsStyle}"
                             Text="{Binding HorizontalOrientation, Converter={StaticResource OrientationOfWritingBoolToStringConverter}}"/>
                     </StackPanel>
-
+                    
                     <StackPanel>
                         <TextBlock Style="{StaticResource InfoHeadingsStyle}"
                                    Text="StartDate"/>
@@ -124,7 +109,42 @@
                         <TextBlock Style="{StaticResource InfoContentsStyle}"
                                    Text="{Binding EndDate}"/>
                     </StackPanel>
+                    
+                    <StackPanel>
+                        <ListBox
+                            ItemsSource="{Binding DownloadedPartOfPageSettingInfos}"
+                            SelectedItem="{Binding SelectedDownloadedPart}">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="XPath"
+                                                   Style="{StaticResource InfoHeadingsStyle}"/>
+                                        <TextBlock Style="{StaticResource InfoContentsStyle}"
+                                                   Text="{Binding XPath}"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </StackPanel>
 
+                    <TextBlock>
+                        <Run Text="Header: "/>
+                        <Run Text="{Binding Header, Mode=OneWay}"/>
+                    </TextBlock>
+                    <UniformGrid Rows="2">
+                        <TextBlock Text="Start Writing Position"/>
+                        <UniformGrid Columns="2">
+                            <TextBlock>
+                                <Run Text="Row: "/>
+                                <Run Text="{Binding StartRow, Mode=OneWay}"/>
+                            </TextBlock>
+                            <TextBlock>
+                                <Run Text="Column: "/>
+                                <Run Text="{Binding StartColumn, Mode=OneWay}"/>
+                            </TextBlock>
+
+                        </UniformGrid>
+                    </UniformGrid>
                 </UniformGrid>
 
             </ScrollViewer>
