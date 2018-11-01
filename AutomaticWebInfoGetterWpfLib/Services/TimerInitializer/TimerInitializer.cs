@@ -60,21 +60,13 @@ namespace AutomaticWebInfoGetterWpfLib.Services.TimerInitializer
                     {
 
                         List<string> resultsFromInfo = webInfogetter.GetStringsOfNodesByXPathFromUrl(item.XPath);
-                        if (string.IsNullOrEmpty(resultsFromInfo.FirstOrDefault()))
+                        if(resultsFromInfo.Count > 0)
                         {
-                            string resultFromInfo = webInfogetter.GetStringOfNodeByXPathFromUrl(item.XPath);
-                            if (!string.IsNullOrEmpty(resultFromInfo))
-                            {
-                                writer.WriteToExcel(resultFromInfo, settingsInfo, item);
-                            }
-                            else
-                            {
-                                writer.WriteToExcel("Info not found", settingsInfo, item);
-                            }
+                            writer.WriteToExcel(resultsFromInfo, settingsInfo, item);
                         }
                         else
                         {
-                            writer.WriteToExcel(resultsFromInfo, settingsInfo, item);
+                            writer.WriteToExcel("Not found", settingsInfo, item);
                         }
                     }
                 }
