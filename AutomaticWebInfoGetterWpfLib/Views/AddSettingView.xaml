@@ -188,13 +188,13 @@
                     <TextBlock Style="{StaticResource HeadingsStyle}"
                                Text="Start date of queries"/>
                     <xwt:DateTimePicker HorizontalAlignment="Center"
-                                Text="{Binding StartDate, Mode=TwoWay}"/>
+                                Value="{Binding StartDate, Mode=TwoWay}"/>
                 </StackPanel>
                 <StackPanel>
                     <TextBlock Style="{StaticResource HeadingsStyle}"
                                    Text="End date of queries"/>
                     <xwt:DateTimePicker HorizontalAlignment="Center"
-                                Text="{Binding EndDate, Mode=TwoWay}"/>
+                                Value="{Binding EndDate, Mode=TwoWay}"/>
                 </StackPanel>
             </UniformGrid>
         </Grid>
