@@ -1,7 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:AutomaticWebInfoGetterWpfLib.Resources"
-                    xmlns:ctrLib="clr-namespace:WpfCustomControlsByMe;assembly=WpfCustomControlsByMe"
                     xmlns:converters="clr-namespace:AutomaticWebInfoGetterWpfLib.Converters">
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="CommonDictionary.xaml"/>
@@ -19,8 +18,4 @@
         <Setter Property="VerticalAlignment" Value="Center"/>
     </Style>
 
-    <Style TargetType="ctrLib:NumericUpDown">
-        <Setter Property="FontSize" Value="14"/>
-    </Style>
-    
 </ResourceDictionary>

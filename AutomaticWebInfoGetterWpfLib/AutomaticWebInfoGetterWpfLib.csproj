@@ -143,10 +143,6 @@
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="WindowsFormsIntegration" />
-    <Reference Include="WpfCustomControlsByMe, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>.\WpfCustomControlsByMe.dll</HintPath>
-    </Reference>
     <Reference Include="Xceed.Wpf.Toolkit, Version=3.4.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>.\Xceed.Wpf.Toolkit.dll</HintPath>
@@ -251,9 +247,6 @@
   <ItemGroup />
   <ItemGroup>
     <Content Include="chromedriver.exe">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="WpfCustomControlsByMe.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Xceed.Wpf.Toolkit.dll">

@@ -5,7 +5,6 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:AutomaticWebInfoGetterWpfLib.Views"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
-             xmlns:ctrLib="clr-namespace:WpfCustomControlsByMe;assembly=WpfCustomControlsByMe"
              xmlns:xwt="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
@@ -84,10 +83,10 @@
                                 </MultiBinding>
                             </TextBlock.Text>
                         </TextBlock>
-                        <ctrLib:NumericUpDown Grid.Column="1"
+                        <xwt:IntegerUpDown Grid.Column="1"
                                               HorizontalAlignment="Left"
                                               Value="{Binding RowOrColumn, Mode=TwoWay}"
-                                              MinValue="1"/>
+                                              Minimum="1"/>
                     </Grid>
                     <Grid>
                         <Grid.ColumnDefinitions>
@@ -125,10 +124,10 @@
                             </MultiBinding>
                         </TextBlock.Text>
                     </TextBlock>
-                    <ctrLib:NumericUpDown Grid.Column="1"
+                    <xwt:IntegerUpDown Grid.Column="1"
                                               HorizontalAlignment="Left"
                                               Value="{Binding GlobalStartRowOrColumn, Mode=TwoWay}"
-                                              MinValue="1"/>
+                                              Minimum="1"/>
                 </Grid>
             </StackPanel>
             <StackPanel Grid.Row="3">
@@ -141,18 +140,18 @@
                 <TextBlock
                        Text="Distance between lines"
                        Style="{StaticResource HeadingsStyle}"/>
-                <ctrLib:NumericUpDown
+                <xwt:IntegerUpDown
                                   Value="{Binding DistanceBetweenLines, Mode=TwoWay}"
-                                  MinValue="1"/>
+                                  Minimum="1"/>
             </StackPanel>
             <StackPanel Grid.Row="5"
                         x:Name="DistanceBetweenNewParagraphs">
                 <TextBlock
                        Text="Distance between new paragraphs of input"
                        Style="{StaticResource HeadingsStyle}"/>
-                <ctrLib:NumericUpDown 
+                <xwt:IntegerUpDown 
                     Value="{Binding BetweenWritingNewInfoDistance,Mode=TwoWay}"
-                    MinValue="1"/>
+                    Minimum="1"/>
             </StackPanel>
 
             <StackPanel Grid.Row="6"
@@ -169,7 +168,7 @@
                        Style="{StaticResource HeadingsStyle}"
                        Text="Delay between queries"/>
                 <UniformGrid Columns="2">
-                    <ctrLib:NumericUpDown 
+                    <xwt:IntegerUpDown 
                         x:Name="NumericUpDown" 
                         HorizontalAlignment="Right"
                         Value="{Binding NumericRepresentationOfDelay, Mode=TwoWay}"/>
