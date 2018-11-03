@@ -16,13 +16,7 @@ namespace AutomaticWebInfoGetterWpfLib.Services.TimerInitializer
 
         public void InitializeTimer(SettingsInfo settingsInfo, IWebInfoGetter webInfogetter, IWriter writer)
         {
-            DateTime whenToStart = settingsInfo.TimeInfo.StartDate;
-            while (whenToStart < DateTime.Now && whenToStart < settingsInfo.TimeInfo.EndDate)
-            {
-                whenToStart = whenToStart.Add(settingsInfo.TimeInfo.DelayBetweenQueries);
-            }
-
-            if (whenToStart > settingsInfo.TimeInfo.EndDate)
+            if (DateTime.Now > settingsInfo.TimeInfo.EndDate)
             {
                 return;
             }
@@ -70,24 +64,30 @@ namespace AutomaticWebInfoGetterWpfLib.Services.TimerInitializer
                         }
                     }
                 }
-                whenToStart = whenToStart.Add(settingsInfo.TimeInfo.DelayBetweenQueries);
+                DateTime whenToStart = DateTime.Now.Add(settingsInfo.TimeInfo.DelayBetweenQueries);
                 if (whenToStart < settingsInfo.TimeInfo.EndDate)
                 {
-                    TimeSpan timeDifference = whenToStart - DateTime.Now;
-                    try
-                    {
-                        settingsInfo.Timer.Change((int)timeDifference.TotalMilliseconds, Timeout.Infinite);
-                    }
-                    catch (ArgumentOutOfRangeException e)
-                    {
-                        settingsInfo.Timer.Change(0, Timeout.Infinite);
-                    }
+                    SetTimer(settingsInfo, DateTime.Now, whenToStart);
                 }
 
 
             }), null, Timeout.Infinite, Timeout.Infinite);
-            settingsInfo.Timer.Change((whenToStart - settingsInfo.TimeInfo.StartDate).Milliseconds, Timeout.Infinite);
 
+            SetTimer(settingsInfo, DateTime.Now, settingsInfo.TimeInfo.StartDate);
+        }
+
+        void SetTimer(SettingsInfo settingsInfo, DateTime startDate, DateTime endDate)
+        {
+
+            TimeSpan timeDifference = endDate - startDate;
+            try
+            {
+                settingsInfo.Timer.Change((int)timeDifference.TotalMilliseconds, Timeout.Infinite);
+            }
+            catch (ArgumentOutOfRangeException e)
+            {
+                settingsInfo.Timer.Change(0, Timeout.Infinite);
+            }
 
         }
     }
