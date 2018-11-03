@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:AutomaticWebInfoGetterWpfLib.Views"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              xmlns:ctrLib="clr-namespace:WpfCustomControlsByMe;assembly=WpfCustomControlsByMe"
+             xmlns:xwt="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
@@ -186,14 +187,14 @@
                 <StackPanel>
                     <TextBlock Style="{StaticResource HeadingsStyle}"
                                Text="Start date of queries"/>
-                    <DatePicker HorizontalAlignment="Center"
-                                SelectedDate="{Binding StartDate, Mode=TwoWay}"/>
+                    <xwt:DateTimePicker HorizontalAlignment="Center"
+                                Text="{Binding StartDate, Mode=TwoWay}"/>
                 </StackPanel>
                 <StackPanel>
                     <TextBlock Style="{StaticResource HeadingsStyle}"
                                    Text="End date of queries"/>
-                    <DatePicker HorizontalAlignment="Center"
-                                SelectedDate="{Binding EndDate, Mode=TwoWay}"/>
+                    <xwt:DateTimePicker HorizontalAlignment="Center"
+                                Text="{Binding EndDate, Mode=TwoWay}"/>
                 </StackPanel>
             </UniformGrid>
         </Grid>
