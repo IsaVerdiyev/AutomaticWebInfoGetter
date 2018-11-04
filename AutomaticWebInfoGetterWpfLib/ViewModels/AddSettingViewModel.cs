@@ -164,8 +164,17 @@ namespace AutomaticWebInfoGetterWpfLib.ViewModels
         }
 
         private bool queryOnlyOnce;
+        public bool QueryOnlyOnce {
+            get => queryOnlyOnce;
+            set
+            {
+                Set(ref queryOnlyOnce, value);
+                DateSettingsEnabled = (QueryOnlyOnce) ? false : true;
+            }
+        }
 
-        public bool QueryOnlyOnce { get => queryOnlyOnce; set => Set(ref queryOnlyOnce, value); }
+        private bool dateSettingsEnabled;
+        public bool DateSettingsEnabled { get => dateSettingsEnabled; set => Set(ref dateSettingsEnabled, value); }
 
 
         private string selectedDelayMeasure;

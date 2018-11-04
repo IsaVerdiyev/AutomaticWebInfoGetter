@@ -29,6 +29,7 @@
                 <RowDefinition/>
                 <RowDefinition/>
                 <RowDefinition/>
+                <RowDefinition/>
             </Grid.RowDefinitions>
             <StackPanel x:Name="UrlStackPanel">
                 <TextBlock  
@@ -161,9 +162,14 @@
                 <TextBox 
                     Text="{Binding FileNameToWriteInfo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             </StackPanel>
-
-            <StackPanel Grid.Row="7"
-                        x:Name="DelayBetweenQueriesStackPanel">
+            <StackPanel Grid.Row="7">
+                <CheckBox Content="Run task only once" 
+                          IsChecked="{Binding QueryOnlyOnce, Mode=TwoWay}"
+                          HorizontalAlignment="Center"/> 
+            </StackPanel>
+            <StackPanel Grid.Row="8"
+                        x:Name="DelayBetweenQueriesStackPanel"
+                        IsEnabled="{Binding DateSettingsEnabled, Mode=OneWay}">
                 <TextBlock 
                        Style="{StaticResource HeadingsStyle}"
                        Text="Delay between queries"/>
@@ -180,8 +186,8 @@
 
                 </UniformGrid>
             </StackPanel>
-            <UniformGrid Grid.Row="8" 
-                         x:Name="BorderDatesOfQueritesUniformGrid"
+            <UniformGrid Grid.Row="9" 
+                         x:Name="BorderDatesOfQueriesUniformGrid"
                              Columns="2">
                 <StackPanel>
                     <TextBlock Style="{StaticResource HeadingsStyle}"
@@ -189,7 +195,8 @@
                     <xwt:DateTimePicker HorizontalAlignment="Center"
                                 Value="{Binding StartDate, Mode=TwoWay}"/>
                 </StackPanel>
-                <StackPanel>
+                <StackPanel
+                    IsEnabled="{Binding DateSettingsEnabled, Mode=OneWay}">
                     <TextBlock Style="{StaticResource HeadingsStyle}"
                                    Text="End date of queries"/>
                     <xwt:DateTimePicker HorizontalAlignment="Center"
