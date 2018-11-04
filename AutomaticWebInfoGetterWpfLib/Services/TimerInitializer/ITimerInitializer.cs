@@ -13,5 +13,7 @@ namespace AutomaticWebInfoGetterWpfLib.Services.TimerInitializer
     interface ITimerInitializer
     {
         void InitializeTimer(SettingsInfo settingsInfo, IWebInfoGetter webInfogetter, IWriter writer);
+        void ActivateStoppedTimer(SettingsInfo settingsInfo);
+        void StopTimer(SettingsInfo settingsInfo);
     }
 }

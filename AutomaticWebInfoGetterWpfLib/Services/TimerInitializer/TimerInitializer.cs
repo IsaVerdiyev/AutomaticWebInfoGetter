@@ -18,8 +18,10 @@ namespace AutomaticWebInfoGetterWpfLib.Services.TimerInitializer
         {
             if (DateTime.Now > settingsInfo.TimeInfo.EndDate)
             {
+                settingsInfo.TimerState = TimerStateEnum.Finished;
                 return;
             }
+            settingsInfo.TimerState = TimerStateEnum.Running;
 
             settingsInfo.Timer = new Timer(o1 => Task.Run(() =>
             {
@@ -69,11 +71,34 @@ namespace AutomaticWebInfoGetterWpfLib.Services.TimerInitializer
                 {
                     SetTimer(settingsInfo, DateTime.Now, whenToStart);
                 }
+                else
+                {
+                    settingsInfo.TimerState = TimerStateEnum.Finished;
+                }
 
 
             }), null, Timeout.Infinite, Timeout.Infinite);
 
             SetTimer(settingsInfo, DateTime.Now, settingsInfo.TimeInfo.StartDate);
+        }
+
+        public void ActivateStoppedTimer(SettingsInfo settingsInfo)
+        {
+            if(DateTime.Now < settingsInfo.TimeInfo.EndDate)
+            {
+                settingsInfo.Timer.Change(0, Timeout.Infinite);
+                settingsInfo.TimerState = TimerStateEnum.Running;
+            }
+            else
+            {
+                settingsInfo.TimerState = TimerStateEnum.Finished;
+            }
+        }
+
+        public void StopTimer(SettingsInfo settingsInfo)
+        {
+            settingsInfo.Timer.Change(Timeout.Infinite, Timeout.Infinite);
+            settingsInfo.TimerState = TimerStateEnum.Stopped;
         }
 
         void SetTimer(SettingsInfo settingsInfo, DateTime startDate, DateTime endDate)
