@@ -16,7 +16,7 @@ namespace AutomaticWebInfoGetterWpfLib.Services.TimerInitializer
 
         public void InitializeTimer(SettingsInfo settingsInfo, IWebInfoGetter webInfogetter, IWriter writer)
         {
-            if (DateTime.Now > settingsInfo.TimeInfo.EndDate)
+            if (DateTime.Now > settingsInfo.TimeInfo.EndDate && !settingsInfo.QueryOnlyOnce)
             {
                 settingsInfo.TimerState = TimerStateEnum.Finished;
                 return;
@@ -65,6 +65,11 @@ namespace AutomaticWebInfoGetterWpfLib.Services.TimerInitializer
                             writer.WriteToExcel("Not found", settingsInfo, item);
                         }
                     }
+                }
+                if (settingsInfo.QueryOnlyOnce)
+                {
+                    settingsInfo.TimerState = TimerStateEnum.Finished;
+                    return;
                 }
                 DateTime whenToStart = DateTime.Now.Add(settingsInfo.TimeInfo.DelayBetweenQueries);
                 if (whenToStart < settingsInfo.TimeInfo.EndDate)

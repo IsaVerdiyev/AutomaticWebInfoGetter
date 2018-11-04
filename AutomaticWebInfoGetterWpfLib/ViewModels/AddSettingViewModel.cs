@@ -163,6 +163,9 @@ namespace AutomaticWebInfoGetterWpfLib.ViewModels
             }
         }
 
+        private bool queryOnlyOnce;
+
+        public bool QueryOnlyOnce { get => queryOnlyOnce; set => Set(ref queryOnlyOnce, value); }
 
 
         private string selectedDelayMeasure;
@@ -265,6 +268,7 @@ namespace AutomaticWebInfoGetterWpfLib.ViewModels
                         RowOrColumn = 1;
                         GlobalStartRowOrColumn = 1;
                         Header = "";
+                        QueryOnlyOnce = false;
                         SelectedDelayMeasure = DelayMeasures.First(i => i == DelayMeasuresEnum.Seconds.ToString());
                         NumericRepresentationOfDelay = 1;
                         StartDate = DateTime.Now;
@@ -301,6 +305,7 @@ namespace AutomaticWebInfoGetterWpfLib.ViewModels
                         BetweenWritingNewInfoDistance = BetweenWritingNewInfoDistance,
                         HorizontalOrientationOfWritingInfo = HorizontalOrientationOfWriting,
                         NameOfFileToWriteInfo = FileNameToWriteInfo,
+                        QueryOnlyOnce = QueryOnlyOnce,
                         TimeInfo = new ActionExecutionTimeInfo
                         {
                             StartDate = StartDate,

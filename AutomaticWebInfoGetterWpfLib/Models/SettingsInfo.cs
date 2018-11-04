@@ -30,6 +30,8 @@ namespace AutomaticWebInfoGetterWpfLib.Models
         private TimerStateEnum timerState;
         public TimerStateEnum TimerState { get => timerState; set => Set(ref timerState, value); }
 
+        private bool queryOnlyOnce;
+        public bool QueryOnlyOnce { get => queryOnlyOnce; set => Set(ref queryOnlyOnce, value); }
 
         private ObservableCollection<DownloadedPartOfPageSettingInfo> settingInfosOfDownloadedPartsOfPage;
         public ObservableCollection<DownloadedPartOfPageSettingInfo> SettingInfosOfDownloadedPartsOfPage
