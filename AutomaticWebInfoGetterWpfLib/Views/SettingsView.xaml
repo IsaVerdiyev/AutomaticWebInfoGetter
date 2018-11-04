@@ -44,7 +44,9 @@
                                     Command="{Binding DataContext.RunStopTimerCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
                                     CommandParameter="{Binding}"/>
                                 <Button 
-                                    Content="❌"/>
+                                    Content="❌"
+                                    Command="{Binding DataContext.DeleteSettingsInfoCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                    CommandParameter="{Binding}"/>
                             </StackPanel>
                         </DataTemplate>
                     </ListBox.ItemTemplate>

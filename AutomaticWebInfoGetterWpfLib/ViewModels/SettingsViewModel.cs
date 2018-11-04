@@ -41,6 +41,7 @@ namespace AutomaticWebInfoGetterWpfLib.ViewModels
             set
             {
                 Set(ref selectedSettingInfo, value);
+                AdjustSettingInfoVisibility();
                 RaisePropertyChanged(nameof(Url));
                 RaisePropertyChanged(nameof(DownloadedPartOfPageSettingInfos));
                 RaisePropertyChanged(nameof(StartDate));
@@ -135,7 +136,7 @@ namespace AutomaticWebInfoGetterWpfLib.ViewModels
 
         #endregion
 
-        #region commands
+        #region Commands
         private RelayCommand<VM> addSettingCommand;
         public RelayCommand<VM> AddSettingCommand
         {
@@ -159,7 +160,6 @@ namespace AutomaticWebInfoGetterWpfLib.ViewModels
                     () =>
                     {
                         SelectedSettingInfo = SettingInfos.FirstOrDefault();
-                        SettingInfoVisibility = (SelectedSettingInfo == null) ? Visibility.Collapsed : Visibility.Visible;
                         SelectedDelayMeasure = DelayMeasures.First(i => i == DelayMeasuresEnum.Minutes.ToString());
                     }));
             }
@@ -188,6 +188,74 @@ namespace AutomaticWebInfoGetterWpfLib.ViewModels
             }
         }
 
+        private RelayCommand<SettingsInfo> deleteSettingsInfoCommand;
+
+        public RelayCommand<SettingsInfo> DeleteSettingsInfoCommand
+        {
+            get
+            {
+                return deleteSettingsInfoCommand ?? (deleteSettingsInfoCommand = new RelayCommand<SettingsInfo>((par) =>
+                {
+                    SettingsInfo settingsInfo = (SettingsInfo)par;
+                    if(settingsInfo.TimerState != TimerStateEnum.Finished)
+                    {
+                        MessageBoxResult result = MessageBox.Show("This query's work time didn't expire yet. Are you sure to delete it?","", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                        if(result == MessageBoxResult.No)
+                        {
+                            return;
+                        }
+                        else
+                        {
+                            timerInitializer.StopTimer(settingsInfo);
+                        }
+                    }
+                    if (SelectedSettingInfo == settingsInfo)
+                    {
+                        AdjustSelectedSettingInfoAfterDeletingSettingInfo(settingsInfo);  
+                    }
+                    SettingInfos.Remove(settingsInfo);
+                }));
+            }
+        }
+
+
+
+        #endregion
+
+        #region Private Functions
+
+        void AdjustSelectedSettingInfoAfterDeletingSettingInfo(SettingsInfo settingsInfo)
+        {
+            int newSelectedIndex = SettingInfos.IndexOf(settingsInfo);
+            if (newSelectedIndex != 0)
+            {
+                newSelectedIndex--;
+            }
+            else
+            {
+                newSelectedIndex++;
+            }
+            if (SettingInfos.Count > 1)
+            {
+                SelectedSettingInfo = SettingInfos[newSelectedIndex];
+            }
+            else
+            {
+                SelectedSettingInfo = null;
+            }
+        }
+
+        void AdjustSettingInfoVisibility()
+        {
+            if(SelectedSettingInfo == null)
+            {
+                SettingInfoVisibility = Visibility.Collapsed;
+            }
+            else
+            {
+                SettingInfoVisibility = Visibility.Visible;
+            }
+        }
 
         #endregion
     }
