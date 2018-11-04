@@ -8,8 +8,8 @@
 
     <converters:DelayBetweenQueriesTimespanToStringMultiConverter x:Key="TimespanToStringMultiConverter"/>
     <converters:OrientationOfWritingBoolToStringConverter x:Key="OrientationOfWritingBoolToStringConverter"/>
-    
-    
+    <converters:TimerStateToIconConverter x:Key="TimerStateToIconConverter"/>
+
     <Style TargetType="TextBlock" x:Key="CommonStyleForInfoTextBlocks">
         <Setter Property="TextAlignment" Value="Center"/>
     </Style>

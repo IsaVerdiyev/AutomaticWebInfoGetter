@@ -36,14 +36,15 @@
                          SelectedItem="{Binding SelectedSettingInfo}">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <StackPanel>
-                                <StackPanel.ContextMenu>
-                                    <ContextMenu>
-                                        <MenuItem Header="Edit"/>
-                                        <MenuItem Header="Delete"/>
-                                    </ContextMenu>
-                                </StackPanel.ContextMenu>
+                            <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="{Binding URL}" TextAlignment="Center"/>
+                                <TextBlock Text="{Binding TimerState, Mode=OneWay}"/>
+                                <Button 
+                                    Content="{Binding TimerState, Converter={StaticResource TimerStateToIconConverter}, Mode=OneWay}"
+                                    Command="{Binding DataContext.RunStopTimerCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                    CommandParameter="{Binding}"/>
+                                <Button 
+                                    Content="❌"/>
                             </StackPanel>
                         </DataTemplate>
                     </ListBox.ItemTemplate>

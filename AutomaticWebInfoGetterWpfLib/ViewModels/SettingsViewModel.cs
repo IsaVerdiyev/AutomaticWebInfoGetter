@@ -2,6 +2,7 @@
 using AutomaticWebInfoGetterWpfLib.Models;
 using AutomaticWebInfoGetterWpfLib.Navigation;
 using AutomaticWebInfoGetterWpfLib.Services.Storage;
+using AutomaticWebInfoGetterWpfLib.Services.TimerInitializer;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Messaging;
@@ -10,6 +11,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -110,6 +112,8 @@ namespace AutomaticWebInfoGetterWpfLib.ViewModels
 
         INavigationService navigationService;
 
+        ITimerInitializer timerInitializer;
+
         #endregion
 
         #region Messages
@@ -120,9 +124,10 @@ namespace AutomaticWebInfoGetterWpfLib.ViewModels
 
         #region Constructor
 
-        public SettingsViewModel(INavigationService navigationService)
+        public SettingsViewModel(INavigationService navigationService, ITimerInitializer timerInitializer)
         {
             this.navigationService = navigationService;
+            this.timerInitializer = timerInitializer;
 
             Messenger.Default.Register<SettingsViewModelAddSettingInfoMessage>(this, obj => SettingInfos.Add(((SettingsViewModelAddSettingInfoMessage)obj).AddedSettingInfo));
             Messenger.Default.Register<SettingsViewModelInitializeMessage>(this, obj => SwitchInitialStateCommand.Execute(obj));
@@ -132,7 +137,6 @@ namespace AutomaticWebInfoGetterWpfLib.ViewModels
 
         #region commands
         private RelayCommand<VM> addSettingCommand;
-
         public RelayCommand<VM> AddSettingCommand
         {
             get
@@ -146,7 +150,6 @@ namespace AutomaticWebInfoGetterWpfLib.ViewModels
         }
 
         private RelayCommand switchInitialStateCommand;
-
         public RelayCommand SwitchInitialStateCommand
 
         {
@@ -159,6 +162,29 @@ namespace AutomaticWebInfoGetterWpfLib.ViewModels
                         SettingInfoVisibility = (SelectedSettingInfo == null) ? Visibility.Collapsed : Visibility.Visible;
                         SelectedDelayMeasure = DelayMeasures.First(i => i == DelayMeasuresEnum.Minutes.ToString());
                     }));
+            }
+        }
+
+
+        private RelayCommand<SettingsInfo> runStopTimerCommand;
+
+        public RelayCommand<SettingsInfo> RunStopTimerCommand
+        {
+            get
+            {
+                return runStopTimerCommand ?? (runStopTimerCommand = new RelayCommand<SettingsInfo>((obj) =>
+                {
+                    SettingsInfo settingsInfo = (SettingsInfo)obj;
+                    if(settingsInfo.TimerState == TimerStateEnum.Running)
+                    {
+                        timerInitializer.StopTimer(settingsInfo);
+                    }
+                    else if (settingsInfo.TimerState == TimerStateEnum.Stopped)
+                    {
+                        timerInitializer.ActivateStoppedTimer(settingsInfo);
+                    }
+                }
+                , (obj) => ((SettingsInfo)obj).TimerState != TimerStateEnum.Finished));
             }
         }
 
