@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GalaSoft.MvvmLight;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -8,23 +9,33 @@ using System.Threading.Tasks;
 
 namespace AutomaticWebInfoGetterWpfLib.Models
 {
-    class SettingsInfo
+    enum TimerStateEnum{
+        Running,
+        Stopped,
+        Finished
+    }
+
+    class SettingsInfo: ObservableObject
     {
         string url;
-        public string URL { get => url; set => url = value; }
+        public string URL { get => url; set => Set(ref url, value); }
 
         ActionExecutionTimeInfo timeInfo;
-        public ActionExecutionTimeInfo TimeInfo { get => timeInfo; set => timeInfo = value; }
+        public ActionExecutionTimeInfo TimeInfo { get => timeInfo; set => Set(ref timeInfo, value); }
 
         private Timer timer;
-        public Timer Timer { get => timer; set => timer = value; }
+        public Timer Timer { get => timer; set => Set(ref timer, value); }
+
+
+        private TimerStateEnum timerState;
+        public TimerStateEnum TimerState { get => timerState; set => Set(ref timerState, value); }
 
 
         private ObservableCollection<DownloadedPartOfPageSettingInfo> settingInfosOfDownloadedPartsOfPage;
         public ObservableCollection<DownloadedPartOfPageSettingInfo> SettingInfosOfDownloadedPartsOfPage
         {
             get => settingInfosOfDownloadedPartsOfPage;
-            set => settingInfosOfDownloadedPartsOfPage = value;
+            set => Set(ref settingInfosOfDownloadedPartsOfPage, value);
         }
 
 
@@ -32,24 +43,24 @@ namespace AutomaticWebInfoGetterWpfLib.Models
         public bool HorizontalOrientationOfWritingInfo
         {
             get => horizontalOrientationOfWritingInfo;
-            set => horizontalOrientationOfWritingInfo = value;
+            set => Set(ref horizontalOrientationOfWritingInfo, value);
         }
 
         private int betweenLineDistance;
-        public int BetweenLineDistance { get => betweenLineDistance; set => betweenLineDistance = value; }
+        public int BetweenLineDistance { get => betweenLineDistance; set => Set(ref betweenLineDistance, value); }
 
         private int betweenWritingNewInfoDistance;
         public int BetweenWritingNewInfoDistance
         {
             get => betweenWritingNewInfoDistance;
-            set => betweenWritingNewInfoDistance = value;
+            set => Set(ref betweenWritingNewInfoDistance, value);
         }
 
         private string nameOfFileToWriteInfo;
         public string NameOfFileToWriteInfo
         {
             get => nameOfFileToWriteInfo;
-            set => nameOfFileToWriteInfo = value;
+            set => Set(ref nameOfFileToWriteInfo, value);
         }
 
 
