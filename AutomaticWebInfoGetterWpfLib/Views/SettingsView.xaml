@@ -17,7 +17,7 @@
             <RowDefinition Height="10"/>
         </Grid.RowDefinitions>
 
-        <TextBlock TextAlignment="Center">Tasks info</TextBlock>
+        <Label>Tasks info</Label>
 
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
@@ -37,8 +37,8 @@
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="{Binding URL}" TextAlignment="Center"/>
-                                <TextBlock Text="{Binding TimerState, Mode=OneWay}"/>
+                                <Label Content="{Binding URL}"/>
+                                <Label Content="{Binding TimerState, Mode=OneWay}"/>
                                 <Button 
                                     Content="{Binding TimerState, Converter={StaticResource TimerStateToIconConverter}, Mode=OneWay}"
                                     Command="{Binding DataContext.RunStopTimerCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
@@ -67,50 +67,48 @@
                          Rows="9"
                          Visibility="{Binding SettingInfoVisibility, Mode=TwoWay}">
                     <StackPanel>
-                        <TextBlock Style="{StaticResource InfoHeadingsStyle}" 
-                           Text="URL"/>
-                        <TextBlock Style="{StaticResource InfoContentsStyle}" 
-                           Text="{Binding Url}"/>
+                        <Label  
+                           Content="URL"/>
+                        <Label 
+                           Content="{Binding Url}"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal"
                                 HorizontalAlignment="Center">
-                        <TextBlock Text="Orientation of writing info: "
-                                   Style="{StaticResource InfoHeadingsStyle}"/>
-                        <TextBlock 
-                            Style="{StaticResource InfoContentsStyle}"
-                            Text="{Binding HorizontalOrientation, Converter={StaticResource OrientationOfWritingBoolToStringConverter}}"/>
+                        <Label Content="Orientation of writing info: "/>
+                        <Label 
+                            Content="{Binding HorizontalOrientation, Converter={StaticResource OrientationOfWritingBoolToStringConverter}}"/>
                     </StackPanel>
                     
                     <StackPanel>
-                        <TextBlock Style="{StaticResource InfoHeadingsStyle}"
-                                   Text="StartDate"/>
-                        <TextBlock Style="{StaticResource InfoContentsStyle}"
-                                   Text="{Binding StartDate}"/>
+                        <Label 
+                                   Content="StartDate"/>
+                        <Label 
+                                   Content="{Binding StartDate}"/>
                     </StackPanel>
                     <StackPanel Grid.Column="0" 
                                 Grid.Row="1"
                                 Grid.ColumnSpan="2">
-                        <TextBlock Style="{StaticResource InfoHeadingsStyle}"
-                                   Text="Delays between queries"/>
+                        <Label 
+                                   Content="Delays between queries"/>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                            <TextBlock Style="{StaticResource InfoContentsStyle}">
-                                <TextBlock.Text>
+                            <Label >
+                                <Label.Content>
                                     <MultiBinding Converter="{StaticResource TimespanToStringMultiConverter}">
                                         <Binding Path="DelayBetweenQueries"/>
                                         <Binding Path="SelectedDelayMeasure"/>
 
                                     </MultiBinding>
-                                </TextBlock.Text>
-                            </TextBlock>
+                                </Label.Content>
+                            </Label>
                             <ComboBox ItemsSource="{Binding DelayMeasures}"
                                       SelectedItem="{Binding SelectedDelayMeasure}"/>
                         </StackPanel>
                     </StackPanel>
                     <StackPanel Grid.Column="1">
-                        <TextBlock Style="{StaticResource InfoHeadingsStyle}"
-                                   Text="EndDate"/>
-                        <TextBlock Style="{StaticResource InfoContentsStyle}"
-                                   Text="{Binding EndDate}"/>
+                        <Label 
+                                   Content="EndDate"/>
+                        <Label 
+                                   Content="{Binding EndDate}"/>
                     </StackPanel>
                     
                     <StackPanel>
@@ -120,31 +118,38 @@
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
-                                        <TextBlock Text="XPath"
-                                                   Style="{StaticResource InfoHeadingsStyle}"/>
-                                        <TextBlock Style="{StaticResource InfoContentsStyle}"
-                                                   Text="{Binding XPath}"/>
+                                        <Label Content="XPath"/>
+                                        <Label 
+                                                   Content="{Binding XPath}"/>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
                         </ListBox>
                     </StackPanel>
 
-                    <TextBlock>
-                        <Run Text="Header: "/>
-                        <Run Text="{Binding Header, Mode=OneWay}"/>
-                    </TextBlock>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+
+                        <Label Grid.Column="0"
+                               Content="Header: "/>
+                        <Label Grid.Column="1"
+                               Content="{Binding Header, Mode=OneWay}"/>
+                    </Grid>
+                   
                     <UniformGrid Rows="2">
-                        <TextBlock Text="Start Writing Position"/>
+                        <Label Content="Start Writing Position"/>
                         <UniformGrid Columns="2">
-                            <TextBlock>
-                                <Run Text="Row: "/>
-                                <Run Text="{Binding StartRow, Mode=OneWay}"/>
-                            </TextBlock>
-                            <TextBlock>
-                                <Run Text="Column: "/>
-                                <Run Text="{Binding StartColumn, Mode=OneWay}"/>
-                            </TextBlock>
+                            <UniformGrid Columns="2">
+                                <Label Content="Row: "/>
+                                <Label Content="{Binding StartRow, Mode=OneWay}"/>
+                            </UniformGrid>
+                            <UniformGrid Columns="2">
+                                <Label Content="Column: "/>
+                                <Label Content="{Binding StartColumn, Mode=OneWay}"/>
+                            </UniformGrid>
 
                         </UniformGrid>
                     </UniformGrid>

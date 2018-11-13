@@ -32,12 +32,12 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
             <StackPanel x:Name="UrlStackPanel">
-                <TextBlock  
-                    Style="{StaticResource HeadingsStyle}"
-                    Text="URL"/>
+                <Label  
+                    Content="URL"/>
                 <TextBox 
+                    
                     Grid.Row="1" 
-                    Style="{StaticResource TextInputAlignment}"
+                   
                     Text="{Binding URL, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
             </StackPanel>
             <StackPanel Grid.Row="1"
@@ -51,17 +51,14 @@
                         ItemsSource="{Binding SettingInfosOfDownloadedPartsOfPage}"/>
                     <Button 
                         Grid.Column="1"
-                        Style="{StaticResource HorizontalAutoSizedRoundButtons}" 
                         Content="+"
                         Command="{Binding MakeVisibileAddSettingInfoOfDownloadedPartCommand}"/>
                 </Grid>
                 <StackPanel Visibility="{Binding AddDownloadedPartInfoVisibility, Mode=OneWay}">
-                    <TextBlock Text="XPath"
-                               Style="{StaticResource HeadingsStyle}"/>
+                    <Label Content="XPath"/>
                     <TextBox 
                         Text="{Binding XPath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                    <TextBlock Text="Header"
-                               Style="{StaticResource HeadingsStyle}"/>
+                    <Label Content="Header"/>
                     <TextBox
                         Text="{Binding Header, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                     
@@ -70,10 +67,9 @@
                             <ColumnDefinition/>
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
-                        <TextBlock 
-                            Style="{StaticResource HeadingsStyle}"
+                        <Label 
                             HorizontalAlignment="Right">
-                            <TextBlock.Text>
+                            <Label.Content>
                                 <MultiBinding Converter="{StaticResource OrientationOrWritingToRowOrColumnConverter}">
                                     <Binding Path="HorizontalOrientationOfWriting" Mode="OneWay"/>
                                     <Binding>
@@ -82,8 +78,8 @@
                                         </Binding.Source>
                                     </Binding>
                                 </MultiBinding>
-                            </TextBlock.Text>
-                        </TextBlock>
+                            </Label.Content>
+                        </Label>
                         <xwt:IntegerUpDown Grid.Column="1"
                                               HorizontalAlignment="Left"
                                               Value="{Binding RowOrColumn, Mode=TwoWay}"
@@ -111,10 +107,9 @@
                         <ColumnDefinition/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <TextBlock 
-                            Style="{StaticResource HeadingsStyle}"
+                    <Label
                             HorizontalAlignment="Right">
-                        <TextBlock.Text>
+                        <Label.Content>
                             <MultiBinding Converter="{StaticResource OrientationOrWritingToRowOrColumnConverter}">
                                 <Binding Path="HorizontalOrientationOfWriting" Mode="OneWay"/>
                                 <Binding>
@@ -123,8 +118,8 @@
                                     </Binding.Source>
                                 </Binding>
                             </MultiBinding>
-                        </TextBlock.Text>
-                    </TextBlock>
+                        </Label.Content>
+                    </Label>
                     <xwt:IntegerUpDown Grid.Column="1"
                                               HorizontalAlignment="Left"
                                               Value="{Binding GlobalStartRowOrColumn, Mode=TwoWay}"
@@ -138,18 +133,16 @@
             </StackPanel>
             <StackPanel Grid.Row="4"
                         x:Name="DistanceBetweenLinesStackPanel">
-                <TextBlock
-                       Text="Distance between lines"
-                       Style="{StaticResource HeadingsStyle}"/>
+                <Label
+                       Content="Distance between lines"/>
                 <xwt:IntegerUpDown
                                   Value="{Binding DistanceBetweenLines, Mode=TwoWay}"
                                   Minimum="1"/>
             </StackPanel>
             <StackPanel Grid.Row="5"
                         x:Name="DistanceBetweenNewParagraphs">
-                <TextBlock
-                       Text="Distance between new paragraphs of input"
-                       Style="{StaticResource HeadingsStyle}"/>
+                <Label
+                       Content="Distance between new paragraphs of input"/>
                 <xwt:IntegerUpDown 
                     Value="{Binding BetweenWritingNewInfoDistance,Mode=TwoWay}"
                     Minimum="1"/>
@@ -157,9 +150,8 @@
 
             <StackPanel Grid.Row="6"
                         x:Name="FileNameStackPanel">
-                <TextBlock Text="File name to save info"
-                           Style="{StaticResource HeadingsStyle}"/>
-                <TextBox 
+                <Label Content="File name to save info"/>
+                <TextBox
                     Text="{Binding FileNameToWriteInfo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             </StackPanel>
             <StackPanel Grid.Row="7">
@@ -170,9 +162,8 @@
             <StackPanel Grid.Row="8"
                         x:Name="DelayBetweenQueriesStackPanel"
                         IsEnabled="{Binding DateSettingsEnabled, Mode=OneWay}">
-                <TextBlock 
-                       Style="{StaticResource HeadingsStyle}"
-                       Text="Delay between queries"/>
+                <Label 
+                       Content="Delay between queries"/>
                 <UniformGrid Columns="2">
                     <xwt:IntegerUpDown 
                         x:Name="NumericUpDown" 
@@ -190,15 +181,15 @@
                          x:Name="BorderDatesOfQueriesUniformGrid"
                              Columns="2">
                 <StackPanel>
-                    <TextBlock Style="{StaticResource HeadingsStyle}"
-                               Text="Start date of queries"/>
+                    <Label 
+                               Content="Start date of queries"/>
                     <xwt:DateTimePicker HorizontalAlignment="Center"
                                 Value="{Binding StartDate, Mode=TwoWay}"/>
                 </StackPanel>
                 <StackPanel
                     IsEnabled="{Binding DateSettingsEnabled, Mode=OneWay}">
-                    <TextBlock Style="{StaticResource HeadingsStyle}"
-                                   Text="End date of queries"/>
+                    <Label 
+                                   Content="End date of queries"/>
                     <xwt:DateTimePicker HorizontalAlignment="Center"
                                 Value="{Binding EndDate, Mode=TwoWay}"/>
                 </StackPanel>

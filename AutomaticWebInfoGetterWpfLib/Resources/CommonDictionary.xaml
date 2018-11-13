@@ -1,7 +1,39 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:local="clr-namespace:AutomaticWebInfoGetterWpfLib.Resources">
-    <Style  x:Key="RoundButton" TargetType="Button">
+                    xmlns:local="clr-namespace:AutomaticWebInfoGetterWpfLib.Resources"
+                    xmlns:conv="clr-namespace:AutomaticWebInfoGetterWpfLib.Converters"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+
+
+    <conv:DoubleConverter x:Key="DoubleConverter"/>
+
+    <sys:Double x:Key="FontSizeParameter">0.5</sys:Double>
+
+
+
+    <Style TargetType="Control">
+        <Setter Property="TextElement.FontSize" Value="{Binding RelativeSource={RelativeSource self}, Path=ActualHeight,UpdateSourceTrigger=PropertyChanged,  Converter={StaticResource DoubleConverter}, ConverterParameter={StaticResource FontSizeParameter}}"/>
+        <Setter Property="VerticalAlignment" Value="Stretch"/>
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="Focusable" Value="False"/>
+    </Style>
+
+    <Style TargetType="Button" BasedOn="{StaticResource {x:Type Control}}"/>
+
+    <Style TargetType="Label" BasedOn="{StaticResource {x:Type Control}}"/>
+
+    <Style TargetType="TextBox" BasedOn="{StaticResource {x:Type Control}}"/>
+
+
+
+
+
+
+
+
+    <!--<Style  x:Key="RoundButton" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate x:Name="EllipseButtonTemplate"  TargetType="Button">
@@ -27,7 +59,7 @@
         </Style.Triggers>
     </Style>
 
-    <Style  x:Key="RoundLabel" TargetType="Label">
+    <Style  x:Key="RoundLabel" TargetType="Label" BasedOn="{StaticResource {x:Type Label}}">
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate x:Name="EllipseLabelTemplate"  TargetType="Label">
@@ -46,16 +78,17 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-    </Style>
+    </Style>-->
 
 
-    <Style x:Key="HorizontalAutoSizedRoundButtons" TargetType="Button" BasedOn="{StaticResource RoundButton}">
-        <Setter Property="Height" Value="Auto"/>
+    <!--<Style x:Key="HorizontalAutoSizedRoundButtons" TargetType="Button" BasedOn="{StaticResource RoundButton}">
         <Setter Property="Width" Value="{Binding Path=ActualHeight, RelativeSource={RelativeSource Self}}"/>
     </Style>
 
     <Style x:Key="HorizontalAutoSizedRoundLabel" TargetType="Label" BasedOn="{StaticResource RoundLabel}">
-        <Setter Property="Height" Value="Auto"/>
         <Setter Property="Width" Value="{Binding Path=ActualHeight, RelativeSource={RelativeSource Self}}"/>
-    </Style>
+    </Style>-->
+
+
+    
 </ResourceDictionary>

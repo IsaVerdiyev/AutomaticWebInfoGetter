@@ -151,6 +151,7 @@
   <ItemGroup>
     <Compile Include="ControllerClass.cs" />
     <Compile Include="Converters\DelayBetweenQueriesTimespanToStringMultiConverter.cs" />
+    <Compile Include="Converters\DoubleConverter.cs" />
     <Compile Include="Converters\OrientationOfWritingBoolToStringConverter.cs" />
     <Compile Include="Converters\OrientationOrWritingToRowOrColumnConverter.cs" />
     <Compile Include="Converters\TimerStateToIconConverter.cs" />
