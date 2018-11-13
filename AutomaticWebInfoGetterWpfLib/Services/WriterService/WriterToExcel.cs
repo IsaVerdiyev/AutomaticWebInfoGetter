@@ -7,6 +7,8 @@ using System.Text;
 using System.Threading.Tasks;
 using AutomaticWebInfoGetterWpfLib.Models;
 using OfficeOpenXml;
+using OpenQA.Selenium.Remote;
+
 namespace AutomaticWebInfoGetterWpfLib.Services.WriterService
 {
     class WriterToExcel : IWriter
@@ -20,6 +22,12 @@ namespace AutomaticWebInfoGetterWpfLib.Services.WriterService
             var file = new FileInfo(settingsInfo.NameOfFileToWriteInfo);
             using (var excelPackage = new ExcelPackage(file))
             {
+
+                if (file.Exists)
+                {
+                    excelPackage.File.Attributes = FileAttributes.Normal;
+                }
+
                 ExcelWorksheet workSheet;
                 InitializeWorkSheet(excelPackage, out workSheet);
                 InstallCurrentWritingPositionIfIsNull(downloadedPart, settingsInfo, workSheet);
@@ -36,6 +44,7 @@ namespace AutomaticWebInfoGetterWpfLib.Services.WriterService
                     }
                 }
                 excelPackage.Save();
+                excelPackage.File.Attributes = FileAttributes.ReadOnly;
             }
 
         }
@@ -45,6 +54,11 @@ namespace AutomaticWebInfoGetterWpfLib.Services.WriterService
             var file = new FileInfo(settingsInfo.NameOfFileToWriteInfo);
             using (var excelPackage = new ExcelPackage(file))
             {
+                if (file.Exists)
+                {
+                    excelPackage.File.Attributes = FileAttributes.Normal;
+                }
+
                 ExcelWorksheet workSheet;
                 InitializeWorkSheet(excelPackage, out workSheet);
                 InstallCurrentWritingPositionIfIsNull(downloadedPart, settingsInfo, workSheet);
@@ -58,6 +72,7 @@ namespace AutomaticWebInfoGetterWpfLib.Services.WriterService
                     downloadedPart.CurrentWritingPosition.Row += settingsInfo.BetweenLineDistance;
                 }
                 excelPackage.Save();
+                excelPackage.File.Attributes = FileAttributes.ReadOnly;
             }
 
         }
