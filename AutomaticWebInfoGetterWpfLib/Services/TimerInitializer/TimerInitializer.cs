@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
 using AutomaticWebInfoGetterWpfLib.Models;
 using AutomaticWebInfoGetterWpfLib.Services.WebInfoGetter;
 using AutomaticWebInfoGetterWpfLib.Services.WriterService;
@@ -71,18 +72,30 @@ namespace AutomaticWebInfoGetterWpfLib.Services.TimerInitializer
                     settingsInfo.TimerState = TimerStateEnum.Finished;
                     return;
                 }
-                DateTime whenToStart = DateTime.Now.Add(settingsInfo.TimeInfo.DelayBetweenQueries);
-                if (whenToStart < settingsInfo.TimeInfo.EndDate)
-                {
-                    SetTimer(settingsInfo, DateTime.Now, whenToStart);
-                }
-                else
+
+                RecreateTimerIfNeededOrFinishTask(settingsInfo);
+
+            }).ContinueWith(t => {
+                MessageBoxResult result =  MessageBox.Show($"Error Occured during task.\n" +
+                    $"Error content\n {t.Exception.InnerExceptions.First().Message}.\n" +
+                    $"Do you want to cancel task? ", "Error" , MessageBoxButton.YesNo, MessageBoxImage.Error);
+                if(result == MessageBoxResult.Yes)
                 {
                     settingsInfo.TimerState = TimerStateEnum.Finished;
                 }
-
-
-            }), null, Timeout.Infinite, Timeout.Infinite);
+                else
+                {
+                    DateTime whenToStart = DateTime.Now.Add(settingsInfo.TimeInfo.DelayBetweenQueries);
+                    if (whenToStart < settingsInfo.TimeInfo.EndDate)
+                    {
+                        SetTimer(settingsInfo, DateTime.Now, whenToStart);
+                    }
+                    else
+                    {
+                        settingsInfo.TimerState = TimerStateEnum.Finished;
+                    }
+                }
+            },TaskContinuationOptions.OnlyOnFaulted), null, Timeout.Infinite, Timeout.Infinite);
 
             SetTimer(settingsInfo, DateTime.Now, settingsInfo.TimeInfo.StartDate);
         }
@@ -119,6 +132,20 @@ namespace AutomaticWebInfoGetterWpfLib.Services.TimerInitializer
                 settingsInfo.Timer.Change(0, Timeout.Infinite);
             }
 
+        }
+
+
+        void RecreateTimerIfNeededOrFinishTask(SettingsInfo settingsInfo)
+        {
+            DateTime whenToStart = DateTime.Now.Add(settingsInfo.TimeInfo.DelayBetweenQueries);
+            if (whenToStart < settingsInfo.TimeInfo.EndDate)
+            {
+                SetTimer(settingsInfo, DateTime.Now, whenToStart);
+            }
+            else
+            {
+                settingsInfo.TimerState = TimerStateEnum.Finished;
+            }
         }
     }
 }
