@@ -156,6 +156,7 @@
     <Compile Include="Converters\OrientationOrWritingToRowOrColumnConverter.cs" />
     <Compile Include="Converters\TimerStateToIconConverter.cs" />
     <Compile Include="Exceptions\NoSuchEnumInTimespanToStringMultiConverter.cs" />
+    <Compile Include="CustomAnimations\GridLengthAnimation.cs" />
     <Compile Include="Messages\SettingsViewModelAddSettingInfoMessage.cs" />
     <Compile Include="Messages\AddSettingViewModelInitializeMessage.cs" />
     <Compile Include="Messages\SettingsViewModelInitializeMessage.cs" />

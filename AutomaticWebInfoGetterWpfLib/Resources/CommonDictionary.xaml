@@ -17,7 +17,6 @@
         <Setter Property="HorizontalAlignment" Value="Stretch"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
         <Setter Property="HorizontalContentAlignment" Value="Center"/>
-        <Setter Property="Focusable" Value="False"/>
     </Style>
 
     <Style TargetType="Button" BasedOn="{StaticResource {x:Type Control}}"/>

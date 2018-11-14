@@ -12,9 +12,9 @@
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="5*"/>
-            <RowDefinition Height="10"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition/>
+            <RowDefinition Height="20"/>
         </Grid.RowDefinitions>
 
         <Label>Tasks info</Label>
@@ -30,7 +30,7 @@
                     <RowDefinition/>
                     <RowDefinition Height="50"/>
                 </Grid.RowDefinitions>
-                <ListBox ScrollViewer.CanContentScroll="True" 
+                <ListBox  
                          ItemsSource="{Binding SettingInfos}"
                          HorizontalContentAlignment="Stretch"
                          SelectedItem="{Binding SelectedSettingInfo}">
@@ -66,18 +66,37 @@
                          Margin="0, 10, 0, 0"
                          Rows="9"
                          Visibility="{Binding SettingInfoVisibility, Mode=TwoWay}">
-                    <StackPanel>
-                        <Label  
-                           Content="URL"/>
-                        <Label 
-                           Content="{Binding Url}"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal"
-                                HorizontalAlignment="Center">
-                        <Label Content="Orientation of writing info: "/>
-                        <Label 
-                            Content="{Binding HorizontalOrientation, Converter={StaticResource OrientationOfWritingBoolToStringConverter}}"/>
-                    </StackPanel>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+
+                        <Label Content="Url: "/>
+                        <Label Grid.Column="1"
+                               HorizontalContentAlignment="Left"
+                               Content="{Binding Url}"/>
+                    </Grid>
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+
+                        <Label Content="Orientation of writing: "/>
+                        <Label Grid.Column="1"
+                               HorizontalContentAlignment="Left"
+                               Content="{Binding HorizontalOrientation, Converter={StaticResource OrientationOfWritingBoolToStringConverter}}"/>
+                    </Grid>
+
+                    <!--<Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        
+                        <Label-->
                     
                     <StackPanel>
                         <Label 

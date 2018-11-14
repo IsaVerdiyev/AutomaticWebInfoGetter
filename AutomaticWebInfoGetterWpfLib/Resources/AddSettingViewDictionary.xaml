@@ -7,6 +7,7 @@
     </ResourceDictionary.MergedDictionaries>
 
     <converters:OrientationOrWritingToRowOrColumnConverter x:Key="OrientationOrWritingToRowOrColumnConverter"/>
+    
 
     <!--<Style TargetType="TextBox" x:Key="TextInputAlignment">
         <Setter Property="HorizontalContentAlignment" Value="Center"/>
