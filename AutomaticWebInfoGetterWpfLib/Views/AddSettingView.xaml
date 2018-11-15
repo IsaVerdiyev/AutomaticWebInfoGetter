@@ -7,6 +7,7 @@
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              xmlns:xwt="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
              xmlns:anim="clr-namespace:AutomaticWebInfoGetterWpfLib.CustomAnimations"
+             xmlns:conv="clr-namespace:AutomaticWebInfoGetterWpfLib.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
@@ -23,8 +24,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition/>
                 <RowDefinition/>
-                <RowDefinition x:Name="VisibilityRow">
-                </RowDefinition>
+                <RowDefinition Height="auto"/>
                 <RowDefinition/>
                 <RowDefinition/>
                 <RowDefinition/>
@@ -48,8 +48,8 @@
                          MinWidth="200"/>
             </Grid>
             <Grid Grid.Row="1">
-                
-                    <Grid.ColumnDefinitions>
+
+                <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
                         <ColumnDefinition Width="auto"/>
                     </Grid.ColumnDefinitions>
@@ -64,10 +64,13 @@
                             <EventTrigger RoutedEvent="Button.Click">
                                 <BeginStoryboard >
                                     <Storyboard>
-                                        <anim:GridLengthAnimation
-                                    Storyboard.TargetName="VisibilityRow"
-                                    Storyboard.TargetProperty="Height"
-                                    From="0*" To="3*" Duration="0:0:0.5"/>
+                                    <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="Margin"
+                                                                      Storyboard.TargetName="XPathAddingGrid"
+                                                                         BeginTime="00:00:00">
+                                        <SplineThicknessKeyFrame KeyTime="00:00:00" Value="{Binding Margin, RelativeSource={RelativeSource self}}" />
+                                        <SplineThicknessKeyFrame KeyTime="00:00:10" Value="0,0,0,0" />
+                                    </ThicknessAnimationUsingKeyFrames>
+                                                                      
                                     </Storyboard>
                                 </BeginStoryboard>
                             </EventTrigger>
@@ -79,8 +82,19 @@
                 
             </Grid>
             <Grid  Grid.Row="2"
-                   Visibility="{Binding AddDownloadedPartInfoVisibility, Mode=OneWay}">
-                
+                   x:Name="XPathAddingGrid"
+                   Panel.ZIndex="-1"
+                   Margin="{Binding Path=Height, RelativeSource={RelativeSource self}, Converter={StaticResource MarginConverter}, ConverterParameter={x:Static conv:MarginConverterSideOptions.Top}}">
+                <Grid.Height>
+                    <Binding Path="ActualHeight"
+                             RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType=Grid}"
+                             Converter="{StaticResource DoubleConverter}">
+                        <Binding.ConverterParameter>
+                            <sys:Double>0.3</sys:Double>
+                        </Binding.ConverterParameter>
+                    </Binding>
+                </Grid.Height>
+
                 <Grid.RowDefinitions>
                     <RowDefinition/>
                     <RowDefinition/>
@@ -139,8 +153,8 @@
                 <Grid Grid.Row="3">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
-                        <ColumnDefinition Width="auto"/>
-                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
                     <Button Grid.Column="1"
                                 Content="Add"
@@ -153,10 +167,13 @@
                             <EventTrigger RoutedEvent="Button.Click">
                                 <BeginStoryboard >
                                     <Storyboard>
-                                        <anim:GridLengthAnimation
-                                    Storyboard.TargetName="VisibilityRow"
-                                    Storyboard.TargetProperty="Height"
-                                    From="3*" To="0*" Duration="0:0:0.5"/>
+                                        <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="Margin"
+                                                                      Storyboard.TargetName="XPathAddingGrid"
+                                                                         BeginTime="00:00:00">
+                                            <SplineThicknessKeyFrame KeyTime="00:00:00" Value="0,0,0,0" />
+                                            <SplineThicknessKeyFrame KeyTime="00:00:10" Value="{Binding Height, RelativeSource= {RelativeSource self}, Converter={StaticResource MarginConverter}, ConverterParameter={x:Static conv:MarginConverterSideOptions.Top}}" />
+                                        </ThicknessAnimationUsingKeyFrames>
+
                                     </Storyboard>
                                 </BeginStoryboard>
                             </EventTrigger>

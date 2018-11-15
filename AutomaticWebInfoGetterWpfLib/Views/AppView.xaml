@@ -10,8 +10,8 @@
         <ResourceDictionary Source="../Resources/ViewDataTemplates.xaml"/>
     </Window.Resources>
     <Grid TextElement.FontSize="30">
-        <ScrollViewer VerticalScrollBarVisibility="Auto"
-                      HorizontalScrollBarVisibility="Auto">
+        <ScrollViewer VerticalScrollBarVisibility="Disabled"
+                      HorizontalScrollBarVisibility="Disabled">
             <ContentControl Content="{Binding CurrentControl}"/>
         </ScrollViewer>
     </Grid>
