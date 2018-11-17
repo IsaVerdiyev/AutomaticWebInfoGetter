@@ -54,7 +54,8 @@
                         <ColumnDefinition Width="auto"/>
                     </Grid.ColumnDefinitions>
                     <ListBox 
-                        ItemsSource="{Binding SettingInfosOfDownloadedPartsOfPage}" Grid.ColumnSpan="3"/>
+                        ItemsSource="{Binding SettingInfosOfDownloadedPartsOfPage}" 
+                        HorizontalAlignment="Stretch"/>
                 <Button 
                         Grid.Column="3"
                         Content="+"
@@ -62,16 +63,8 @@
                     <Button.Triggers>
                         
                             <EventTrigger RoutedEvent="Button.Click">
-                                <BeginStoryboard >
-                                    <Storyboard>
-                                    <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="Margin"
-                                                                      Storyboard.TargetName="XPathAddingGrid"
-                                                                         BeginTime="00:00:00">
-                                        <SplineThicknessKeyFrame KeyTime="00:00:00" Value="{Binding Margin, RelativeSource={RelativeSource self}}" />
-                                        <SplineThicknessKeyFrame KeyTime="00:00:10" Value="0,0,0,0" />
-                                    </ThicknessAnimationUsingKeyFrames>
-                                                                      
-                                    </Storyboard>
+                                <BeginStoryboard Storyboard="{StaticResource OpeningAddXPathGridAnimation}">
+                                    
                                 </BeginStoryboard>
                             </EventTrigger>
                         
@@ -84,9 +77,13 @@
             <Grid  Grid.Row="2"
                    x:Name="XPathAddingGrid"
                    Panel.ZIndex="-1"
-                   Margin="{Binding Path=Height, RelativeSource={RelativeSource self}, Converter={StaticResource MarginConverter}, ConverterParameter={x:Static conv:MarginConverterSideOptions.Top}}">
+                   
+                   Margin="{Binding Path=ActualHeight,Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource self}, Converter={StaticResource MarginConverter}, ConverterParameter={x:Static conv:MarginConverterSideOptions.Top}}" 
+                   LayoutUpdated="XPathAddingGrid_LayoutUpdated" 
+                   SizeChanged="XPathAddingGrid_LayoutUpdated">
                 <Grid.Height>
                     <Binding Path="ActualHeight"
+                             Mode="OneWay"
                              RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType=Grid}"
                              Converter="{StaticResource DoubleConverter}">
                         <Binding.ConverterParameter>
@@ -158,24 +155,20 @@
                     </Grid.ColumnDefinitions>
                     <Button Grid.Column="1"
                                 Content="Add"
-                                Command="{Binding AddSettingInfoOfDownloadedPartInCollectionCommand}"/>
+                                Command="{Binding AddSettingInfoOfDownloadedPartInCollectionCommand}">
+                        <Button.Triggers>
+                            <EventTrigger RoutedEvent="Button.Click">
+                                <BeginStoryboard Storyboard="{StaticResource ClosingAddXPathGridAnimation}"/>
+                            </EventTrigger>
+                        </Button.Triggers>
+                    </Button>
                     <Button Grid.Column="2"
                             Content="Cancel"
                             Command="{Binding HideAddSettingInfoOfDownloadedPartCommand}">
                         <Button.Triggers>
 
                             <EventTrigger RoutedEvent="Button.Click">
-                                <BeginStoryboard >
-                                    <Storyboard>
-                                        <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="Margin"
-                                                                      Storyboard.TargetName="XPathAddingGrid"
-                                                                         BeginTime="00:00:00">
-                                            <SplineThicknessKeyFrame KeyTime="00:00:00" Value="0,0,0,0" />
-                                            <SplineThicknessKeyFrame KeyTime="00:00:10" Value="{Binding Height, RelativeSource= {RelativeSource self}, Converter={StaticResource MarginConverter}, ConverterParameter={x:Static conv:MarginConverterSideOptions.Top}}" />
-                                        </ThicknessAnimationUsingKeyFrames>
-
-                                    </Storyboard>
-                                </BeginStoryboard>
+                                <BeginStoryboard Storyboard="{StaticResource ClosingAddXPathGridAnimation}"/>
                             </EventTrigger>
 
                         </Button.Triggers>

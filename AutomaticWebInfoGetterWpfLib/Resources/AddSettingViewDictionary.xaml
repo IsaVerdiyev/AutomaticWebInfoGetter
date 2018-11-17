@@ -7,17 +7,25 @@
     </ResourceDictionary.MergedDictionaries>
 
     <converters:OrientationOrWritingToRowOrColumnConverter x:Key="OrientationOrWritingToRowOrColumnConverter"/>
-    
 
-    <!--<Style TargetType="TextBox" x:Key="TextInputAlignment">
-        <Setter Property="HorizontalContentAlignment" Value="Center"/>
-        <Setter Property="VerticalContentAlignment" Value="Center"/>
-    </Style>
 
-    <Style TargetType="Label" x:Key="HeadingsStyle">
-        <Setter Property="HorizontalContentAlignment" Value="Center"/>
-        <Setter Property="VerticalAlignment" Value="Center"/>
-        <Setter Property="Foreground" Value="Red"/>
-    </Style>-->
+
+    <Storyboard x:Key="OpeningAddXPathGridAnimation" >
+        <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="Margin"
+                             BeginTime="00:00:00"
+                                          FillBehavior="Stop">
+            <SplineThicknessKeyFrame KeyTime="00:00:00" Value="0,-10,0,0" />
+            <SplineThicknessKeyFrame KeyTime="00:00:1" Value="0, 50, 0, 0"/>
+        </ThicknessAnimationUsingKeyFrames>
+    </Storyboard>
+
+    <Storyboard x:Key="ClosingAddXPathGridAnimation">
+        <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="Margin"
+                                          BeginTime="00:00:00"
+                                          FillBehavior="Stop">
+            <SplineThicknessKeyFrame KeyTime="00:00:00" Value="0, 0, 0, 0"/>
+            <SplineThicknessKeyFrame KeyTime="00:00:1" Value="0, 0, 0, 0"/>
+        </ThicknessAnimationUsingKeyFrames>
+    </Storyboard>
 
 </ResourceDictionary>
