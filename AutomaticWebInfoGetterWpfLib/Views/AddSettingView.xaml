@@ -79,8 +79,8 @@
                    Panel.ZIndex="-1"
                    
                    Margin="{Binding Path=ActualHeight,Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource self}, Converter={StaticResource MarginConverter}, ConverterParameter={x:Static conv:MarginConverterSideOptions.Top}}" 
-                   LayoutUpdated="XPathAddingGrid_LayoutUpdated" 
-                   SizeChanged="XPathAddingGrid_LayoutUpdated">
+                   LayoutUpdated="RefreshAnimationKeyFrames" 
+                   SizeChanged="RefreshAnimationKeyFrames">
                 <Grid.Height>
                     <Binding Path="ActualHeight"
                              Mode="OneWay"
