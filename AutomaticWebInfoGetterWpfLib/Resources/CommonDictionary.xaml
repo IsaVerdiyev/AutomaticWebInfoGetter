@@ -8,6 +8,9 @@
 
     <conv:DoubleConverter x:Key="DoubleConverter"/>
     <conv:MarginConverter x:Key="MarginConverter"/>
+    <conv:DoubleAdder x:Key="DoubleAdder"/>
+    <conv:MarginToDoubleConverter x:Key="MarginToDoubleConverter"/>
+    <conv:DoubleSubstractor x:Key="DoubleSubstractor"/>
 
     <sys:Double x:Key="FontSizeParameter">0.5</sys:Double>
 
@@ -33,7 +36,7 @@
 
     <Style TargetType="xwt:DateTimePicker" BasedOn="{StaticResource {x:Type Control}}"/>
 
-
+   
 
 
 

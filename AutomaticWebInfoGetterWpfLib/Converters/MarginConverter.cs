@@ -46,7 +46,7 @@ namespace AutomaticWebInfoGetterWpfLib.Converters
             }
             else
             {
-                return new Exception("Invalid parameter passed in PropertyMarginConverter");
+                return new Exception("Invalid parameter passed in MarginConverter");
             }
 
 

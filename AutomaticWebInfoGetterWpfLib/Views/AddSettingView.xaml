@@ -16,302 +16,329 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition/>
+            <RowDefinition x:Name="InfoAddingRow" Height="*"/>
             <RowDefinition Height="60"/>
         </Grid.RowDefinitions>
 
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="auto"/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
+        <Grid 
+              ScrollViewer.CanContentScroll="True"
+              ScrollViewer.VerticalScrollBarVisibility="Auto">
 
-                <Label  
+            <Grid>
+                <Grid.Height>
+                    <MultiBinding Converter="{StaticResource DoubleAdder}">
+                        <Binding RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType=Grid}"
+                             Path="ActualHeight"/>
+                        <Binding ElementName="XPathAddingGrid"
+                             Path="Margin"
+                             Converter="{StaticResource MarginToDoubleConverter}"
+                             ConverterParameter="{x:Static conv:MarginConverterSideOptions.Top}"/>
+                        <Binding ElementName="XPathAddingGrid"
+                             Path="ActualHeight"/>
+                    </MultiBinding>
+                </Grid.Height>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label  
                     Width="auto"
                     Content="URL"/>
-                <TextBox Grid.Column="1"
+                    <TextBox Grid.Column="1"
                          Text="{Binding URL, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                          MinWidth="200"/>
-            </Grid>
-            <Grid Grid.Row="1">
+                </Grid>
+                <Grid Grid.Row="1">
 
-                <Grid.ColumnDefinitions>
+                    <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
                         <ColumnDefinition Width="auto"/>
                     </Grid.ColumnDefinitions>
                     <ListBox 
                         ItemsSource="{Binding SettingInfosOfDownloadedPartsOfPage}" 
-                        HorizontalAlignment="Stretch"/>
-                <Button 
+                        HorizontalAlignment="Stretch">
+                        <TextElement.FontSize>
+                            <Binding Path="ActualHeight"
+                                 RelativeSource="{RelativeSource self}"
+                                 Converter="{StaticResource DoubleConverter}">
+                                <Binding.ConverterParameter>
+                                    <sys:Double>0.2</sys:Double>
+                                </Binding.ConverterParameter>
+                            </Binding>
+                        </TextElement.FontSize>
+                    </ListBox>
+                    <Button 
                         Grid.Column="3"
                         Content="+"
                         Command="{Binding MakeVisibileAddSettingInfoOfDownloadedPartCommand}">
-                    <Button.Triggers>
-                        
+                        <Button.Triggers>
+
                             <EventTrigger RoutedEvent="Button.Click">
-                                <BeginStoryboard Storyboard="{StaticResource OpeningAddXPathGridAnimation}">
-                                    
+                                <BeginStoryboard Storyboard="{StaticResource OpeningAddXPathGridStoryboard}">
+
                                 </BeginStoryboard>
                             </EventTrigger>
-                        
-                    </Button.Triggers>
-                </Button>
 
-                
-                
-            </Grid>
-            <Grid  Grid.Row="2"
+                        </Button.Triggers>
+                    </Button>
+
+
+
+                </Grid>
+                <Grid  Grid.Row="2"
                    x:Name="XPathAddingGrid"
                    Panel.ZIndex="-1"
                    
                    Margin="{Binding Path=ActualHeight,Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource self}, Converter={StaticResource MarginConverter}, ConverterParameter={x:Static conv:MarginConverterSideOptions.Top}}" 
                    LayoutUpdated="RefreshAnimationKeyFrames" 
                    SizeChanged="RefreshAnimationKeyFrames">
-                <Grid.Height>
-                    <Binding Path="ActualHeight"
+                    <Grid.Height>
+                        <Binding Path="ActualHeight"
                              Mode="OneWay"
                              RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType=Grid}"
                              Converter="{StaticResource DoubleConverter}">
-                        <Binding.ConverterParameter>
-                            <sys:Double>0.3</sys:Double>
-                        </Binding.ConverterParameter>
-                    </Binding>
-                </Grid.Height>
+                            <Binding.ConverterParameter>
+                                <sys:Double>0.3</sys:Double>
+                            </Binding.ConverterParameter>
+                        </Binding>
+                    </Grid.Height>
 
-                <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                </Grid.RowDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
 
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
 
-                    <Label 
+                        <Label 
                         Content="XPath"/>
-                    <TextBox Grid.Column="1"
+                        <TextBox Grid.Column="1"
                              Text="{Binding XPath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
-                </Grid>
+                    </Grid>
 
-                <Grid Grid.Row="1">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
 
-                    <Label Content="Header"/>
-                    <TextBox Grid.Column="1"
+                        <Label Content="Header"/>
+                        <TextBox Grid.Column="1"
                              Text="{Binding Header, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                </Grid>
-                
+                    </Grid>
 
-                <Grid Grid.Row="2">
+
+                    <Grid Grid.Row="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Label HorizontalAlignment="Right">
+                            <Label.Content>
+                                <MultiBinding Converter="{StaticResource OrientationOrWritingToRowOrColumnConverter}">
+                                    <Binding Path="HorizontalOrientationOfWriting" Mode="OneWay"/>
+                                    <Binding>
+                                        <Binding.Source>
+                                            <sys:Boolean>False</sys:Boolean>
+                                        </Binding.Source>
+                                    </Binding>
+                                </MultiBinding>
+                            </Label.Content>
+                        </Label>
+                        <xwt:IntegerUpDown Grid.Column="1"
+                                       HorizontalAlignment="Left"
+                                       Value="{Binding RowOrColumn, Mode=TwoWay}"
+                                       Minimum="1"/>
+                    </Grid>
+
+                    <Grid Grid.Row="3">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Button Grid.Column="1"
+                                Content="Add"
+                                Command="{Binding AddSettingInfoOfDownloadedPartInCollectionCommand}">
+                            <Button.Triggers>
+                                <EventTrigger RoutedEvent="Button.Click">
+                                    <BeginStoryboard Storyboard="{StaticResource ClosingAddXPathGridStoryboard}"/>
+                                </EventTrigger>
+                            </Button.Triggers>
+                        </Button>
+                        <Button Grid.Column="2"
+                            Content="Cancel"
+                            Command="{Binding HideAddSettingInfoOfDownloadedPartCommand}">
+                            <Button.Triggers>
+
+                                <EventTrigger RoutedEvent="Button.Click">
+                                    <BeginStoryboard Storyboard="{StaticResource ClosingAddXPathGridStoryboard}"/>
+                                </EventTrigger>
+
+                            </Button.Triggers>
+                        </Button>
+                    </Grid>
+                </Grid>
+
+
+                <Grid Grid.Row="3">
+                    <CheckBox Content="HorizontalOrientaionOfWriting" 
+                          IsChecked="{Binding HorizontalOrientationOfWriting, Mode=TwoWay}"
+                          HorizontalAlignment="Center"/>
+                </Grid>
+
+                <Grid Grid.Row="4">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
+                        <ColumnDefinition Width="auto"/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <Label HorizontalAlignment="Right">
+
+                    <Label>
                         <Label.Content>
                             <MultiBinding Converter="{StaticResource OrientationOrWritingToRowOrColumnConverter}">
                                 <Binding Path="HorizontalOrientationOfWriting" Mode="OneWay"/>
                                 <Binding>
                                     <Binding.Source>
-                                        <sys:Boolean>False</sys:Boolean>
+                                        <sys:Boolean>True</sys:Boolean>
                                     </Binding.Source>
                                 </Binding>
                             </MultiBinding>
                         </Label.Content>
                     </Label>
                     <xwt:IntegerUpDown Grid.Column="1"
-                                       HorizontalAlignment="Left"
-                                       Value="{Binding RowOrColumn, Mode=TwoWay}"
-                                       Minimum="1"/>
-                </Grid>
-                
-                <Grid Grid.Row="3">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
-                    <Button Grid.Column="1"
-                                Content="Add"
-                                Command="{Binding AddSettingInfoOfDownloadedPartInCollectionCommand}">
-                        <Button.Triggers>
-                            <EventTrigger RoutedEvent="Button.Click">
-                                <BeginStoryboard Storyboard="{StaticResource ClosingAddXPathGridAnimation}"/>
-                            </EventTrigger>
-                        </Button.Triggers>
-                    </Button>
-                    <Button Grid.Column="2"
-                            Content="Cancel"
-                            Command="{Binding HideAddSettingInfoOfDownloadedPartCommand}">
-                        <Button.Triggers>
-
-                            <EventTrigger RoutedEvent="Button.Click">
-                                <BeginStoryboard Storyboard="{StaticResource ClosingAddXPathGridAnimation}"/>
-                            </EventTrigger>
-
-                        </Button.Triggers>
-                    </Button>
-                </Grid>
-            </Grid>
-            
-            
-            <Grid Grid.Row="3">
-                <CheckBox Content="HorizontalOrientaionOfWriting" 
-                          IsChecked="{Binding HorizontalOrientationOfWriting, Mode=TwoWay}"
-                          HorizontalAlignment="Center"/>
-            </Grid>
-
-            <Grid Grid.Row="4">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="auto"/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-
-                <Label>
-                    <Label.Content>
-                        <MultiBinding Converter="{StaticResource OrientationOrWritingToRowOrColumnConverter}">
-                            <Binding Path="HorizontalOrientationOfWriting" Mode="OneWay"/>
-                            <Binding>
-                                <Binding.Source>
-                                    <sys:Boolean>True</sys:Boolean>
-                                </Binding.Source>
-                            </Binding>
-                        </MultiBinding>
-                    </Label.Content>
-                </Label>
-                <xwt:IntegerUpDown Grid.Column="1"
                                               HorizontalAlignment="Left"
                                               Value="{Binding GlobalStartRowOrColumn, Mode=TwoWay}"
                                               Minimum="1"/>
 
-            </Grid>
-            
-            
-            <Grid Grid.Row="5">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
+                </Grid>
 
-                <Label Content="Distance between lines"/>
-                <xwt:IntegerUpDown Grid.Column="1"
+
+                <Grid Grid.Row="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label Content="Distance between lines"/>
+                    <xwt:IntegerUpDown Grid.Column="1"
                                   Value="{Binding DistanceBetweenLines, Mode=TwoWay}"
                                   Minimum="1"/>
-            </Grid>
+                </Grid>
 
-            
-            <Grid Grid.Row="6"
+
+                <Grid Grid.Row="6"
                   x:Name="DistanceBetweenNewParagraphs">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="auto"/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
 
-                <Label Content="Distance between new paragraphs of input"/>
-                <xwt:IntegerUpDown Grid.Column="1" 
+                    <Label Content="Distance between new paragraphs of input"/>
+                    <xwt:IntegerUpDown Grid.Column="1" 
                                    Value="{Binding BetweenWritingNewInfoDistance,Mode=TwoWay}"
                                    Minimum="1"/>
-            </Grid>
+                </Grid>
 
-            
-            <Grid Grid.Row="7"
+
+                <Grid Grid.Row="7"
                         x:Name="FileNameStackPanel">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="auto"/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
 
-                <Label Content="File name to save info"/>
-                <TextBox Grid.Column="1"
+                    <Label Content="File name to save info"/>
+                    <TextBox Grid.Column="1"
                          Text="{Binding FileNameToWriteInfo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-            </Grid>
-            
-            
-            <Grid Grid.Row="8">
-                <CheckBox Content="Run task only once" 
+                </Grid>
+
+
+                <Grid Grid.Row="8">
+                    <CheckBox Content="Run task only once" 
                           IsChecked="{Binding QueryOnlyOnce, Mode=TwoWay}"
                           HorizontalAlignment="Center"/>
-            </Grid>
-            
-            
-            <Grid Grid.Row="9"
+                </Grid>
+
+
+                <Grid Grid.Row="9"
                         x:Name="DelayBetweenQueriesStackPanel"
                         IsEnabled="{Binding DateSettingsEnabled, Mode=OneWay}">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <Label 
-                       Content="Delay between queries"/>
-                <UniformGrid Grid.Column="1"
-                             Columns="2">
-                    <xwt:IntegerUpDown 
-                        x:Name="NumericUpDown" 
-                        HorizontalAlignment="Right"
-                        Value="{Binding NumericRepresentationOfDelay, Mode=TwoWay}"/>
-                    <ComboBox HorizontalAlignment="Left" 
-                          Height="{Binding ElementName=NumericUpDown, Path=Height}"
-                          ItemsSource="{Binding DelayMeasures}"
-                          FontSize="14"
-                          SelectedItem="{Binding SelectedDelayMeasure}"/>
-
-                </UniformGrid>
-            </Grid>
-            
-            
-            <UniformGrid Grid.Row="10" 
-                         x:Name="BorderDatesOfQueriesUniformGrid"
-                             Columns="2">
-                <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
                     <Label 
+                       Content="Delay between queries"/>
+                    <UniformGrid Grid.Column="1"
+                             Columns="2">
+                        <xwt:IntegerUpDown 
+                        x:Name="NumericUpDown" 
+                        HorizontalAlignment="Right"
+                        Value="{Binding NumericRepresentationOfDelay, Mode=TwoWay}"/>
+                        <ComboBox HorizontalAlignment="Left" 
+                          Height="{Binding ElementName=NumericUpDown, Path=Height}"
+                          ItemsSource="{Binding DelayMeasures}"
+                          FontSize="14"
+                          SelectedItem="{Binding SelectedDelayMeasure}"/>
+
+                    </UniformGrid>
+                </Grid>
+
+
+                <UniformGrid Grid.Row="10" 
+                         x:Name="BorderDatesOfQueriesUniformGrid"
+                             Columns="2">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Label 
                                Content="Start date of queries"/>
-                    <xwt:DateTimePicker Grid.Column="1"
+                        <xwt:DateTimePicker Grid.Column="1"
                                         HorizontalAlignment="Center"
                                         Value="{Binding StartDate, Mode=TwoWay}"/>
-                </Grid>
-                <Grid
+                    </Grid>
+                    <Grid
                     IsEnabled="{Binding DateSettingsEnabled, Mode=OneWay}">
 
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
 
-                    <Label Content="End date of queries"/>
-                    <xwt:DateTimePicker Grid.Column="1"
+                        <Label Content="End date of queries"/>
+                        <xwt:DateTimePicker Grid.Column="1"
                                         HorizontalAlignment="Center"
                                         Value="{Binding EndDate, Mode=TwoWay}"/>
-                </Grid>
-            </UniformGrid>
+                    </Grid>
+                </UniformGrid>
+            </Grid>
         </Grid>
 
-        
+
         <Grid Grid.Row="1"
               Margin="0, 10, 5, 10">
             <Grid.ColumnDefinitions>

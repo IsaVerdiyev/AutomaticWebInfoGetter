@@ -29,15 +29,19 @@ namespace AutomaticWebInfoGetterWpfLib.Views
         public AddSettingView()
         {
             InitializeComponent();
+            var storyboard = Resources["OpeningAddXPathGridStoryboard"] as Storyboard;
+            var openingMarginAnimation = storyboard.Children.First(a => a.Name == "OpeningMarginAnimation") as ThicknessAnimationUsingKeyFrames;
+            Storyboard.SetTargetName(openingMarginAnimation, XPathAddingGrid.Name);
+            openingMarginAnimation.Completed += (s, evargs) => XPathAddingGrid.Margin = new Thickness(0, 0, 0, 0);
 
-            var animation = ((Resources["OpeningAddXPathGridAnimation"] as Storyboard).Children.First()) as ThicknessAnimationUsingKeyFrames;
-            Storyboard.SetTargetName(animation, XPathAddingGrid.Name);
-            animation.Completed += (s, evargs) => XPathAddingGrid.Margin = new Thickness(0, 0, 0, 0);
+            //var openingHeightAnimation = storyboard.Children.First(a => a.Name == "OpeningHeightAnimation") as DoubleAnimation;
+            //Storyboard.SetTargetName(openingMarginAnimation, InfoAddingGrid.Name);
 
 
-            animation = ((Resources["ClosingAddXPathGridAnimation"] as Storyboard).Children.First()) as ThicknessAnimationUsingKeyFrames;
-            Storyboard.SetTargetName(animation, XPathAddingGrid.Name);
-            animation.Completed += (s, evargs) =>
+            storyboard = Resources["ClosingAddXPathGridStoryboard"] as Storyboard;
+            openingMarginAnimation = storyboard.Children.First(a => a.Name == "ClosingMarginAnimation") as ThicknessAnimationUsingKeyFrames;
+            Storyboard.SetTargetName(openingMarginAnimation, XPathAddingGrid.Name);
+            openingMarginAnimation.Completed += (s, evargs) =>
             {
 
                 Binding binding = new Binding("ActualHeight");
@@ -52,16 +56,15 @@ namespace AutomaticWebInfoGetterWpfLib.Views
 
         private void RefreshAnimationKeyFrames(object sender, EventArgs e)
         {
-            var animation = ((Resources["OpeningAddXPathGridAnimation"] as Storyboard).Children.First()) as ThicknessAnimationUsingKeyFrames;
+            var storyboard = Resources["OpeningAddXPathGridStoryboard"] as Storyboard;
+            var animation = storyboard.Children.First(a => a.Name == "OpeningMarginAnimation") as ThicknessAnimationUsingKeyFrames;
             animation.KeyFrames[0].Value = new Thickness(0, -XPathAddingGrid.ActualHeight, 0, 0);
             animation.KeyFrames[1].Value = new Thickness(0, 0, 0, 0);
             
-
-            animation = ((Resources["ClosingAddXPathGridAnimation"] as Storyboard).Children.First()) as ThicknessAnimationUsingKeyFrames;
+            storyboard = Resources["ClosingAddXPathGridStoryboard"] as Storyboard;
+            animation = storyboard.Children.First(a => a.Name == "ClosingMarginAnimation") as ThicknessAnimationUsingKeyFrames;
             animation.KeyFrames[0].Value = new Thickness(0, 0, 0, 0);
             animation.KeyFrames[1].Value = new Thickness(0, -XPathAddingGrid.ActualHeight, 0, 0);
         }
-
-       
     }
 }

@@ -10,22 +10,38 @@
 
 
 
-    <Storyboard x:Key="OpeningAddXPathGridAnimation" >
-        <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="Margin"
-                             BeginTime="00:00:00"
+    <Storyboard x:Key="OpeningAddXPathGridStoryboard" >
+        <ThicknessAnimationUsingKeyFrames x:Name="OpeningMarginAnimation" 
+                                          Storyboard.TargetProperty="Margin"
+                                          BeginTime="00:00:00"
                                           FillBehavior="Stop">
-            <SplineThicknessKeyFrame KeyTime="00:00:00" Value="0,-10,0,0" />
-            <SplineThicknessKeyFrame KeyTime="00:00:0.3" Value="0, 50, 0, 0"/>
+            <SplineThicknessKeyFrame KeyTime="00:00:00" Value="0,0,0,0" />
+            <SplineThicknessKeyFrame KeyTime="00:00:0.3" Value="0,0,0,0"/>
         </ThicknessAnimationUsingKeyFrames>
+        <!--<DoubleAnimation x:Name="OpeningHeightAnimation" 
+                         Storyboard.TargetProperty="ActualHeight"
+                         BeginTime="00:00:00"
+                         From="0"
+                         To="0"
+                         Duration="0:0:0.3"
+                         FillBehavior="Stop"/>-->
+
     </Storyboard>
 
-    <Storyboard x:Key="ClosingAddXPathGridAnimation">
-        <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="Margin"
+    <Storyboard x:Key="ClosingAddXPathGridStoryboard">
+        <ThicknessAnimationUsingKeyFrames x:Name="ClosingMarginAnimation" 
+                                          Storyboard.TargetProperty="Margin"
                                           BeginTime="00:00:00"
                                           FillBehavior="Stop">
             <SplineThicknessKeyFrame KeyTime="00:00:00" Value="0, 0, 0, 0"/>
             <SplineThicknessKeyFrame KeyTime="00:00:0.3" Value="0, 0, 0, 0"/>
         </ThicknessAnimationUsingKeyFrames>
+        <!--<DoubleAnimation x:Name="ClosingHeightAnimation" Storyboard.TargetProperty="ActualHeight"
+                         BeginTime="00:00:00"
+                         From="0"
+                         To="0"
+                         Duration="0:0:0.3"
+                         FillBehavior="Stop"/>-->
     </Storyboard>
 
 </ResourceDictionary>
