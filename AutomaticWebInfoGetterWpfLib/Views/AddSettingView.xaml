@@ -47,7 +47,8 @@
                         Width="auto"
                         Content="URL"/>
                     <TextBox Grid.Column="1"
-                         Text="{Binding URL, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                             HorizontalAlignment="Stretch"
+                             Text="{Binding URL, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
                 </Grid>
                 <Grid Grid.Row="1">
 
@@ -81,7 +82,7 @@
                                 <StaticResourceExtension ResourceKey="OpeningAddXPathGridAnimation"/>
                             </Storyboard>
                         </Button.Resources>
-                        
+
                         <Button.Triggers>
                             <EventTrigger RoutedEvent="Button.Click">
                                 <BeginStoryboard Storyboard="{StaticResource OpeningAddXPathGridStoryboard}"/>
@@ -97,7 +98,7 @@
                        Panel.ZIndex="-1"
                         Height="120"
                        Margin="{Binding Path=ActualHeight,Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource self}, Converter={StaticResource MarginConverter}, ConverterParameter={x:Static conv:MarginConverterSideOptions.Top}}" >
-                    
+
 
                     <Grid.RowDefinitions>
                         <RowDefinition/>
@@ -148,9 +149,7 @@
                             </Label.Content>
                         </Label>
                         <xwt:IntegerUpDown Grid.Column="1"
-                                       HorizontalAlignment="Left"
-                                       Value="{Binding RowOrColumn, Mode=TwoWay}"
-                                       Minimum="1"/>
+                                       Value="{Binding RowOrColumn, Mode=TwoWay}"/>
                     </Grid>
 
                     <Grid Grid.Row="3">
@@ -205,7 +204,7 @@
 
                 <Grid Grid.Row="4">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
 
@@ -222,9 +221,7 @@
                         </Label.Content>
                     </Label>
                     <xwt:IntegerUpDown Grid.Column="1"
-                                              HorizontalAlignment="Left"
-                                              Value="{Binding GlobalStartRowOrColumn, Mode=TwoWay}"
-                                              Minimum="1"/>
+                                       Value="{Binding GlobalStartRowOrColumn, Mode=TwoWay}"/>
 
                 </Grid>
 
@@ -237,27 +234,25 @@
 
                     <Label Content="Distance between lines"/>
                     <xwt:IntegerUpDown Grid.Column="1"
-                                  Value="{Binding DistanceBetweenLines, Mode=TwoWay}"
-                                  Minimum="1"/>
+                                       Value="{Binding DistanceBetweenLines, Mode=TwoWay}"/>
                 </Grid>
 
 
                 <Grid Grid.Row="6">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
 
                     <Label Content="Distance between new paragraphs of input"/>
                     <xwt:IntegerUpDown Grid.Column="1" 
-                                   Value="{Binding BetweenWritingNewInfoDistance,Mode=TwoWay}"
-                                   Minimum="1"/>
+                                       Value="{Binding BetweenWritingNewInfoDistance,Mode=TwoWay}"/>
                 </Grid>
 
 
                 <Grid Grid.Row="7">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
 
@@ -282,16 +277,20 @@
                     </Grid.ColumnDefinitions>
                     <Label 
                        Content="Delay between queries"/>
-                    <UniformGrid Grid.Column="1"
-                             Columns="2">
+                    <Grid Grid.Column="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
                         <xwt:IntegerUpDown 
-                        HorizontalAlignment="Right"
-                        Value="{Binding NumericRepresentationOfDelay, Mode=TwoWay}"/>
-                        <ComboBox HorizontalAlignment="Left" 
-                          Height="{Binding ElementName=NumericUpDown, Path=Height}"
-                          ItemsSource="{Binding DelayMeasures}"
-                          SelectedItem="{Binding SelectedDelayMeasure}"/>
-                    </UniformGrid>
+                            Value="{Binding NumericRepresentationOfDelay, Mode=TwoWay}"
+                            Minimum="0"/>
+                        <ComboBox Grid.Column="1"
+                                  HorizontalAlignment="Left" 
+                                  VerticalAlignment="Stretch"
+                                  ItemsSource="{Binding DelayMeasures}"
+                                  SelectedItem="{Binding SelectedDelayMeasure}"/>
+                    </Grid>
                 </Grid>
 
 
