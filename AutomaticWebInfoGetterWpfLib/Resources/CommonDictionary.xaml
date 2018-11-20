@@ -12,7 +12,7 @@
     <conv:MarginToDoubleConverter x:Key="MarginToDoubleConverter"/>
     <conv:DoubleSubstractor x:Key="DoubleSubstractor"/>
 
-    <sys:Double x:Key="FontSizeParameter">0.5</sys:Double>
+    <!--<sys:Double x:Key="FontSizeParameter">0.5</sys:Double>
 
 
 
@@ -34,7 +34,7 @@
 
     <Style TargetType="xwt:IntegerUpDown" BasedOn="{StaticResource {x:Type Control}}"/>
 
-    <Style TargetType="xwt:DateTimePicker" BasedOn="{StaticResource {x:Type Control}}"/>
+    <Style TargetType="xwt:DateTimePicker" BasedOn="{StaticResource {x:Type Control}}"/>-->
 
    
 

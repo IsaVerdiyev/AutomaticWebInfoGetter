@@ -16,39 +16,26 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition x:Name="InfoAddingRow" Height="*"/>
+            <RowDefinition/>
             <RowDefinition Height="60"/>
         </Grid.RowDefinitions>
 
-        <Grid 
-              ScrollViewer.CanContentScroll="True"
-              ScrollViewer.VerticalScrollBarVisibility="Auto">
-
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
             <Grid>
-                <Grid.Height>
-                    <MultiBinding Converter="{StaticResource DoubleAdder}">
-                        <Binding RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType=Grid}"
-                             Path="ActualHeight"/>
-                        <Binding ElementName="XPathAddingGrid"
-                             Path="Margin"
-                             Converter="{StaticResource MarginToDoubleConverter}"
-                             ConverterParameter="{x:Static conv:MarginConverterSideOptions.Top}"/>
-                        <Binding ElementName="XPathAddingGrid"
-                             Path="ActualHeight"/>
-                    </MultiBinding>
-                </Grid.Height>
+
+
                 <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="80"/>
                     <RowDefinition Height="auto"/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
                 </Grid.RowDefinitions>
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -57,11 +44,10 @@
                     </Grid.ColumnDefinitions>
 
                     <Label  
-                    Width="auto"
-                    Content="URL"/>
+                        Width="auto"
+                        Content="URL"/>
                     <TextBox Grid.Column="1"
-                         Text="{Binding URL, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                         MinWidth="200"/>
+                         Text="{Binding URL, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
                 </Grid>
                 <Grid Grid.Row="1">
 
@@ -85,15 +71,21 @@
                     <Button 
                         Grid.Column="3"
                         Content="+"
-                        Command="{Binding MakeVisibileAddSettingInfoOfDownloadedPartCommand}">
+                        Command="{Binding MakeVisibileAddSettingInfoOfDownloadedPartCommand}"
+                        Height="20"
+                        VerticalAlignment="Top">
+                        <Button.Resources>
+                            <Storyboard  x:Key="OpeningAddXPathGridStoryboard"
+                                         Storyboard.TargetProperty="Margin"
+                                         Storyboard.TargetName="XPathAddingGrid">
+                                <StaticResourceExtension ResourceKey="OpeningAddXPathGridAnimation"/>
+                            </Storyboard>
+                        </Button.Resources>
+                        
                         <Button.Triggers>
-
                             <EventTrigger RoutedEvent="Button.Click">
-                                <BeginStoryboard Storyboard="{StaticResource OpeningAddXPathGridStoryboard}">
-
-                                </BeginStoryboard>
+                                <BeginStoryboard Storyboard="{StaticResource OpeningAddXPathGridStoryboard}"/>
                             </EventTrigger>
-
                         </Button.Triggers>
                     </Button>
 
@@ -101,22 +93,11 @@
 
                 </Grid>
                 <Grid  Grid.Row="2"
-                   x:Name="XPathAddingGrid"
-                   Panel.ZIndex="-1"
-                   
-                   Margin="{Binding Path=ActualHeight,Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource self}, Converter={StaticResource MarginConverter}, ConverterParameter={x:Static conv:MarginConverterSideOptions.Top}}" 
-                   LayoutUpdated="RefreshAnimationKeyFrames" 
-                   SizeChanged="RefreshAnimationKeyFrames">
-                    <Grid.Height>
-                        <Binding Path="ActualHeight"
-                             Mode="OneWay"
-                             RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType=Grid}"
-                             Converter="{StaticResource DoubleConverter}">
-                            <Binding.ConverterParameter>
-                                <sys:Double>0.3</sys:Double>
-                            </Binding.ConverterParameter>
-                        </Binding>
-                    </Grid.Height>
+                       x:Name="XPathAddingGrid"
+                       Panel.ZIndex="-1"
+                        Height="120"
+                       Margin="{Binding Path=ActualHeight,Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource self}, Converter={StaticResource MarginConverter}, ConverterParameter={x:Static conv:MarginConverterSideOptions.Top}}" >
+                    
 
                     <Grid.RowDefinitions>
                         <RowDefinition/>
@@ -132,10 +113,9 @@
                         </Grid.ColumnDefinitions>
 
                         <Label 
-                        Content="XPath"/>
+                            Content="XPath"/>
                         <TextBox Grid.Column="1"
                              Text="{Binding XPath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-
                     </Grid>
 
                     <Grid Grid.Row="1">
@@ -155,7 +135,7 @@
                             <ColumnDefinition/>
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
-                        <Label HorizontalAlignment="Right">
+                        <Label>
                             <Label.Content>
                                 <MultiBinding Converter="{StaticResource OrientationOrWritingToRowOrColumnConverter}">
                                     <Binding Path="HorizontalOrientationOfWriting" Mode="OneWay"/>
@@ -182,6 +162,14 @@
                         <Button Grid.Column="1"
                                 Content="Add"
                                 Command="{Binding AddSettingInfoOfDownloadedPartInCollectionCommand}">
+                            <Button.Resources>
+                                <Storyboard  x:Key="ClosingAddXPathGridStoryboard"
+                                         Storyboard.TargetProperty="Margin"
+                                         Storyboard.TargetName="XPathAddingGrid">
+                                    <StaticResourceExtension ResourceKey="ClosingAddXPathGridAnimation"/>
+                                </Storyboard>
+                            </Button.Resources>
+
                             <Button.Triggers>
                                 <EventTrigger RoutedEvent="Button.Click">
                                     <BeginStoryboard Storyboard="{StaticResource ClosingAddXPathGridStoryboard}"/>
@@ -191,12 +179,18 @@
                         <Button Grid.Column="2"
                             Content="Cancel"
                             Command="{Binding HideAddSettingInfoOfDownloadedPartCommand}">
-                            <Button.Triggers>
+                            <Button.Resources>
+                                <Storyboard  x:Key="ClosingAddXPathGridStoryboard"
+                                         Storyboard.TargetProperty="Margin"
+                                         Storyboard.TargetName="XPathAddingGrid">
+                                    <StaticResourceExtension ResourceKey="ClosingAddXPathGridAnimation"/>
+                                </Storyboard>
+                            </Button.Resources>
 
+                            <Button.Triggers>
                                 <EventTrigger RoutedEvent="Button.Click">
                                     <BeginStoryboard Storyboard="{StaticResource ClosingAddXPathGridStoryboard}"/>
                                 </EventTrigger>
-
                             </Button.Triggers>
                         </Button>
                     </Grid>
@@ -248,8 +242,7 @@
                 </Grid>
 
 
-                <Grid Grid.Row="6"
-                  x:Name="DistanceBetweenNewParagraphs">
+                <Grid Grid.Row="6">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="auto"/>
                         <ColumnDefinition/>
@@ -262,8 +255,7 @@
                 </Grid>
 
 
-                <Grid Grid.Row="7"
-                        x:Name="FileNameStackPanel">
+                <Grid Grid.Row="7">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="auto"/>
                         <ColumnDefinition/>
@@ -283,7 +275,6 @@
 
 
                 <Grid Grid.Row="9"
-                        x:Name="DelayBetweenQueriesStackPanel"
                         IsEnabled="{Binding DateSettingsEnabled, Mode=OneWay}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
@@ -294,21 +285,17 @@
                     <UniformGrid Grid.Column="1"
                              Columns="2">
                         <xwt:IntegerUpDown 
-                        x:Name="NumericUpDown" 
                         HorizontalAlignment="Right"
                         Value="{Binding NumericRepresentationOfDelay, Mode=TwoWay}"/>
                         <ComboBox HorizontalAlignment="Left" 
                           Height="{Binding ElementName=NumericUpDown, Path=Height}"
                           ItemsSource="{Binding DelayMeasures}"
-                          FontSize="14"
                           SelectedItem="{Binding SelectedDelayMeasure}"/>
-
                     </UniformGrid>
                 </Grid>
 
 
                 <UniformGrid Grid.Row="10" 
-                         x:Name="BorderDatesOfQueriesUniformGrid"
                              Columns="2">
                     <Grid>
                         <Grid.ColumnDefinitions>
@@ -321,8 +308,7 @@
                                         HorizontalAlignment="Center"
                                         Value="{Binding StartDate, Mode=TwoWay}"/>
                     </Grid>
-                    <Grid
-                    IsEnabled="{Binding DateSettingsEnabled, Mode=OneWay}">
+                    <Grid IsEnabled="{Binding DateSettingsEnabled, Mode=OneWay}">
 
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
@@ -331,26 +317,25 @@
 
                         <Label Content="End date of queries"/>
                         <xwt:DateTimePicker Grid.Column="1"
-                                        HorizontalAlignment="Center"
-                                        Value="{Binding EndDate, Mode=TwoWay}"/>
+                                            HorizontalAlignment="Center"
+                                            Value="{Binding EndDate, Mode=TwoWay}"/>
                     </Grid>
                 </UniformGrid>
             </Grid>
-        </Grid>
+        </ScrollViewer>
 
 
         <Grid Grid.Row="1"
               Margin="0, 10, 5, 10">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="62*"/>
-                <ColumnDefinition Width="43*"/>
+                <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="auto"/>
                 <ColumnDefinition Width="auto"/>
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="2"
+            <Button Grid.Column="1"
                     Content="Add"
                     Command="{Binding AddSettingInfoCommand}"/>
-            <Button Grid.Column="3"
+            <Button Grid.Column="2"
                     Content="Cancel"
                     Command="{Binding CancelCommand}"/>
         </Grid>

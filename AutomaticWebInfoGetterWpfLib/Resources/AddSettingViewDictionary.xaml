@@ -10,38 +10,56 @@
 
 
 
-    <Storyboard x:Key="OpeningAddXPathGridStoryboard" >
-        <ThicknessAnimationUsingKeyFrames x:Name="OpeningMarginAnimation" 
+    <!--<Storyboard x:Key="OpeningAddXPathGridStoryboard" >
+        <ThicknessAnimationUsingKeyFrames Storyboard.TargetName="{DynamicResource animationTarget}"
                                           Storyboard.TargetProperty="Margin"
                                           BeginTime="00:00:00"
                                           FillBehavior="Stop">
-            <SplineThicknessKeyFrame KeyTime="00:00:00" Value="0,0,0,0" />
+            <SplineThicknessKeyFrame KeyTime="00:00:00" Value="0,-120,0,0" />
             <SplineThicknessKeyFrame KeyTime="00:00:0.3" Value="0,0,0,0"/>
         </ThicknessAnimationUsingKeyFrames>
-        <!--<DoubleAnimation x:Name="OpeningHeightAnimation" 
+        --><!--<DoubleAnimation x:Name="OpeningHeightAnimation" 
                          Storyboard.TargetProperty="ActualHeight"
                          BeginTime="00:00:00"
                          From="0"
                          To="0"
                          Duration="0:0:0.3"
-                         FillBehavior="Stop"/>-->
+                         FillBehavior="Stop"/>--><!--
 
     </Storyboard>
 
     <Storyboard x:Key="ClosingAddXPathGridStoryboard">
-        <ThicknessAnimationUsingKeyFrames x:Name="ClosingMarginAnimation" 
+        <ThicknessAnimationUsingKeyFrames Storyboard.TargetName="{DynamicResource animationTarget}"
                                           Storyboard.TargetProperty="Margin"
                                           BeginTime="00:00:00"
                                           FillBehavior="Stop">
             <SplineThicknessKeyFrame KeyTime="00:00:00" Value="0, 0, 0, 0"/>
-            <SplineThicknessKeyFrame KeyTime="00:00:0.3" Value="0, 0, 0, 0"/>
+            <SplineThicknessKeyFrame KeyTime="00:00:0.3" Value="0, -120, 0, 0"/>
         </ThicknessAnimationUsingKeyFrames>
-        <!--<DoubleAnimation x:Name="ClosingHeightAnimation" Storyboard.TargetProperty="ActualHeight"
+        --><!--<DoubleAnimation x:Name="ClosingHeightAnimation" Storyboard.TargetProperty="ActualHeight"
                          BeginTime="00:00:00"
                          From="0"
                          To="0"
                          Duration="0:0:0.3"
-                         FillBehavior="Stop"/>-->
-    </Storyboard>
+                         FillBehavior="Stop"/>--><!--
+    </Storyboard>-->
+
+
+    <ThicknessAnimationUsingKeyFrames x:Key="OpeningAddXPathGridAnimation"
+                                          
+                                          BeginTime="00:00:00"
+                                      FillBehavior="HoldEnd">
+        <SplineThicknessKeyFrame KeyTime="00:00:00" Value="0,-120,0,0" />
+        <SplineThicknessKeyFrame KeyTime="00:00:0.3" Value="0,0,0,0"/>
+    </ThicknessAnimationUsingKeyFrames>
+
+    
+    <ThicknessAnimationUsingKeyFrames x:Key="ClosingAddXPathGridAnimation"
+                                          
+                                          BeginTime="00:00:00"
+                                          FillBehavior="HoldEnd">
+        <SplineThicknessKeyFrame KeyTime="00:00:00" Value="0, 0, 0, 0"/>
+        <SplineThicknessKeyFrame KeyTime="00:00:0.3" Value="0, -120, 0, 0"/>
+    </ThicknessAnimationUsingKeyFrames>
 
 </ResourceDictionary>
