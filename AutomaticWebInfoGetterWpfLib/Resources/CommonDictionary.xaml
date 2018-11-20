@@ -11,92 +11,39 @@
     <conv:DoubleAdder x:Key="DoubleAdder"/>
     <conv:MarginToDoubleConverter x:Key="MarginToDoubleConverter"/>
     <conv:DoubleSubstractor x:Key="DoubleSubstractor"/>
-
-    <!--<sys:Double x:Key="FontSizeParameter">0.5</sys:Double>
-
-
-
-    <Style TargetType="Control">
-        <Setter Property="TextElement.FontSize" Value="{Binding RelativeSource={RelativeSource self}, Path=ActualHeight,UpdateSourceTrigger=PropertyChanged,  Converter={StaticResource DoubleConverter}, ConverterParameter={StaticResource FontSizeParameter}}"/>
-        <Setter Property="VerticalAlignment" Value="Stretch"/>
-        <Setter Property="HorizontalAlignment" Value="Stretch"/>
-        <Setter Property="VerticalContentAlignment" Value="Center"/>
-        <Setter Property="HorizontalContentAlignment" Value="Center"/>
-    </Style>
-
-    <Style TargetType="Button" BasedOn="{StaticResource {x:Type Control}}"/>
-
-    <Style TargetType="Label" BasedOn="{StaticResource {x:Type Control}}"/>
-
-    <Style TargetType="TextBox" BasedOn="{StaticResource {x:Type Control}}"/>
-
-    <Style TargetType="CheckBox" BasedOn="{StaticResource {x:Type Control}}"/>
-
-    <Style TargetType="xwt:IntegerUpDown" BasedOn="{StaticResource {x:Type Control}}"/>
-
-    <Style TargetType="xwt:DateTimePicker" BasedOn="{StaticResource {x:Type Control}}"/>-->
-
-   
+    <conv:OrientationOrWritingToRowOrColumnConverter x:Key="OrientationOrWritingToRowOrColumnConverter"/>
 
 
 
+    <Color x:Key="WindowBackground">#468966</Color>
+    <Color x:Key="LabelBackground">#FFF0A5</Color>
+    <Color x:Key="InterUpDownBackground">#FFB03B</Color>
+    <Color x:Key="ListBoxBackground">#B64926</Color>
+    <Color x:Key="SlidePartBackground">#8E2800</Color>
 
-    <!--<Style  x:Key="RoundButton" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
-        <Setter Property="Template">
+    <Style TargetType="Label">
+        <Setter Property="Background">
             <Setter.Value>
-                <ControlTemplate x:Name="EllipseButtonTemplate"  TargetType="Button">
-                    <Grid>
-                        <Ellipse
-                            Fill="{TemplateBinding Background}"
-                            Width="{TemplateBinding Width}"
-                            Height="{TemplateBinding Height}"
-                            Stroke="{TemplateBinding BorderBrush}"/>
-                        <ContentPresenter 
-                                TextBlock.TextAlignment="Center"
-                                TextElement.Foreground="{TemplateBinding Foreground}"
-                                Content="{TemplateBinding Content}"
-                                TextBlock.FontSize="{TemplateBinding FontSize}"/>
-                    </Grid>
-                </ControlTemplate>
+                <SolidColorBrush Color="{StaticResource LabelBackground}"/>
             </Setter.Value>
         </Setter>
-        <Style.Triggers>
-            <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="DarkGray"></Setter>
-            </Trigger>
-        </Style.Triggers>
     </Style>
 
-    <Style  x:Key="RoundLabel" TargetType="Label" BasedOn="{StaticResource {x:Type Label}}">
-        <Setter Property="Template">
+    <Style TargetType="xwt:IntegerUpDown">
+        <Setter Property="Background">
             <Setter.Value>
-                <ControlTemplate x:Name="EllipseLabelTemplate"  TargetType="Label">
-                    <Grid>
-                        <Ellipse
-                            Fill="{TemplateBinding Background}"
-                            Width="{TemplateBinding Width}"
-                            Height="{TemplateBinding Height}"
-                            Stroke="{TemplateBinding BorderBrush}"/>
-                        <ContentPresenter 
-                                TextBlock.TextAlignment="Center"
-                                TextElement.Foreground="{TemplateBinding Foreground}"
-                                Content="{TemplateBinding Content}"
-                                TextBlock.FontSize="{TemplateBinding FontSize}"/>
-                    </Grid>
-                </ControlTemplate>
+                <SolidColorBrush Color="{StaticResource InterUpDownBackground}"/>
             </Setter.Value>
         </Setter>
-    </Style>-->
-
-
-    <!--<Style x:Key="HorizontalAutoSizedRoundButtons" TargetType="Button" BasedOn="{StaticResource RoundButton}">
-        <Setter Property="Width" Value="{Binding Path=ActualHeight, RelativeSource={RelativeSource Self}}"/>
     </Style>
 
-    <Style x:Key="HorizontalAutoSizedRoundLabel" TargetType="Label" BasedOn="{StaticResource RoundLabel}">
-        <Setter Property="Width" Value="{Binding Path=ActualHeight, RelativeSource={RelativeSource Self}}"/>
-    </Style>-->
-
-
+    <Style TargetType="ListBox">
+        <Setter Property="Background">
+            <Setter.Value>
+                <SolidColorBrush Color="{StaticResource ListBoxBackground}"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
     
+
 </ResourceDictionary>

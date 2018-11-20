@@ -10,17 +10,6 @@
     <converters:OrientationOfWritingBoolToStringConverter x:Key="OrientationOfWritingBoolToStringConverter"/>
     <converters:TimerStateToIconConverter x:Key="TimerStateToIconConverter"/>
 
-    <!--<Style TargetType="Label" x:Key="CommonStyleForInfoTextBlocks">
-        <Setter Property="HorizontalContentAlignment" Value="Center"/>
-    </Style>
-
-    <Style TargetType="Label" BasedOn="{StaticResource CommonStyleForInfoTextBlocks}" x:Key="InfoHeadingsStyle">
-        <Setter Property="FontWeight" Value="Bold"/>
-        <Setter Property="Foreground" Value="Red"/>
-    </Style>
-
-    <Style TargetType="Label" BasedOn="{StaticResource CommonStyleForInfoTextBlocks}" x:Key="InfoContentsStyle">
-        
-    </Style>-->
+  
     
 </ResourceDictionary>

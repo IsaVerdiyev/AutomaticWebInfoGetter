@@ -8,43 +8,11 @@
         <ResourceDictionary Source="CommonDictionary.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 
-    <converters:OrientationOrWritingToRowOrColumnConverter x:Key="OrientationOrWritingToRowOrColumnConverter"/>
+    
 
 
 
-    <!--<Storyboard x:Key="OpeningAddXPathGridStoryboard" >
-        <ThicknessAnimationUsingKeyFrames Storyboard.TargetName="{DynamicResource animationTarget}"
-                                          Storyboard.TargetProperty="Margin"
-                                          BeginTime="00:00:00"
-                                          FillBehavior="Stop">
-            <SplineThicknessKeyFrame KeyTime="00:00:00" Value="0,-120,0,0" />
-            <SplineThicknessKeyFrame KeyTime="00:00:0.3" Value="0,0,0,0"/>
-        </ThicknessAnimationUsingKeyFrames>
-        --><!--<DoubleAnimation x:Name="OpeningHeightAnimation" 
-                         Storyboard.TargetProperty="ActualHeight"
-                         BeginTime="00:00:00"
-                         From="0"
-                         To="0"
-                         Duration="0:0:0.3"
-                         FillBehavior="Stop"/>--><!--
-
-    </Storyboard>
-
-    <Storyboard x:Key="ClosingAddXPathGridStoryboard">
-        <ThicknessAnimationUsingKeyFrames Storyboard.TargetName="{DynamicResource animationTarget}"
-                                          Storyboard.TargetProperty="Margin"
-                                          BeginTime="00:00:00"
-                                          FillBehavior="Stop">
-            <SplineThicknessKeyFrame KeyTime="00:00:00" Value="0, 0, 0, 0"/>
-            <SplineThicknessKeyFrame KeyTime="00:00:0.3" Value="0, -120, 0, 0"/>
-        </ThicknessAnimationUsingKeyFrames>
-        --><!--<DoubleAnimation x:Name="ClosingHeightAnimation" Storyboard.TargetProperty="ActualHeight"
-                         BeginTime="00:00:00"
-                         From="0"
-                         To="0"
-                         Duration="0:0:0.3"
-                         FillBehavior="Stop"/>--><!--
-    </Storyboard>-->
+   
 
 
     <sys:Double x:Key="MinWidthOfControls">100</sys:Double>
@@ -53,7 +21,7 @@
                                           
                                           BeginTime="00:00:00"
                                       FillBehavior="HoldEnd">
-        <SplineThicknessKeyFrame KeyTime="00:00:00" Value="0,-120,0,0" />
+        <SplineThicknessKeyFrame KeyTime="00:00:00" Value="0,-200,0,0" />
         <SplineThicknessKeyFrame KeyTime="00:00:0.3" Value="0,0,0,0"/>
     </ThicknessAnimationUsingKeyFrames>
 
@@ -63,25 +31,11 @@
                                           BeginTime="00:00:00"
                                           FillBehavior="HoldEnd">
         <SplineThicknessKeyFrame KeyTime="00:00:00" Value="0, 0, 0, 0"/>
-        <SplineThicknessKeyFrame KeyTime="00:00:0.3" Value="0, -120, 0, 0"/>
+        <SplineThicknessKeyFrame KeyTime="00:00:0.3" Value="0, -200, 0, 0"/>
     </ThicknessAnimationUsingKeyFrames>
 
 
-    <Style TargetType="Label">
-        <Setter Property="HorizontalAlignment" Value="Right"/>
-    </Style>
-
-    <Style TargetType="xwt:IntegerUpDown">
-        <Setter Property="Width" Value="{StaticResource MinWidthOfControls}"/>
-        <Setter Property="HorizontalAlignment" Value="Left"/>
-    </Style>
-
-    <Style TargetType="TextBox">
-        <Setter Property="MinWidth" Value="{StaticResource MinWidthOfControls}"/>
-        <Setter Property="Width" Value="auto"/>
-        <Setter Property="HorizontalAlignment" Value="Left"/>
-        <Setter Property="TextAlignment" Value="Center"/>
-    </Style>
+   
     
     
 
