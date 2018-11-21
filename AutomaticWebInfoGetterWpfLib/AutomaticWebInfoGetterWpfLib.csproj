@@ -151,16 +151,10 @@
   <ItemGroup>
     <Compile Include="ControllerClass.cs" />
     <Compile Include="Converters\DelayBetweenQueriesTimespanToStringMultiConverter.cs" />
-    <Compile Include="Converters\DoubleAdder.cs" />
-    <Compile Include="Converters\DoubleConverter.cs" />
-    <Compile Include="Converters\DoubleSubstractor.cs" />
-    <Compile Include="Converters\MarginConverter.cs" />
-    <Compile Include="Converters\MarginToDoubleConverter.cs" />
     <Compile Include="Converters\OrientationOfWritingBoolToStringConverter.cs" />
     <Compile Include="Converters\OrientationOrWritingToRowOrColumnConverter.cs" />
     <Compile Include="Converters\TimerStateToIconConverter.cs" />
     <Compile Include="Exceptions\NoSuchEnumInTimespanToStringMultiConverter.cs" />
-    <Compile Include="CustomAnimations\GridLengthAnimation.cs" />
     <Compile Include="Messages\SettingsViewModelAddSettingInfoMessage.cs" />
     <Compile Include="Messages\AddSettingViewModelInitializeMessage.cs" />
     <Compile Include="Messages\SettingsViewModelInitializeMessage.cs" />

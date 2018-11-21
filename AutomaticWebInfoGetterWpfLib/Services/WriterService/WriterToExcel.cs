@@ -14,7 +14,6 @@ namespace AutomaticWebInfoGetterWpfLib.Services.WriterService
     class WriterToExcel : IWriter
     {
 
-        object lockObject = new object();
 
         public void WriteToExcel(List<string> infos, SettingsInfo settingsInfo, DownloadedPartOfPageSettingInfo downloadedPart)
         {

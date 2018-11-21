@@ -6,7 +6,6 @@
              xmlns:local="clr-namespace:AutomaticWebInfoGetterWpfLib.Views"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              xmlns:xwt="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
-             xmlns:anim="clr-namespace:AutomaticWebInfoGetterWpfLib.CustomAnimations"
              xmlns:conv="clr-namespace:AutomaticWebInfoGetterWpfLib.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">

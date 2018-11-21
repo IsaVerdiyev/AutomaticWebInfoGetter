@@ -2,21 +2,21 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:AutomaticWebInfoGetterWpfLib.Resources"
                     xmlns:xwt="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
-                    xmlns:converters="clr-namespace:AutomaticWebInfoGetterWpfLib.Converters"
+                    xmlns:conv="clr-namespace:AutomaticWebInfoGetterWpfLib.Converters"
                     xmlns:sys="clr-namespace:System;assembly=mscorlib">
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="CommonDictionary.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 
-    
 
 
 
-   
+    <conv:OrientationOrWritingToRowOrColumnConverter x:Key="OrientationOrWritingToRowOrColumnConverter"/>
 
 
-    <sys:Double x:Key="MinWidthOfControls">100</sys:Double>
-    
+
+
+
     <ThicknessAnimationUsingKeyFrames x:Key="OpeningAddXPathGridAnimation"
                                           
                                           BeginTime="00:00:00"

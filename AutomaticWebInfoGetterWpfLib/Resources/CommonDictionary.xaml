@@ -6,18 +6,14 @@
                     xmlns:xwt="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit">
 
 
-    <conv:DoubleConverter x:Key="DoubleConverter"/>
-    <conv:MarginConverter x:Key="MarginConverter"/>
-    <conv:DoubleAdder x:Key="DoubleAdder"/>
-    <conv:MarginToDoubleConverter x:Key="MarginToDoubleConverter"/>
-    <conv:DoubleSubstractor x:Key="DoubleSubstractor"/>
-    <conv:OrientationOrWritingToRowOrColumnConverter x:Key="OrientationOrWritingToRowOrColumnConverter"/>
+   
+    
 
 
 
     <Color x:Key="WindowBackground">#468966</Color>
     <Color x:Key="LabelBackground">#FFF0A5</Color>
-    <Color x:Key="InterUpDownBackground">#FFB03B</Color>
+    <!--<Color x:Key="InterUpDownBackground">#FFB03B</Color>-->
     <Color x:Key="ListBoxBackground">#B64926</Color>
     <Color x:Key="SlidePartBackground">#8E2800</Color>
 
@@ -29,14 +25,7 @@
         </Setter>
     </Style>
 
-    <!--<Style TargetType="xwt:IntegerUpDown">
-        <Setter Property="Background">
-            <Setter.Value>
-                <SolidColorBrush Color="{StaticResource InterUpDownBackground}"/>
-            </Setter.Value>
-        </Setter>
-    </Style>-->
-
+   
     <Style TargetType="ListBox">
         <Setter Property="Background">
             <Setter.Value>
