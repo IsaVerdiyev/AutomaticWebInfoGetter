@@ -29,13 +29,13 @@
         </Setter>
     </Style>
 
-    <Style TargetType="xwt:IntegerUpDown">
+    <!--<Style TargetType="xwt:IntegerUpDown">
         <Setter Property="Background">
             <Setter.Value>
                 <SolidColorBrush Color="{StaticResource InterUpDownBackground}"/>
             </Setter.Value>
         </Setter>
-    </Style>
+    </Style>-->
 
     <Style TargetType="ListBox">
         <Setter Property="Background">

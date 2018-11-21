@@ -19,5 +19,18 @@ namespace AutomaticWebInfoGetterWpfLib.Models
 
         private Position currentWritingPosition;
         public Position CurrentWritingPosition { get => currentWritingPosition; set => Set(ref currentWritingPosition, value); }
+
+
+        public override string ToString()
+        {
+            if (string.IsNullOrWhiteSpace(Header))
+            {
+                return XPath;
+            }
+            else
+            {
+                return $"{XPath} - {Header}";
+            }
+        }
     }
 }
