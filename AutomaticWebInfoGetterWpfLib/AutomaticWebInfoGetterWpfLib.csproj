@@ -150,6 +150,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ControllerClass.cs" />
+    <Compile Include="Converters\BoolToDoubleConverter.cs" />
+    <Compile Include="Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="Converters\DelayBetweenQueriesTimespanToStringMultiConverter.cs" />
     <Compile Include="Converters\OrientationOfWritingBoolToStringConverter.cs" />
     <Compile Include="Converters\OrientationOrWritingToRowOrColumnConverter.cs" />

@@ -9,10 +9,7 @@
     <Window.Resources>
         <ResourceDictionary Source="../Resources/AppViewDictionary.xaml"/>
     </Window.Resources>
-    <Grid>
-        <Grid.Background>
-            <SolidColorBrush Color="{StaticResource WindowBackground}"/>
-        </Grid.Background>
+    <Grid Background="{StaticResource WindowBackground}">
         <ScrollViewer VerticalScrollBarVisibility="Disabled"
                       HorizontalScrollBarVisibility="Disabled">
             <ContentControl Content="{Binding CurrentControl}"/>

@@ -6,32 +6,25 @@
                     xmlns:xwt="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit">
 
 
-   
-    
 
 
 
-    <Color x:Key="WindowBackground">#468966</Color>
-    <Color x:Key="LabelBackground">#FFF0A5</Color>
+
+
+    <SolidColorBrush x:Key="WindowBackground" Color="#468966"/>
+    <SolidColorBrush x:Key="LabelBackground" Color="#FFF0A5"/>
     <!--<Color x:Key="InterUpDownBackground">#FFB03B</Color>-->
-    <Color x:Key="ListBoxBackground">#B64926</Color>
-    <Color x:Key="SlidePartBackground">#8E2800</Color>
+    <SolidColorBrush x:Key="ListBoxBackground" Color="#B64926"/>
+    <SolidColorBrush x:Key="SlidePartBackground" Color="#8E2800"/>
 
     <Style TargetType="Label">
-        <Setter Property="Background">
-            <Setter.Value>
-                <SolidColorBrush Color="{StaticResource LabelBackground}"/>
-            </Setter.Value>
-        </Setter>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Background" Value="{StaticResource LabelBackground}"/>
     </Style>
 
    
     <Style TargetType="ListBox">
-        <Setter Property="Background">
-            <Setter.Value>
-                <SolidColorBrush Color="{StaticResource ListBoxBackground}"/>
-            </Setter.Value>
-        </Setter>
+        <Setter Property="Background" Value="{StaticResource ListBoxBackground}"/>
     </Style>
     
 

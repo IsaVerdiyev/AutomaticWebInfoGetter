@@ -48,6 +48,7 @@ namespace AutomaticWebInfoGetterWpfLib.ViewModels
                 RaisePropertyChanged(nameof(EndDate));
                 RaisePropertyChanged(nameof(DelayBetweenQueries));
                 RaisePropertyChanged(nameof(HorizontalOrientation));
+                RaisePropertyChanged(nameof(RunsOnlyOnce));
                 SelectedDownloadedPart = DownloadedPartOfPageSettingInfos?.First();
             }
         }
@@ -107,6 +108,7 @@ namespace AutomaticWebInfoGetterWpfLib.ViewModels
 
         public bool HorizontalOrientation { get => SelectedSettingInfo != null ? SelectedSettingInfo.HorizontalOrientationOfWritingInfo : false; }
 
+        public bool RunsOnlyOnce { get => SelectedSettingInfo != null ? SelectedSettingInfo.QueryOnlyOnce : false; }
         #endregion
 
         #region Dependencies

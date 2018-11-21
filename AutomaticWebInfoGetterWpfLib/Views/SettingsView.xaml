@@ -10,20 +10,23 @@
     <UserControl.Resources>
         <ResourceDictionary Source="../Resources/SettingsViewDictionary.xaml"/>
     </UserControl.Resources>
-    <Grid>
+    <Grid 
+        Background="{StaticResource LabelBackground}">
         <Grid.RowDefinitions>
             <RowDefinition Height="30"/>
             <RowDefinition/>
             <RowDefinition Height="20"/>
         </Grid.RowDefinitions>
 
-        <Label>Tasks info</Label>
+        <Label
+            Content="Tasks info"
+            HorizontalContentAlignment="Center"/>
 
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"
                                   MinWidth="200"/>
-                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Grid>
                 <Grid.RowDefinitions>
@@ -37,8 +40,10 @@
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
-                                <Label Content="{Binding URL}"/>
-                                <Label Content="{Binding TimerState, Mode=OneWay}"/>
+                                <Label Content="{Binding URL}"
+                                       Background="Transparent"/>
+                                <Label Content="{Binding TimerState, Mode=OneWay}"
+                                       Background="Transparent"/>
                                 <Button 
                                     Content="{Binding TimerState, Converter={StaticResource TimerStateToIconConverter}, Mode=OneWay}"
                                     Command="{Binding DataContext.RunStopTimerCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
@@ -62,10 +67,22 @@
             <ScrollViewer Grid.Column="1"
                          VerticalScrollBarVisibility="Auto"
                          HorizontalScrollBarVisibility="Auto">
-                <UniformGrid Grid.Column="1"
-                         Margin="0, 10, 0, 0"
-                         Rows="9"
-                         Visibility="{Binding SettingInfoVisibility, Mode=TwoWay}">
+                <Grid Grid.Column="1"
+                      Margin="0, 10, 0, 0"
+                      Visibility="{Binding SettingInfoVisibility, Mode=TwoWay}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="120"/>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="40"/>
+                        
+                        
+                    </Grid.RowDefinitions>
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"/>
@@ -78,7 +95,7 @@
                                Content="{Binding Url}"/>
                     </Grid>
 
-                    <Grid>
+                    <Grid Grid.Row="1">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
                             <ColumnDefinition/>
@@ -98,55 +115,92 @@
                         
                         <Label-->
                     
-                    <StackPanel>
-                        <Label 
-                                   Content="StartDate"/>
-                        <Label 
+                    <Grid Grid.Row="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0"
+                                   Content="StartDate: "/>
+                        <Label Grid.Column="1"
                                    Content="{Binding StartDate}"/>
-                    </StackPanel>
-                    <StackPanel Grid.Column="0" 
-                                Grid.Row="1"
-                                Grid.ColumnSpan="2">
+                    </Grid>
+                    <Grid Grid.Row="3"
+                          Panel.ZIndex="-1">
+                        <Label Content="Task runs only once"/>
+                    </Grid>
+                    <Grid Grid.Row="3"
+                          Visibility="{Binding RunsOnlyOnce, Converter={StaticResource BoolToVisibilityConverter}, Mode=OneWay}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="60"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
                         <Label 
-                                   Content="Delays between queries"/>
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                            <Label >
-                                <Label.Content>
-                                    <MultiBinding Converter="{StaticResource TimespanToStringMultiConverter}">
-                                        <Binding Path="DelayBetweenQueries"/>
-                                        <Binding Path="SelectedDelayMeasure"/>
+                            Content="Delays between queries: "/>
 
-                                    </MultiBinding>
-                                </Label.Content>
-                            </Label>
-                            <ComboBox ItemsSource="{Binding DelayMeasures}"
-                                      SelectedItem="{Binding SelectedDelayMeasure}"/>
+                        <Label Grid.Column="1"
+                               HorizontalContentAlignment="Right">
+                            <Label.Content>
+                                <MultiBinding Converter="{StaticResource TimespanToStringMultiConverter}">
+                                    <Binding Path="DelayBetweenQueries"/>
+                                    <Binding Path="SelectedDelayMeasure"/>
+                                </MultiBinding>
+                            </Label.Content>
+                        </Label>
+
+                        <ComboBox Grid.Column="2"
+                                  HorizontalAlignment="Left"
+                                  ItemsSource="{Binding DelayMeasures}"
+                                  SelectedItem="{Binding SelectedDelayMeasure}"
+                                  VerticalContentAlignment="Center"
+                                  Height="30"/>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            
+                            
                         </StackPanel>
-                    </StackPanel>
-                    <StackPanel Grid.Column="1">
-                        <Label 
-                                   Content="EndDate"/>
-                        <Label 
-                                   Content="{Binding EndDate}"/>
-                    </StackPanel>
-                    
-                    <StackPanel>
-                        <ListBox
+                    </Grid>
+
+                    <Grid Grid.Row="4"
+                          Height="{Binding RunsOnlyOnce, Converter={StaticResource BoolToDoubleConverter}, Mode=OneWay}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+
+                        <Label Grid.Column="0" 
+                               Content="EndDate"/>
+                        <Label Grid.Column="1"
+                               Content="{Binding EndDate}"/>
+                    </Grid>
+
+                    <Grid Grid.Row="5">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+
+                        <Label
+                            Content="XPath list"
+                            HorizontalContentAlignment="Center"/>
+
+                        <ListBox Grid.Row="1"
                             ItemsSource="{Binding DownloadedPartOfPageSettingInfos}"
                             SelectedItem="{Binding SelectedDownloadedPart}">
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
-                                        <Label Content="XPath"/>
-                                        <Label 
-                                                   Content="{Binding XPath}"/>
+                                        <Label Content="XPath"
+                                               Background="Transparent"/>
+                                        <Label Background="Transparent"
+                                               Content="{Binding XPath}"/>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
                         </ListBox>
-                    </StackPanel>
+                    </Grid>
 
-                    <Grid>
+                    <Grid Grid.Row="6">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
                             <ColumnDefinition/>
@@ -157,22 +211,31 @@
                         <Label Grid.Column="1"
                                Content="{Binding Header, Mode=OneWay}"/>
                     </Grid>
-                   
-                    <UniformGrid Rows="2">
-                        <Label Content="Start Writing Position"/>
-                        <UniformGrid Columns="2">
-                            <UniformGrid Columns="2">
-                                <Label Content="Row: "/>
-                                <Label Content="{Binding StartRow, Mode=OneWay}"/>
-                            </UniformGrid>
-                            <UniformGrid Columns="2">
-                                <Label Content="Column: "/>
-                                <Label Content="{Binding StartColumn, Mode=OneWay}"/>
-                            </UniformGrid>
 
-                        </UniformGrid>
-                    </UniformGrid>
-                </UniformGrid>
+                    <Grid Grid.Row="7">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+
+                        <Label 
+                            Content="Row of start position of writing: "/>
+                        <Label Grid.Column="1"
+                               Content="{Binding StartRow, Mode=OneWay}"/>
+                    </Grid>
+
+                    <Grid Grid.Row="8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+
+                        <Label 
+                            Content="Column of start position of writing: "/>
+                        <Label Grid.Column="1"
+                               Content="{Binding StartColumn, Mode=OneWay}"/>
+                    </Grid>
+                </Grid>
 
             </ScrollViewer>
 

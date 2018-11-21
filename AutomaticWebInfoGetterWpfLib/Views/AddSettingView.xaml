@@ -65,28 +65,8 @@
                     <ListBox Grid.Row="1"
                         ItemsSource="{Binding SettingInfosOfDownloadedPartsOfPage}" 
                         HorizontalAlignment="Stretch">
-          
-                    </ListBox>
-                    <!--<Button 
-                        Grid.Column="3"
-                        Content="+"
-                        Command="{Binding MakeVisibileAddSettingInfoOfDownloadedPartCommand}"
-                        Height="20"
-                        VerticalAlignment="Top">
-                        <Button.Resources>
-                            <Storyboard  x:Key="OpeningAddXPathGridStoryboard"
-                                         Storyboard.TargetProperty="Margin"
-                                         Storyboard.TargetName="XPathAddingGrid">
-                                <StaticResourceExtension ResourceKey="OpeningAddXPathGridAnimation"/>
-                            </Storyboard>
-                        </Button.Resources>
 
-                        <Button.Triggers>
-                            <EventTrigger RoutedEvent="Button.Click">
-                                <BeginStoryboard Storyboard="{StaticResource OpeningAddXPathGridStoryboard}"/>
-                            </EventTrigger>
-                        </Button.Triggers>
-                    </Button>-->
+                    </ListBox>
 
 
 
@@ -123,11 +103,10 @@
                 <Grid  Grid.Row="2"
                        x:Name="XPathAddingGrid"
                        Panel.ZIndex="-1"
-                        Height="160"
-                       Margin="0, -200, 0, 0">
-                    <Grid.Background>
-                        <SolidColorBrush Color="{StaticResource SlidePartBackground}"/>
-                    </Grid.Background>
+                       Height="160"
+                       Margin="0, -200, 0, 0"
+                       Background="{StaticResource SlidePartBackground}">
+
 
 
                     <Grid.RowDefinitions>
@@ -233,6 +212,7 @@
                         </Button>
                     </Grid>
                 </Grid>
+
 
 
                 <Grid Grid.Row="3">
