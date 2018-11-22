@@ -13,12 +13,20 @@ namespace AutomaticWebInfoGetterWpfLib.Services.WriterService
 {
     class WriterToExcel : IWriter
     {
+        string writingPath;
 
+        public WriterToExcel(string writingPath = null)
+        {
+            this.writingPath = writingPath;
+        }
 
         public void WriteToExcel(List<string> infos, SettingsInfo settingsInfo, DownloadedPartOfPageSettingInfo downloadedPart)
         {
-
-            var file = new FileInfo(settingsInfo.NameOfFileToWriteInfo);
+            if (writingPath != null)
+            {
+                Directory.CreateDirectory(writingPath);
+            }
+            var file = new FileInfo($"{writingPath}{settingsInfo.NameOfFileToWriteInfo}");
             using (var excelPackage = new ExcelPackage(file))
             {
 
@@ -49,8 +57,11 @@ namespace AutomaticWebInfoGetterWpfLib.Services.WriterService
         }
         public void WriteToExcel(string info, SettingsInfo settingsInfo, DownloadedPartOfPageSettingInfo downloadedPart)
         {
-
-            var file = new FileInfo(settingsInfo.NameOfFileToWriteInfo);
+            if (writingPath != null)
+            {
+                Directory.CreateDirectory(writingPath);
+            }
+            var file = new FileInfo($"{writingPath}{settingsInfo.NameOfFileToWriteInfo}");
             using (var excelPackage = new ExcelPackage(file))
             {
                 if (file.Exists)

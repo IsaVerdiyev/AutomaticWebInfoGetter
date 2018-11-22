@@ -19,6 +19,7 @@ namespace AutomaticWebInfoGetterWpfLib.Tools
     class ViewModelLocator
     {
         INavigationService navigationService = new NavigationService();
+        IWriter writerToExcel = new WriterToExcel("../Excels/");
 
         public AppViewModel AppViewModel { get; }
 
@@ -38,7 +39,7 @@ namespace AutomaticWebInfoGetterWpfLib.Tools
                 builder.RegisterInstance(navigationService).As<INavigationService>().SingleInstance();
                 builder.RegisterType<WebInfoGetterBasedOnSeleniumAndChrome>().As<IWebInfoGetter>();
                 builder.RegisterType<TimerInitializer>().As<ITimerInitializer>();
-                builder.RegisterType<WriterToExcel>().As<IWriter>();
+                builder.RegisterInstance(writerToExcel).As<IWriter>();
                 var container = builder.Build();
 
                 using(var scope = container.BeginLifetimeScope())

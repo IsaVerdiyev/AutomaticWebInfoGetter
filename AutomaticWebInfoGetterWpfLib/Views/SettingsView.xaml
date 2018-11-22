@@ -57,9 +57,9 @@
                     </ListBox.ItemTemplate>
                 </ListBox>
                 <Button Grid.Row="2" 
-                        Width="50" 
+                        Width="auto" 
                         HorizontalAlignment="Right"
-                        Content="+"
+                        Content="Add new task"
                         Command="{Binding AddSettingCommand}"
                         CommandParameter="{x:Static nav:VM.AddSetting}"/>
 
@@ -202,7 +202,7 @@
 
                     <Grid Grid.Row="6">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition/>
+                            <ColumnDefinition Width="auto"/>
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
 
